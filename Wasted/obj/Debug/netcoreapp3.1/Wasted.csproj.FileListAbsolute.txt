@@ -1,0 +1,15 @@
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\bin\Debug\netcoreapp3.1\Wasted.exe
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\bin\Debug\netcoreapp3.1\Wasted.deps.json
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\bin\Debug\netcoreapp3.1\Wasted.runtimeconfig.json
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\bin\Debug\netcoreapp3.1\Wasted.runtimeconfig.dev.json
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\bin\Debug\netcoreapp3.1\Wasted.dll
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\bin\Debug\netcoreapp3.1\Wasted.pdb
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.csprojAssemblyReference.cache
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.Form1.resources
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.csproj.GenerateResource.cache
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.AssemblyInfoInputs.cache
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.AssemblyInfo.cs
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.csproj.CoreCompileInputs.cache
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.dll
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.pdb
+C:\Users\paula\OneDrive\Stalinis kompiuteris\Wasted\Wasted\obj\Debug\netcoreapp3.1\Wasted.genruntimeconfig.cache
