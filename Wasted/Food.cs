@@ -37,14 +37,16 @@ namespace Wasted
             return DateTime.Now.AddDays(days).ToString("dd.MM.yy");
         }
 
-        //pasidaryt su kiekiu, kad nepaimtu daugiau nei yra
-        // viena su int, kita su double
+        //if amount is an integer
         public int TakeFood (int take)
         {
-            
             return amount - take;
         }
+        //if amount is kg, g
+        public double TakeFood(double take)
+        {
+           return amount - take;
+        }
 
-        
     }
 }
