@@ -6,8 +6,6 @@ namespace Wasted
 	{
 		public String userName { get; set; }
 
-		public int recentOfferID = 1;
-
 		public List<Food> addedFoodOffers;
 		public List<Food> addedCharityFoodOffers;
 
@@ -20,30 +18,26 @@ namespace Wasted
 
 		//prideti pasiulyma
 
-		public void addFoodOffer(List<Food> addedFoodOffers, string foodName, string foodDescription, double fullPrice, int amount)
+		public void addFoodOffer(string foodName, string foodDescription, double fullPrice, int amount)
 		{
-			addedFoodOffers.Add(new Food { FoodName = foodName, FoodDescription = foodDescription, FullPrice = fullPrice, Amount = amount, OfferID = recentOfferID});
-			++recentOfferID;
-			//set index? -->issaugoti paskutini suteikta offerID ir vis ++
+			addedFoodOffers.Add(new Food { FoodName = foodName, FoodDescription = foodDescription, FullPrice = fullPrice, Amount = amount});
 		}
 
-		public void addCharityFoodOffer(List<Food> addedCharityFoodOffers, string foodName, string foodDescription, int amount)
+		public void addCharityFoodOffer(string foodName, string foodDescription, int amount)
 		{
 			addedCharityFoodOffers.Add(new Food { FoodName = foodName, FoodDescription = foodDescription, Amount = amount });
-
-			//
 		}
 
 		//metodas isimti pasiulyma(pagal indeksa?)
 
-		public void removeFoodOffer(List<Food> addedFoodOffers, int offerID)
+		public void removeFoodOffer(int offerID)
 		{
-			addedFoodOffers.RemoveAt(offerID - 1);
+			addedFoodOffers.RemoveAt(offerID);
 		}
 
-		public void removeCharityFoodOffer(List<Food> addedCharityFoodOffers, int offerID)
+		public void removeCharityFoodOffer(int offerID)
 		{
-			addedCharityFoodOffers.RemoveAt(offerID - 1);
+			addedCharityFoodOffers.RemoveAt(offerID);
 		}
 	}
 }
