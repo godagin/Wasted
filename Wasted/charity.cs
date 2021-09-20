@@ -6,9 +6,9 @@ namespace Wasted
 {
     class Charity
     {
-        public string name { get; set; }
-        public string contacts { get; set; }
-        public string about { get; set; }
+        public string Name { get; set; }
+        public string Contacts { get; set; }
+        public string About { get; set; }
         
         private bool verified;
 
@@ -16,7 +16,7 @@ namespace Wasted
 
         public Charity(string name)
         {
-            this.name = name;
+            this.Name = name;
             verified = false;
             CharityOrders = new List<Food>();
         }
@@ -45,4 +45,5 @@ namespace Wasted
             }
         }
     }
+ 
 }
