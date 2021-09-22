@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Wasted
 {
@@ -39,5 +41,29 @@ namespace Wasted
            return Amount - take;
         }
 
+
+
+        public void ReadFileTxt(string fileName)
+        {
+            string line;
+            List<Food> foodList = new List<Food>();
+            System.IO.StreamReader file = new System.IO.StreamReader(fileName);
+            while ((line = file.ReadLine()) != null)
+            {
+                string[] data = line.Split(';');
+                double price = Convert.ToDouble(data[2]);
+                double amount = Convert.ToDouble(data[3]);
+                Food food = new Food(data[0], data[1], price, amount);
+                foodList.Add(food);
+            }
+
+            file.Close();
+        }
+
+        public bool Matches(string input, Food food)
+        {
+            bool result = Regex.IsMatch(FoodName, @"(^|;)" + Regex.Escape(input) + @"($|;)");
+            return result;
+        }
     }
 }
