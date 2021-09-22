@@ -32,5 +32,9 @@ namespace Wasted
         {
             FoodOffers.Add(new Food(name, description, price, amount));
         }
+        public List<Food> GetList()
+        {
+            return FoodOffers;
+        }
     }
 }

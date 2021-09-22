@@ -18,7 +18,7 @@ namespace Wasted
         private void button1_Click(object sender, EventArgs e)
         {
             FoodList.GetObject().AddCreatedFood(textBox1.Text, textBox2.Text, 0, 1);
-        
+            this.Close();
         }
     }
 }
