@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\Wasted.csproj",
+      "projectUniqueName": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\Wasted.csproj",
       "projectName": "Wasted",
-      "projectPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\Wasted.csproj",
+      "projectPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\Wasted.csproj",
       "packagesPath": "C:\\Users\\paula\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\obj\\",
+      "outputPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\paula\\AppData\\Roaming\\NuGet\\NuGet.Config",
