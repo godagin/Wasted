@@ -17,7 +17,7 @@ namespace Wasted
             return string.Compare(x.FoodName, y.FoodName) * (-1);
         }
     }
-    class AmountSortHighToLow : IComparer<Food>
+    class AmountSortLowToHigh : IComparer<Food>
     {
         public int Compare(Food x, Food y)
         {
@@ -31,7 +31,7 @@ namespace Wasted
                 return 0;
         }
     }
-    class AmountSortLowToHigh : IComparer<Food>
+    class AmountSortHighToLow : IComparer<Food>
     {
         public int Compare(Food x, Food y)
         {
