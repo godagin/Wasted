@@ -24,7 +24,7 @@ namespace Wasted
 			addedFoodOffers.Add(new Food (foodName, foodDescription, fullPrice, amount));
 		}
 
-		public void AddCharityFoodOffer(string foodName, string foodDescription, int amount)
+		public void AddCharityFoodOffer(string foodName, string foodDescription, double fullPrice, int amount)
 		{
 			addedCharityFoodOffers.Add(new Food(foodName, foodDescription, 0, amount));
 		}
