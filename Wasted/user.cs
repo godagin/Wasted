@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Wasted
 {
@@ -18,24 +19,24 @@ namespace Wasted
 
 		//prideti pasiulyma
 
-		public void addFoodOffer(string foodName, string foodDescription, double fullPrice, int amount)
+		public void AddFoodOffer(string foodName, string foodDescription, double fullPrice, int amount)
 		{
-			addedFoodOffers.Add(new Food { FoodName = foodName, FoodDescription = foodDescription, FullPrice = fullPrice, Amount = amount});
+			addedFoodOffers.Add(new Food (foodName, foodDescription, fullPrice, amount));
 		}
 
-		public void addCharityFoodOffer(string foodName, string foodDescription, int amount)
+		public void AddCharityFoodOffer(string foodName, string foodDescription, int amount)
 		{
-			addedCharityFoodOffers.Add(new Food { FoodName = foodName, FoodDescription = foodDescription, Amount = amount });
+			addedCharityFoodOffers.Add(new Food(foodName, foodDescription, 0, amount));
 		}
 
 		//metodas isimti pasiulyma(pagal indeksa?)
 
-		public void removeFoodOffer(int offerID)
+		public void RemoveFoodOffer(int offerID)
 		{
 			addedFoodOffers.RemoveAt(offerID);
 		}
 
-		public void removeCharityFoodOffer(int offerID)
+		public void RemoveCharityFoodOffer(int offerID)
 		{
 			addedCharityFoodOffers.RemoveAt(offerID);
 		}
