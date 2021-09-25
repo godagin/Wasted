@@ -6,11 +6,20 @@ namespace Wasted
 {
     class Food
     {
+        public Food() { }
+
         public Food(string foodName, string foodDescription, double fullPrice, double amount)
         {
             this.FoodName = foodName;
             this.FoodDescription = foodDescription;
             this.FullPrice = fullPrice;
+            this.Amount = amount;
+        }
+
+        public Food(string foodName, string foodDescription, double amount)
+        {
+            this.FoodName = foodName;
+            this.FoodDescription = foodDescription;
             this.Amount = amount;
         }
 
@@ -42,4 +51,4 @@ namespace Wasted
 
     }
 }
-}
+
