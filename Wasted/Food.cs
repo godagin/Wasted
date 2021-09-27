@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Wasted
 {
     class Food
     {
+
+        public Food() { }
         public Food(string foodName, string foodDescription, double fullPrice, double amount)
         {
             this.FoodName = foodName;
@@ -14,7 +17,7 @@ namespace Wasted
             this.Amount = amount;
         }
 
-
+        [Key]
         public string FoodName { get; set; }
         public string FoodDescription { get; set; }
         public double FullPrice { get; set; }
@@ -42,4 +45,4 @@ namespace Wasted
 
     }
 }
-}
+
