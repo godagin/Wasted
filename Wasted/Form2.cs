@@ -26,7 +26,12 @@ namespace Wasted
             dc.foods.Add(food);
             //insert it into table
             dc.SaveChanges();
-            
+
+            var query = from b in dc.foods select b;
+            foreach(var item in query)
+            {
+                FoodList.GetObject().AddCreatedFood(item.FoodName, item.FoodDescription, item.FullPrice, item.Amount);
+            }
             
             //FoodList.GetObject().AddCreatedFood(textBox1.Text, textBox2.Text, 0, 1);
             

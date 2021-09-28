@@ -26,12 +26,12 @@ namespace Wasted
         {
             Form2 form2 = new Form2();
             form2.ShowDialog();
-           /* Food itm = FoodList.GetObject().GetList().Last();
+            Food itm = FoodList.GetObject().GetList().Last();
             
             ListViewItem lvItm = new ListViewItem(itm.FoodName, itm.FoodDescription);
             lvItm.SubItems.Add(itm.FoodDescription);
             lv_offer.Items.Add(lvItm);
-           */
+           
             lv_offer.Refresh();
         }
 
