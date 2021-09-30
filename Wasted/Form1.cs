@@ -24,6 +24,16 @@ namespace Wasted
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DataContext dc = new DataContext();
+            var query = from b in dc.foods select b;
+            foreach (var item in query)
+            {
+                ListViewItem DBItm = new ListViewItem(item.FoodName, item.FoodDescription);
+                DBItm.SubItems.Add(item.FoodDescription);
+                lv_offer.Items.Add(DBItm);
+                lv_offer.Refresh();
+            }
+
             Form2 form2 = new Form2();
             form2.ShowDialog();
             Food itm = FoodList.GetObject().GetList().Last();
