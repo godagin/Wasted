@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\Wasted.csproj": {}
+    "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\Wasted.csproj": {}
   },
   "projects": {
-    "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\Wasted.csproj": {
+    "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\Wasted.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\Wasted.csproj",
+        "projectUniqueName": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\Wasted.csproj",
         "projectName": "Wasted",
-        "projectPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\Wasted.csproj",
+        "projectPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\Wasted.csproj",
         "packagesPath": "C:\\Users\\paula\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted1\\Wasted\\obj\\",
+        "outputPath": "C:\\Users\\paula\\OneDrive\\Stalinis kompiuteris\\Wasted\\Wasted\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\paula\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -37,6 +37,26 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

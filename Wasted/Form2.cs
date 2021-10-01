@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -17,8 +18,25 @@ namespace Wasted
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FoodList.GetObject().AddCreatedFood(textBox1.Text, textBox2.Text, 0, 1);
+            //object of entity class which holds all methods
+            DataContext dc = new DataContext();
+            //object of food class to take input
+            Food food = new Food(textBox1.Text, textBox2.Text, 1, 0);
+            //add entity to the add method
+            dc.foods.Add(food);
+            //insert it into table
+            dc.SaveChanges();
+
+            var query = from b in dc.foods select b;
+            foreach(var item in query)
+            {
+                FoodList.GetObject().AddCreatedFood(item.FoodName, item.FoodDescription, item.FullPrice, item.Amount);
+            }
+            
+            //FoodList.GetObject().AddCreatedFood(textBox1.Text, textBox2.Text, 0, 1);
+            
             this.Close();
         }
+        
     }
 }
