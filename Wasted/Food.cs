@@ -9,11 +9,20 @@ namespace Wasted
     {
 
         public Food() { ID++; }
+      
         public Food(string foodName, string foodDescription, double fullPrice, double amount)
         {
             this.FoodName = foodName;
             this.FoodDescription = foodDescription;
             this.FullPrice = fullPrice;
+            this.Amount = amount;
+            ID++;
+        }
+
+        public Food(string foodName, string foodDescription, double amount)
+        {
+            this.FoodName = foodName;
+            this.FoodDescription = foodDescription;
             this.Amount = amount;
             ID++;
         }
