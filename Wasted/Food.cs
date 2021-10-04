@@ -51,7 +51,9 @@ namespace Wasted
         //if amount is kg, g
         public double TakeFood(double take)
         {
-            return Amount - take;
+            if (Amount <= take)
+                return Amount - take;
+            else throw new NotSuitableAmountException();
         }
 
     }
