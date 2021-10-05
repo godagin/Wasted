@@ -4,7 +4,20 @@ using System.Text;
 
 namespace Wasted
 {
-    class FoodException
+    class FoodException : Exception
     {
+        public FoodException()
+        {
+        }
+
+        public FoodException(string message)
+            : base(message)
+        {
+        }
+
+        public FoodException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
     }
 }
