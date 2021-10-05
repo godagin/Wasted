@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Wasted
 {
-    class NotSuitableAmountException : Exception
+    class NotSuitableAmountException : FoodException
     {
         public NotSuitableAmountException() 
         { 
