@@ -49,6 +49,7 @@ namespace Wasted
 
 
         //if amount is kg, g
+        //veliau padaryt try and catch, kuriame grazintu reiksme ir pagal ja apdorotu tolimesnius veiksmus
         public double TakeFood(double take)
         {
             if (Amount <= take)
