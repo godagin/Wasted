@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Wasted
 {
@@ -16,7 +15,7 @@ namespace Wasted
                 string[] data = line.Split(';');
                 double price = Convert.ToDouble(data[2]);
                 double amount = Convert.ToDouble(data[3]);
-                Food food = new Food(data[0], data[1], price, amount);
+                Food food = new Food(data[0], data[1], price);
                 foodList.Add(food);
             }
 
@@ -32,7 +31,7 @@ namespace Wasted
                 string[] data = line.Split(',');
                 double price = Convert.ToDouble(data[2]);
                 double amount = Convert.ToDouble(data[3]);
-                Food food = new Food(data[0], data[1], price, amount);
+                Food food = new Food(data[0], data[1], price);
                 foodList.Add(food);
             }
             file.Close();

@@ -7,16 +7,17 @@ namespace Wasted
     {
         public int Compare(Food x, Food y)
         {
-            return string.Compare(x.FoodName, y.FoodName);
+            return string.Compare(x.Name, y.Name);
         }
     }
     class AlphabeticSortZToA : IComparer<Food>
     {
         public int Compare(Food x, Food y)
         {
-            return string.Compare(x.FoodName, y.FoodName) * (-1);
+            return string.Compare(x.Name, y.Name) * (-1);
         }
     }
+    /*
     class AmountSortLowToHigh : IComparer<Food>
     {
         public int Compare(Food x, Food y)
@@ -45,4 +46,5 @@ namespace Wasted
                 return 0;
         }
     }
+    */
 }

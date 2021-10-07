@@ -1,39 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Wasted
 {
     class Food
     {
+        [Key]
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double FullPrice { get; set; }
+        //public double Amount { get; set; }
 
         public Food() { ID++; }
       
-        public Food(string foodName, string foodDescription, double fullPrice, double amount)
+        public Food(string name, string description, double fullPrice)
         {
-            this.FoodName = foodName;
-            this.FoodDescription = foodDescription;
+            this.Name = name;
+            this.Description = description;
             this.FullPrice = fullPrice;
-            this.Amount = amount;
+            //this.Amount = amount;
             ID++;
         }
 
-        public Food(string foodName, string foodDescription, double amount)
+        public Food(string name, string description)
         {
-            this.FoodName = foodName;
-            this.FoodDescription = foodDescription;
-            this.Amount = amount;
+            this.Name = name;
+            this.Description = description;
+           // this.Amount = amount;
             ID++;
         }
-
-        [Key]
-        public int ID { get; set; }
-        public string FoodName { get; set; }
-        public string FoodDescription { get; set; }
-        public double FullPrice { get; set; }
-        public double Amount { get; set; }
-
 
         public double CalcPrice(int discountPercentage)
         {
@@ -45,13 +41,6 @@ namespace Wasted
         public string SetExpDate(int days)
         {
             return DateTime.Now.AddDays(days).ToString("dd.MM.yy");
-        }
-
-
-        //if amount is kg, g
-        public double TakeFood(double take)
-        {
-            return Amount - take;
         }
 
     }
