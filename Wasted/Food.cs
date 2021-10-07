@@ -43,6 +43,18 @@ namespace Wasted
             return DateTime.Now.AddDays(days).ToString("dd.MM.yy");
         }
 
+
+/*
+        //if amount is kg, g
+        //veliau padaryt try and catch, kuriame grazintu reiksme ir pagal ja apdorotu tolimesnius veiksmus
+        public double TakeFood(double take)
+        {
+            if (Amount <= take)
+                return Amount - take;
+            else throw new NotSuitableAmountException();
+        }
+*/
+
     }
 }
 
