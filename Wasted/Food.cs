@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Wasted
 {
-    class Food
+    class Food : EnumCategories
     {
 
         public Food() { ID++; }
