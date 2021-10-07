@@ -7,6 +7,13 @@ namespace Wasted
     class DiscreteFood : Food
     {
         public int Quantity { get; set; }
+
+        public DiscreteFood(string name, string description, double fullPrice, int quantity) : base(name, description, fullPrice)
+        {
+            Quantity = quantity;
+        }
+        public DiscreteFood() { }
+        
        
         public int TakeFood(int take)
         {

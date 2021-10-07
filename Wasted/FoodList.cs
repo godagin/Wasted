@@ -30,6 +30,10 @@ namespace Wasted
         {
             FoodOffers.Add(new Food(name, description, price));
         }
+        public void AddCreatedFood(Food food)
+        {
+            FoodOffers.Add(food);
+        }
         public List<Food> GetList()
         {
             return FoodOffers;

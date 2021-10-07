@@ -4,21 +4,27 @@ using System.Text;
 
 namespace Wasted
 {
-    class WeighedFood
+    class WeighedFood : Food
     {
         public double Weight { get; set; }
+
+        public WeighedFood(string name, string description, double fullPrice, double weight) : base(name, description, fullPrice)
+        {
+            Weight = weight;
+        }
+        public WeighedFood() { }
 
         public double TakeFood(double take)
         {
             if (Weight <= take)
             {
-                //what if Quantity == take, Food Offer must be removed from list
+                //what if Weight == take, Food Offer must be removed from list
                 Weight -= take;
-                return take; /// maybe return a new object with new quantity?
+                return take; /// maybe return a new object with new Weight?
             }
             else
             {
-                //same poroblem with Quantity = 0, offer must be removed
+                //same poroblem with Weight = 0, offer must be removed
                 double quantityTemp = Weight;
                 Weight = 0;
                 return quantityTemp;
@@ -26,5 +32,7 @@ namespace Wasted
             }
 
         }
+
     }
+   
 }
