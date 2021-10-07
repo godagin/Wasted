@@ -33,13 +33,8 @@ namespace Wasted
             
             DatabaseHandler.RemoveAllFromFoodTable();
 
-            lv_offer.BeginUpdate();
+            lv_offer.Items.Clear();
 
-            foreach (ListViewItem item in lv_offer.SelectedItems) //remove from ListView
-            {
-                lv_offer.Items.Remove(item);
-            }
-            lv_offer.EndUpdate();
         }
 
         private void add_new_offer_Click(object sender, EventArgs e)
@@ -48,8 +43,7 @@ namespace Wasted
             int tempSize = FoodList.GetObject().GetList().Count();
             Form2 form2 = new Form2();
             form2.ShowDialog();
-            MessageBox.Show(tempSize.ToString());
-            MessageBox.Show(FoodList.GetObject().GetList().Count().ToString());
+            
             if (tempSize >= FoodList.GetObject().GetList().Count())
                 return;
             else 
