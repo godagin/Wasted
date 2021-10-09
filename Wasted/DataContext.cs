@@ -8,15 +8,19 @@ using System.Data.Entity;
 namespace Wasted
 {
     class DataContext : DbContext
-    { 
-        public DataContext() : base("LeftOverDB")
+    {
+        public DataContext() : base("FoodDB")
         {
-            if (!Database.Exists("LeftOverDB"))
+            if (!Database.Exists("FoodDB"))
                 Database.SetInitializer(new DropCreateDatabaseAlways<DataContext>());
         }
-        
 
-        public DbSet<Food> Foods { get; set; }
+
+        public DbSet <Food> foods { get; set; }
+
+        
+       
+        
 
     }
 }
