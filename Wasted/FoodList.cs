@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Wasted
 {
@@ -31,11 +28,20 @@ namespace Wasted
 
         public void AddCreatedFood(string name, string description, double price, double amount)
         {
-            FoodOffers.Add(new Food(name, description, price, amount));
+            FoodOffers.Add(new Food(name, description, price));
+        }
+        public void AddCreatedFood(Food food)
+        {
+            FoodOffers.Add(food);
         }
         public List<Food> GetList()
         {
             return FoodOffers;
+        }
+
+        public void RemoveAll()
+        {
+            FoodOffers.Clear();
         }
         
     }
