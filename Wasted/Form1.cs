@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Wasted
@@ -19,35 +13,57 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            DatabaseHandler dbH = new DatabaseHandler();
+            dbH.LoadFoodList();
+
+            DataContext dc = new DataContext();
+
+            foreach (var item in dc.Foods)//load all existing items in dbo.Foods 
+            {
+                ListViewItem DBItm = new ListViewItem();
+                DBItm.Text = item.Name;
+                DBItm.SubItems.Add(item.Description);
+                DBItm.SubItems.Add(item.FullPrice.ToString());
+                lv_offer.Items.Add(DBItm);
+            }
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void remove_offer_Click(object sender, EventArgs e)
         {
-            DataContext dc = new DataContext();
-            var query = from b in dc.foods select b;
-            foreach (var item in query)
-            {
-                ListViewItem DBItm = new ListViewItem(item.FoodName, item.FoodDescription);
-                DBItm.SubItems.Add(item.FoodDescription);
-                lv_offer.Items.Add(DBItm);
-                lv_offer.Refresh();
-            }
+            FoodList.GetObject().RemoveAll(); //remove from Food List
 
+            DatabaseHandler dbH = new DatabaseHandler();
+            dbH.RemoveAllFromFoodTable();
+
+            lv_offer.Items.Clear();
+
+        }
+
+        private void add_new_offer_Click(object sender, EventArgs e)
+        {
+            lv_offer.BeginUpdate();
+            int tempSize = FoodList.GetObject().GetList().Count();
             Form2 form2 = new Form2();
             form2.ShowDialog();
-            Food itm = FoodList.GetObject().GetList().Last();
             
-            ListViewItem lvItm = new ListViewItem(itm.FoodName, itm.FoodDescription);
-            lvItm.SubItems.Add(itm.FoodDescription);
-            lv_offer.Items.Add(lvItm);
-           
-            lv_offer.Refresh();
+            if (tempSize >= FoodList.GetObject().GetList().Count())
+                return;
+            else 
+            {// add for from tempsize to FoodList length
+                Food itm = FoodList.GetObject().GetList().Last();
+                ListViewItem lvItm = new ListViewItem(itm.Name);
+                lvItm.SubItems.Add(itm.Description);
+                lvItm.SubItems.Add(itm.FullPrice.ToString());
+                lv_offer.Items.Add(lvItm);
+            }
+            lv_offer.EndUpdate();
+
         }
 
-        private void offer_SelectedIndexChanged(object sender, EventArgs e)
+        private void lv_offer_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-
+            MessageBox.Show("cia bus nauja lentele editinimui");
         }
     }
 }
