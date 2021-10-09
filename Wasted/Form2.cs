@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Wasted
@@ -13,12 +8,52 @@ namespace Wasted
         public Form2()
         {
             InitializeComponent();
+            textBoxQuantity.Enabled = false;
+            textBoxWeight.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FoodList.GetObject().AddCreatedFood(textBox1.Text, textBox2.Text, 0, 1);
+            Food food;
+            if (RB_type_discrete.Checked && !RB_type_weighted.Checked)
+            {
+                food = new DiscreteFood(textBoxName.Text,
+                    textBoxDescription.Text,
+                    Double.Parse(textBoxPrice.Text),
+                    int.Parse(textBoxQuantity.Text));
+            }
+            else if (!RB_type_discrete.Checked && RB_type_weighted.Checked)
+            {
+                food = new WeighedFood(textBoxName.Text, 
+                    textBoxDescription.Text, 
+                    Double.Parse(textBoxPrice.Text), 
+                    Double.Parse(textBoxWeight.Text));
+            }
+            else
+            {
+                //catch exceptions what if in the place of double we get a string OR empty
+                food = new Food(textBoxName.Text, 
+                    textBoxDescription.Text, 
+                    Double.Parse(textBoxPrice.Text));
+            }
+
+            DatabaseHandler.AddItemToFoodTable(food); //add entity to the add method
+            
+            FoodList.GetObject().AddCreatedFood(food); 
+            
             this.Close();
+        }
+
+        private void RB_type_weighted_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxWeight.Enabled = true;
+            textBoxQuantity.Enabled = false;
+        }
+
+        private void RB_type_discrete_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxQuantity.Enabled = true;
+            textBoxWeight.Enabled = false;
         }
     }
 }

@@ -1,25 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Wasted
 {
     class Food
     {
-        public Food(string foodName, string foodDescription, double fullPrice, double amount)
+        [Key]
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double FullPrice { get; set; }
+        //public double Amount { get; set; }
+
+        public Food() { ID++; }
+      
+        public Food(string name, string description, double fullPrice)
         {
-            this.FoodName = foodName;
-            this.FoodDescription = foodDescription;
+            this.Name = name;
+            this.Description = description;
             this.FullPrice = fullPrice;
-            this.Amount = amount;
+            //this.Amount = amount;
+            ID++;
         }
 
-
-        public string FoodName { get; set; }
-        public string FoodDescription { get; set; }
-        public double FullPrice { get; set; }
-        public double Amount { get; set; }
-
+        public Food(string name, string description)
+        {
+            this.Name = name;
+            this.Description = description;
+           // this.Amount = amount;
+            ID++;
+        }
 
         public double CalcPrice(int discountPercentage)
         {
@@ -34,12 +44,17 @@ namespace Wasted
         }
 
 
+/*
         //if amount is kg, g
+        //veliau padaryt try and catch, kuriame grazintu reiksme ir pagal ja apdorotu tolimesnius veiksmus
         public double TakeFood(double take)
         {
-            return Amount - take;
+            if (Amount <= take)
+                return Amount - take;
+            else throw new NotSuitableAmountException();
         }
+*/
 
     }
 }
-}
+

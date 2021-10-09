@@ -7,7 +7,7 @@ namespace Wasted
     {
         public int Compare(Food x, Food y)
         {
-            if (x.FoodName == y.FoodName) // Same name -> sort price low to high
+            if (x.Name == y.Name) // Same name -> sort price low to high
             {
                 if (x.FullPrice > y.FullPrice)
                     return 1;
@@ -17,14 +17,16 @@ namespace Wasted
                     return 0;
             }
             else
-                return string.Compare(x.FoodName, y.FoodName);
+                return string.Compare(x.Name, y.Name);
+                
+            return string.Compare(x.Name, y.Name);
         }
     }
     class AlphabeticSortZToA : IComparer<Food>
     {
         public int Compare(Food x, Food y) // Same name -> sort price low to high
         {
-            if (x.FoodName == y.FoodName)
+            if (x.Name == y.Name)
             {
                 if (x.FullPrice > y.FullPrice)
                     return 1;
@@ -34,9 +36,12 @@ namespace Wasted
                     return 0;
             }
             else
-                return string.Compare(x.FoodName, y.FoodName) * (-1);
+                return string.Compare(x.Name, y.Name) * (-1);
+
+            return string.Compare(x.Name, y.Name) * (-1);
         }
     }
+    /*
     class AmountSortLowToHigh : IComparer<Food>
     {
         public int Compare(Food x, Food y)
@@ -116,4 +121,5 @@ namespace Wasted
         }
     }
 
+    */
 }
