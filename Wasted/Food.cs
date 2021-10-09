@@ -1,35 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace Wasted
 {
     class Food
     {
-        [Key]
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double FullPrice { get; set; }
-        //public double Amount { get; set; }
 
         public Food() { ID++; }
       
-        public Food(string name, string description, double fullPrice)
+        public Food(string foodName, string foodDescription, double fullPrice, double amount)
         {
-            this.Name = name;
-            this.Description = description;
+            this.FoodName = foodName;
+            this.FoodDescription = foodDescription;
             this.FullPrice = fullPrice;
-            //this.Amount = amount;
+            this.Amount = amount;
             ID++;
         }
 
-        public Food(string name, string description)
+        public Food(string foodName, string foodDescription, double amount)
         {
-            this.Name = name;
-            this.Description = description;
-           // this.Amount = amount;
+            this.FoodName = foodName;
+            this.FoodDescription = foodDescription;
+            this.Amount = amount;
             ID++;
         }
+
+        [Key]
+        public int ID { get; set; }
+        public string FoodName { get; set; }
+        public string FoodDescription { get; set; }
+        public double FullPrice { get; set; }
+        public double Amount { get; set; }
+
 
         public double CalcPrice(int discountPercentage)
         {
@@ -44,7 +48,6 @@ namespace Wasted
         }
 
 
-/*
         //if amount is kg, g
         //veliau padaryt try and catch, kuriame grazintu reiksme ir pagal ja apdorotu tolimesnius veiksmus
         public double TakeFood(double take)
@@ -53,7 +56,6 @@ namespace Wasted
                 return Amount - take;
             else throw new NotSuitableAmountException();
         }
-*/
 
     }
 }

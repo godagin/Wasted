@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Wasted
 {
@@ -17,7 +18,7 @@ namespace Wasted
                     string[] data = line.Split(',');
                     double price = Convert.ToDouble(data[2]);
                     double amount = Convert.ToDouble(data[3]);
-                    Food food = new Food(data[0], data[1], price);
+                    Food food = new Food(data[0], data[1], price, amount);
                     foodList.Add(food);
                 }
                 file.Close();
@@ -32,20 +33,12 @@ namespace Wasted
             }
             catch (Exception)
             {
-
                 Console.WriteLine("Something went wrong with file reading.");
-
             }
 
 
             /*public void ReadFileTxt(string fileName, List<Food> foodList)
             {
-                string[] data = line.Split(',');
-                double price = Convert.ToDouble(data[2]);
-                double amount = Convert.ToDouble(data[3]);
-                Food food = new Food(data[0], data[1], price);
-                foodList.Add(food);
-
                 string line;
                 StreamReader file = new StreamReader(fileName);
                 while ((line = file.ReadLine()) != null)
@@ -53,7 +46,7 @@ namespace Wasted
                     string[] data = line.Split(';');
                     double price = Convert.ToDouble(data[2]);
                     double amount = Convert.ToDouble(data[3]);
-                    Food food = new Food(data[0], data[1], price);
+                    Food food = new Food(data[0], data[1], price, amount);
                     foodList.Add(food);
                 }
 
