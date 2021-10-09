@@ -8,7 +8,7 @@ namespace Wasted
     {
         public int Quantity { get; set; }
 
-        public DiscreteFood() { }
+        public DiscreteFood() { ID++; }
 
         public DiscreteFood(string name, string description, double fullPrice, int quantity) : base(name, description, fullPrice)
         {

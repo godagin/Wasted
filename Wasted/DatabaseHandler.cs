@@ -7,39 +7,35 @@ namespace Wasted
 {
     class DatabaseHandler
     {
+        public DataContext dc = new DataContext();
         public DatabaseHandler()
         {
 
         }
         
-        public static void AddItemToFoodTable(Food item)
+        public void AddItemToFoodTable(Food item)
         {
-            DataContext dc = new DataContext();
             dc.Foods.Add(item);
             dc.SaveChanges();
         }
 
-        public static void LoadFoodList()
+        public void LoadFoodList()
         {
-            DataContext dc = new DataContext();
             foreach(Food item in dc.Foods)
             {
                 FoodList.GetObject().AddCreatedFood(item);
-            }
-            
+            }    
         }
 
 
-        public static void RemoveItemFromFoodTable(Food item)
+        public void RemoveItemFromFoodTable(Food item)
         {
-            DataContext dc = new DataContext();
             dc.Foods.Remove(item);
             dc.SaveChanges();
         }
 
-        public static void RemoveAllFromFoodTable()
+        public void RemoveAllFromFoodTable()
         {
-            DataContext dc = new DataContext();
             foreach (Food item in dc.Foods) //remove from database table
             {
                 dc.Foods.Remove(item);

@@ -13,7 +13,9 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DatabaseHandler.LoadFoodList();
+            DatabaseHandler dbH = new DatabaseHandler();
+            dbH.LoadFoodList();
+
             DataContext dc = new DataContext();
 
             foreach (var item in dc.Foods)//load all existing items in dbo.Foods 
@@ -30,8 +32,9 @@ namespace Wasted
         private void remove_offer_Click(object sender, EventArgs e)
         {
             FoodList.GetObject().RemoveAll(); //remove from Food List
-            
-            DatabaseHandler.RemoveAllFromFoodTable();
+
+            DatabaseHandler dbH = new DatabaseHandler();
+            dbH.RemoveAllFromFoodTable();
 
             lv_offer.Items.Clear();
 
