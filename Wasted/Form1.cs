@@ -60,7 +60,7 @@ namespace Wasted
 
         private void lv_offer_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            MessageBox.Show(lv_offer.SelectedItems.ToString());
+            MessageBox.Show("cia bus nauja lentele editinimui");
         }
     }
 }

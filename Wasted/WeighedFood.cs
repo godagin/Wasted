@@ -8,12 +8,13 @@ namespace Wasted
     {
         public double Weight { get; set; }
 
+        public WeighedFood() { }
+
         public WeighedFood(string name, string description, double fullPrice, double weight) : base(name, description, fullPrice)
         {
             Weight = weight;
         }
-        public WeighedFood() { }
-
+       
         public double TakeFood(double take)
         {
             if (Weight <= take)
