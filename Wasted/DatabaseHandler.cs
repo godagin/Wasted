@@ -8,9 +8,20 @@ namespace Wasted
     class DatabaseHandler
     {
         public DataContext dc = new DataContext();
-        public DatabaseHandler()
+        private static DatabaseHandler _obj = null;
+        
+        private DatabaseHandler()
         {
 
+        }
+
+        public static DatabaseHandler GetHandler()
+        {
+            if (_obj == null)
+            {
+                _obj = new DatabaseHandler();
+            }
+            return _obj;
         }
         
         public void AddItemToFoodTable(Food item)

@@ -39,6 +39,11 @@ namespace Wasted
             return FoodOffers;
         }
 
+        public void RemoveItem(int index)
+        {
+            FoodOffers.RemoveAt(index);
+        }
+
         public void RemoveAll()
         {
             FoodOffers.Clear();

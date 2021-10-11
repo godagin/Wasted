@@ -13,8 +13,7 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DatabaseHandler dbH = new DatabaseHandler();
-            dbH.LoadFoodList();
+            DatabaseHandler.GetHandler().LoadFoodList();
 
             DataContext dc = new DataContext();
 
@@ -33,8 +32,7 @@ namespace Wasted
         {
             FoodList.GetObject().RemoveAll(); //remove from Food List
 
-            DatabaseHandler dbH = new DatabaseHandler();
-            dbH.RemoveAllFromFoodTable();
+            DatabaseHandler.GetHandler().RemoveAllFromFoodTable();
 
             lv_offer.Items.Clear();
 
@@ -63,7 +61,20 @@ namespace Wasted
 
         private void lv_offer_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            MessageBox.Show("cia bus nauja lentele editinimui");
+            //MessageBox.Show("cia bus nauja lentele editinimui");
+            if(lv_offer.SelectedItems.Count != 0)
+            {
+                ListViewItem lvItem = lv_offer.SelectedItems[0];
+                int index = lv_offer.SelectedItems[0].Index;
+                lv_offer.SelectedItems.Clear();
+                lv_offer.Items.Remove(lvItem);
+
+                Food foodItem = FoodList.GetObject().GetList()[index];
+                FoodList.GetObject().RemoveItem(index);
+
+                DatabaseHandler.GetHandler().RemoveItemFromFoodTable(foodItem);
+            }
+            
         }
     }
 }

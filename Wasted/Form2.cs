@@ -37,8 +37,7 @@ namespace Wasted
                     Double.Parse(textBoxPrice.Text));
             }
 
-            DatabaseHandler dbH = new DatabaseHandler();
-            dbH.AddItemToFoodTable(food); //add entity to the add method
+            DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
             
             FoodList.GetObject().AddCreatedFood(food); 
             
