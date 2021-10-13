@@ -16,7 +16,7 @@ namespace Wasted
         public DateTime ExpDate { get; set; }
         public Food() { ID++; }
       
-        public Food(string name, string description, double fullPrice, int expDays)
+        public Food(string name, string description, double fullPrice, int expDays = 2)
         {
             this.Name = name;
             this.Description = description;
@@ -26,7 +26,7 @@ namespace Wasted
             ID++;
         }
 
-        public Food(string name, string description, int expDays)
+        public Food(string name, string description, int expDays = 2)
         {
             this.Name = name;
             this.Description = description;
