@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -74,23 +75,42 @@ namespace Wasted
             
             string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
 
-            int tempSize = FoodList.GetObject().GetList().Count();
+            int index = FoodList.GetObject().GetList().Count();
 
             ReadingFile file = new ReadingFile();
             file.ReadFileCsv(path);
 
-            while(tempSize < FoodList.GetObject().GetList().Count())
+            while(index < FoodList.GetObject().GetList().Count())
             {
-                int index = tempSize;
+                //int index = tempSize;
                 Food itm = FoodList.GetObject().GetList()[index];
                 ListViewItem lvItm = new ListViewItem(itm.Name);
                 lvItm.SubItems.Add(itm.Description);
                 lvItm.SubItems.Add(itm.FullPrice.ToString());
                 lv_offer.Items.Add(lvItm);
-                tempSize++;
+                index++;
             }
             lv_offer.EndUpdate();
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            DataContext dc = new DataContext();
+            Search sr = new Search();
+            List<Food> SearchedFood = new List<Food>();
+            string input = search_bar.Text;
+            if (!string.IsNullOrEmpty(input))
+            {
+                foreach(var item in dc.Foods)
+                {
+                    if(sr.MatchesName(input, item) || sr.MatchesInDescription(input, item))
+                    {
+                        SearchedFood.Add(item);
+                    }
+                }
+                Form3 form3 = new Form3();
+                form3.ShowDialog();
+            }
+        }
     }
 }
