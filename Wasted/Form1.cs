@@ -8,9 +8,11 @@ namespace Wasted
 {
     public partial class Form1 : Form
     {
+        public static Form1 instance;
         public Form1()
         {
             InitializeComponent();
+            instance = this;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -97,19 +99,26 @@ namespace Wasted
             Search sr = new Search();
             List<Food> SearchedFood = new List<Food>();
             string input = search_bar.Text;
+            
             if (!string.IsNullOrEmpty(input))
             {
                 foreach(var item in dc.Foods)
                 {
                     if(sr.MatchesName(input, item) || sr.MatchesInDescription(input, item))
                     {
+                        ListViewItem item1 = new ListViewItem(item.Name);
+                        item1.SubItems.Add(item.Description);
+                        item1.SubItems.Add(item.FullPrice.ToString());
+                        
                         SearchedFood.Add(item);
                     }
+
                 }
 
-                //Form3 form3 = new Form3();
-                //form3.ShowDialog();
+                
             }
+                Form3 form3 = new Form3();
+                form3.ShowDialog();
         }
     }
 }
