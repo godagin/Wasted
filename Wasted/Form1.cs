@@ -71,8 +71,7 @@ namespace Wasted
         private void add_file_offer_Click(object sender, EventArgs e)
         {
             lv_offer.BeginUpdate();
-           
-            
+
             string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
 
             int index = FoodList.GetObject().GetList().Count();
@@ -82,7 +81,6 @@ namespace Wasted
 
             while(index < FoodList.GetObject().GetList().Count())
             {
-                //int index = tempSize;
                 Food itm = FoodList.GetObject().GetList()[index];
                 ListViewItem lvItm = new ListViewItem(itm.Name);
                 lvItm.SubItems.Add(itm.Description);
@@ -108,8 +106,9 @@ namespace Wasted
                         SearchedFood.Add(item);
                     }
                 }
-                Form3 form3 = new Form3();
-                form3.ShowDialog();
+
+                //Form3 form3 = new Form3();
+                //form3.ShowDialog();
             }
         }
     }
