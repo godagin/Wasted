@@ -23,6 +23,7 @@ namespace Wasted
                 DBItm.Text = item.Name;
                 DBItm.SubItems.Add(item.Description);
                 DBItm.SubItems.Add(item.FullPrice.ToString());
+                DBItm.SubItems.Add(item.ExpDate.ToString("dd.MM.yy"));
                 lv_offer.Items.Add(DBItm);
             }
             
@@ -53,6 +54,7 @@ namespace Wasted
                 ListViewItem lvItm = new ListViewItem(itm.Name);
                 lvItm.SubItems.Add(itm.Description);
                 lvItm.SubItems.Add(itm.FullPrice.ToString());
+                lvItm.SubItems.Add(itm.ExpDate.ToString("dd.MM.yy"));
                 lv_offer.Items.Add(lvItm);
             }
             lv_offer.EndUpdate();

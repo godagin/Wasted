@@ -20,14 +20,16 @@ namespace Wasted
                 food = new DiscreteFood(textBoxName.Text,
                     textBoxDescription.Text,
                     Double.Parse(textBoxPrice.Text),
-                    int.Parse(textBoxQuantity.Text));
+                    int.Parse(textBoxQuantity.Text),
+                    int.Parse(textBoxExpiration.Text));
             }
             else if (!RB_type_discrete.Checked && RB_type_weighted.Checked)
             {
                 food = new WeighedFood(textBoxName.Text, 
                     textBoxDescription.Text, 
                     Double.Parse(textBoxPrice.Text), 
-                    Double.Parse(textBoxWeight.Text));
+                    Double.Parse(textBoxWeight.Text),
+                    int.Parse(textBoxExpiration.Text));
             }
             else
             {

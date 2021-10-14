@@ -26,9 +26,9 @@ namespace Wasted
             return _obj;
         }
 
-        public void AddCreatedFood(string name, string description, double price, double amount)
+        public void AddCreatedFood(string name, string description, double price, double amount, int expDays = 2)
         {
-            FoodOffers.Add(new Food(name, description, price));
+            FoodOffers.Add(new Food(name, description, price, expDays));
         }
         public void AddCreatedFood(Food food)
         {
