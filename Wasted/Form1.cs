@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,7 +15,8 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // register to the events
+
+            // register to the events that will apply FoodList changes to ListView
             FoodList.GetObject().AddedToList += addItemListView;
             FoodList.GetObject().RemovedFromList += removeItemListView;
             FoodList.GetObject().EditedListItem += reloadListView;
@@ -22,7 +25,7 @@ namespace Wasted
             DatabaseHandler.GetHandler().LoadFoodList();
         }
 
-        private void remove_offer_Click(object sender, EventArgs e) //buginasi vel norint prideti
+        private void remove_offer_Click(object sender, EventArgs e) 
         {
             FoodList.GetObject().RemoveAll(); //remove from Food List
 
@@ -33,16 +36,8 @@ namespace Wasted
 
         private void add_new_offer_Click(object sender, EventArgs e)
         {
-            int tempSize = FoodList.GetObject().GetList().Count();
             Form2 form2 = new Form2();
             form2.ShowDialog();
-
-            if (tempSize >= FoodList.GetObject().GetList().Count())
-                return;
-            else
-            {
-                Food item = FoodList.GetObject().GetList().Last();
-            }
         }
 
         private void lv_offer_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -85,6 +80,63 @@ namespace Wasted
         {
             lv_offer.Items.RemoveAt(index);
         }
+        
+
+        private void add_file_offer_Click_1(object sender, EventArgs e)
+        {
+            lv_offer.BeginUpdate();
+
+            string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
+
+            //int index = FoodList.GetObject().GetList().Count();
+
+            ReadingFile file = new ReadingFile();
+            file.ReadFileCsv(path);
+/*
+            while (index < FoodList.GetObject().GetList().Count())
+            {
+                Food itm = FoodList.GetObject().GetList()[index];
+                ListViewItem lvItm = new ListViewItem(itm.Name);
+                lvItm.SubItems.Add(itm.Description);
+                lvItm.SubItems.Add(itm.FullPrice.ToString());
+                lv_offer.Items.Add(lvItm);
+                index++;
+            }
+ */
+            lv_offer.EndUpdate();
+
+        }
+
+        /*
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            DataContext dc = new DataContext();
+            Search sr = new Search();
+            List<Food> SearchedFood = new List<Food>();
+            string input = search_bar.Text;
+            
+            if (!string.IsNullOrEmpty(input))
+            {
+                foreach(var item in dc.Foods)
+                {
+                    if(sr.MatchesName(input, item) || sr.MatchesInDescription(input, item))
+                    {
+                        ListViewItem item1 = new ListViewItem(item.Name);
+                        item1.SubItems.Add(item.Description);
+                        item1.SubItems.Add(item.FullPrice.ToString());
+                        
+                        SearchedFood.Add(item);
+                    }
+
+                }
+
+
+
+            }
+
+                Form3 form3 = new Form3();
+                form3.ShowDialog();
+        }*/
     }
 }
 

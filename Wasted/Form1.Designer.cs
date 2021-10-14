@@ -35,6 +35,7 @@ namespace Wasted
             this.pr_price = new System.Windows.Forms.ColumnHeader();
             this.add_new_offer = new System.Windows.Forms.Button();
             this.remove_offer = new System.Windows.Forms.Button();
+            this.add_file_offer = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lv_offer
@@ -97,12 +98,23 @@ namespace Wasted
             this.remove_offer.UseVisualStyleBackColor = true;
             this.remove_offer.Click += new System.EventHandler(this.remove_offer_Click);
             // 
+            // add_file_offer
+            // 
+            this.add_file_offer.Location = new System.Drawing.Point(31, 421);
+            this.add_file_offer.Name = "add_file_offer";
+            this.add_file_offer.Size = new System.Drawing.Size(183, 29);
+            this.add_file_offer.TabIndex = 3;
+            this.add_file_offer.Text = "Įkelti pasiūlymą iš failo";
+            this.add_file_offer.UseVisualStyleBackColor = true;
+            this.add_file_offer.Click += new System.EventHandler(this.add_file_offer_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(736, 451);
+            this.Controls.Add(this.add_file_offer);
             this.Controls.Add(this.remove_offer);
             this.Controls.Add(this.add_new_offer);
             this.Controls.Add(this.lv_offer);
@@ -121,6 +133,7 @@ namespace Wasted
         private System.Windows.Forms.ColumnHeader pr_description;
         private System.Windows.Forms.ColumnHeader pr_price;
         private System.Windows.Forms.Button remove_offer;
+        private System.Windows.Forms.Button add_file_offer;
     }
 }
 

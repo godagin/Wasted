@@ -1,42 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Wasted
 {
     class ReadingFile
     {
-        public void ReadFileCsv(string fileName, List<Food> foodList)
+
+        public ReadingFile()
         {
+
+        }
+
+        public void ReadFileCsv(string path)
+        {            
             string line;
-            try
+            Food food;
+            if (File.Exists(path))
             {
-                StreamReader file = new StreamReader(fileName);
+                using StreamReader file = new StreamReader(path);
                 while ((line = file.ReadLine()) != null)
                 {
                     string[] data = line.Split(',');
                     double price = Convert.ToDouble(data[2]);
-                    double amount = Convert.ToDouble(data[3]);
-                    Food food = new Food(data[0], data[1], price);
-                    foodList.Add(food);
+
+                    //if that string contains ".", it means that it will be kg
+                    if (data[3].Contains("."))
+                    {
+                        double weight = Convert.ToDouble(data[3]);
+                        food = new WeighedFood(data[0], data[1], price, weight);
+                    }
+                    else
+                    {
+                        int amount = Convert.ToInt32(data[3]);
+                        food = new DiscreteFood(data[0], data[1], price, amount);
+                    }
+                    DatabaseHandler.GetHandler().AddItemToFoodTable(food);
+                   
+                    FoodList.GetObject().AddCreatedFood(food);
+                    
                 }
-                file.Close();
             }
-            catch (ArgumentException)
-            {
-                Console.WriteLine("Not valid arguments.");
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("File with this name was not found.");
-            }
-            catch (Exception)
-            {
-
-                Console.WriteLine("Something went wrong with file reading.");
-
-            }
-
 
             /*public void ReadFileTxt(string fileName, List<Food> foodList)
             {
