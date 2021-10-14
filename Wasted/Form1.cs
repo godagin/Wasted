@@ -15,7 +15,9 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           DatabaseHandler.GetHandler().LoadFoodList();
+
+            DatabaseHandler.GetHandler().LoadFoodList();
+
 
             DataContext dc = new DataContext();
 
@@ -113,11 +115,8 @@ namespace Wasted
                 }
 
 
-                DatabaseHandler.GetHandler().RemoveItemFromFoodTable(foodItem);
-            }
 
-            
-        }
+            }
 
                 Form3 form3 = new Form3();
                 form3.ShowDialog();

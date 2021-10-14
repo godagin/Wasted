@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Wasted
@@ -15,32 +16,57 @@ namespace Wasted
         private void button1_Click(object sender, EventArgs e)
         {
             Food food;
-            if (RB_type_discrete.Checked && !RB_type_weighted.Checked)
+            string pricePattern = @"^\d+(\,|\.)?(\d{1,2})?$";
+            string weightPattern = @"^\d+(\,|\.)?(\d{1,3})?$";
+            string amountPattern = @"^\d+$";
+            bool isPriceValid = Regex.IsMatch(textBoxPrice.Text, pricePattern);
+            bool isWeightValid = Regex.IsMatch(textBoxWeight.Text, weightPattern);
+            bool isAmountValid = Regex.IsMatch(textBoxQuantity.Text, amountPattern);
+
+            if (!isPriceValid)
             {
-                food = new DiscreteFood(textBoxName.Text,
-                    textBoxDescription.Text,
-                    Double.Parse(textBoxPrice.Text),
-                    int.Parse(textBoxQuantity.Text));
+                MessageBox.Show("Netinkamas kainos formatas! Bandykite dar kartą.");
             }
-            else if (!RB_type_discrete.Checked && RB_type_weighted.Checked)
-            {
-                food = new WeighedFood(textBoxName.Text, 
-                    textBoxDescription.Text, 
-                    Double.Parse(textBoxPrice.Text), 
-                    Double.Parse(textBoxWeight.Text));
-            }
+            
             else
             {
-                //catch exceptions what if in the place of double we get a string OR empty
-                food = new Food(textBoxName.Text, 
-                    textBoxDescription.Text, 
-                    Double.Parse(textBoxPrice.Text));
-            }
+                if (RB_type_discrete.Checked && !RB_type_weighted.Checked && isAmountValid)
+                {
+                        food = new DiscreteFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        int.Parse(textBoxQuantity.Text));
 
-            DatabaseHandler dbH = new DatabaseHandler();
-            dbH.AddItemToFoodTable(food); //add entity to the add method
+                    DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
+
+                    FoodList.GetObject().AddCreatedFood(food);
+                }
+                else if (!RB_type_discrete.Checked && RB_type_weighted.Checked && isWeightValid)
+                {
+                    food = new WeighedFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        Double.Parse(textBoxWeight.Text));
+
+                    DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
+
+                    FoodList.GetObject().AddCreatedFood(food);
+                }
+                else
+                {
+                    MessageBox.Show("Netinkamas formatas! Bandykite dar kartą.");
+
+                    /*
+                    //catch exceptions what if in the place of double we get a string OR empty
+                    food = new Food(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text));
+                    */
+                }
+                //DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
             
-            FoodList.GetObject().AddCreatedFood(food); 
+                //FoodList.GetObject().AddCreatedFood(food); 
+            }
             
             this.Close();
         }
