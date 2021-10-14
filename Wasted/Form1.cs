@@ -15,8 +15,7 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DatabaseHandler dbH = new DatabaseHandler();
-            dbH.LoadFoodList();
+            DatabaseHandler.GetHandler().LoadFoodList();
 
             DataContext dc = new DataContext();
 
@@ -35,8 +34,7 @@ namespace Wasted
         {
             FoodList.GetObject().RemoveAll(); //remove from Food List
 
-            DatabaseHandler dbH = new DatabaseHandler();
-            dbH.RemoveAllFromFoodTable();
+            DatabaseHandler.GetHandler().RemoveAllFromFoodTable();
 
             lv_offer.Items.Clear();
 
