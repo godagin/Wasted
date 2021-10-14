@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Wasted
 {
-    class Food
+    public class Food
     {
         [Key]
         public int ID { get; set; }
@@ -12,6 +12,8 @@ namespace Wasted
         public double FullPrice { get; set; }
         //public double Amount { get; set; }
         public int Type { get; set; }
+
+        //public DateTime ExpirationDate { get; set; }
 
         public Food() { ID++; }
       
@@ -61,18 +63,6 @@ namespace Wasted
         {
             return DateTime.Now.AddDays(days).ToString("dd.MM.yy");
         }
-
-
-/*
-        //if amount is kg, g
-        //veliau padaryt try and catch, kuriame grazintu reiksme ir pagal ja apdorotu tolimesnius veiksmus
-        public double TakeFood(double take)
-        {
-            if (Amount <= take)
-                return Amount - take;
-            else throw new NotSuitableAmountException();
-        }
-*/
 
     }
 }
