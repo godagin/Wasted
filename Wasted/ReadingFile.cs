@@ -14,7 +14,7 @@ namespace Wasted
         public void ReadFileCsv(string path)
         {            
             string line;
-            Food food = new Food();
+            Food food;
             if (File.Exists(path))
             {
                 using StreamReader file = new StreamReader(path);
