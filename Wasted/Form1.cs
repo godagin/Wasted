@@ -15,7 +15,9 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             DatabaseHandler.GetHandler().LoadFoodList();
+
 
             DataContext dc = new DataContext();
 
@@ -88,6 +90,7 @@ namespace Wasted
             }
             lv_offer.EndUpdate();
         }
+
         /*
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -111,8 +114,10 @@ namespace Wasted
 
                 }
 
-                
+
+
             }
+
                 Form3 form3 = new Form3();
                 form3.ShowDialog();
         }*/
