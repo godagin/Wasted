@@ -15,7 +15,6 @@ namespace Wasted
         {            
             string line;
             Food food = new Food();
-            DatabaseHandler dbH = new DatabaseHandler();
             if (File.Exists(path))
             {
                 using StreamReader file = new StreamReader(path);
@@ -35,8 +34,8 @@ namespace Wasted
                         int amount = Convert.ToInt32(data[3]);
                         food = new DiscreteFood(data[0], data[1], price, amount);
                     }
-                    
-                    dbH.AddItemToFoodTable(food); 
+                    DatabaseHandler.GetHandler().AddItemToFoodTable(food);
+                   
                     FoodList.GetObject().AddCreatedFood(food);
                     
                 }
