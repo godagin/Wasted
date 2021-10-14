@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,7 +27,7 @@ namespace Wasted
                 DBItm.SubItems.Add(item.FullPrice.ToString());
                 lv_offer.Items.Add(DBItm);
             }
-            
+
         }
 
         private void remove_offer_Click(object sender, EventArgs e)
@@ -44,10 +46,10 @@ namespace Wasted
             int tempSize = FoodList.GetObject().GetList().Count();
             Form2 form2 = new Form2();
             form2.ShowDialog();
-            
+
             if (tempSize >= FoodList.GetObject().GetList().Count())
                 return;
-            else 
+            else
             {// add for from tempsize to FoodList length
                 Food itm = FoodList.GetObject().GetList().Last();
                 ListViewItem lvItm = new ListViewItem(itm.Name);
@@ -61,20 +63,58 @@ namespace Wasted
 
         private void lv_offer_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            //MessageBox.Show("cia bus nauja lentele editinimui");
-            if(lv_offer.SelectedItems.Count != 0)
-            {
-                ListViewItem lvItem = lv_offer.SelectedItems[0];
-                int index = lv_offer.SelectedItems[0].Index;
-                lv_offer.SelectedItems.Clear();
-                lv_offer.Items.Remove(lvItem);
-
-                Food foodItem = FoodList.GetObject().GetList()[index];
-                FoodList.GetObject().RemoveItem(index);
-
-                DatabaseHandler.GetHandler().RemoveItemFromFoodTable(foodItem);
-            }
-            
+            MessageBox.Show("cia bus nauja lentele editinimui");
         }
+
+        private void add_file_offer_Click(object sender, EventArgs e)
+        {
+            lv_offer.BeginUpdate();
+
+            string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
+
+            int index = FoodList.GetObject().GetList().Count();
+
+            ReadingFile file = new ReadingFile();
+            file.ReadFileCsv(path);
+
+            while(index < FoodList.GetObject().GetList().Count())
+            {
+                Food itm = FoodList.GetObject().GetList()[index];
+                ListViewItem lvItm = new ListViewItem(itm.Name);
+                lvItm.SubItems.Add(itm.Description);
+                lvItm.SubItems.Add(itm.FullPrice.ToString());
+                lv_offer.Items.Add(lvItm);
+                index++;
+            }
+            lv_offer.EndUpdate();
+        }
+        /*
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            DataContext dc = new DataContext();
+            Search sr = new Search();
+            List<Food> SearchedFood = new List<Food>();
+            string input = search_bar.Text;
+            
+            if (!string.IsNullOrEmpty(input))
+            {
+                foreach(var item in dc.Foods)
+                {
+                    if(sr.MatchesName(input, item) || sr.MatchesInDescription(input, item))
+                    {
+                        ListViewItem item1 = new ListViewItem(item.Name);
+                        item1.SubItems.Add(item.Description);
+                        item1.SubItems.Add(item.FullPrice.ToString());
+                        
+                        SearchedFood.Add(item);
+                    }
+
+                }
+
+                
+            }
+                Form3 form3 = new Form3();
+                form3.ShowDialog();
+        }*/
     }
 }
