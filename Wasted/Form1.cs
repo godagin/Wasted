@@ -76,5 +76,30 @@ namespace Wasted
             }
             
         }
+
+        private void lv_offer_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ItemComparer sorter = lv_offer.ListViewItemSorter as ItemComparer;
+            if (sorter == null)
+            {
+                sorter = new ItemComparer(e.Column);
+                sorter.Order = SortOrder.Ascending;
+                lv_offer.ListViewItemSorter = sorter;
+            }
+            
+            if (e.Column == sorter.Column)
+            {
+                if (sorter.Order == SortOrder.Ascending)
+                    sorter.Order = SortOrder.Descending;
+                else
+                    sorter.Order = SortOrder.Ascending;
+            }
+            else
+            {
+                sorter.Column = e.Column;
+                sorter.Order = SortOrder.Ascending;
+            }
+            lv_offer.Sort();
+        }
     }
 }
