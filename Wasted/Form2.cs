@@ -32,11 +32,23 @@ namespace Wasted
             {
                 if (RB_type_discrete.Checked && !RB_type_weighted.Checked && isAmountValid)
                 {
+                    if (textBoxExpiration.Text == "")
+                    {
                         food = new DiscreteFood(textBoxName.Text,
                         textBoxDescription.Text,
                         Double.Parse(textBoxPrice.Text),
-                        int.Parse(textBoxQuantity.Text)
+                        int.Parse(textBoxQuantity.Text));
+                    }
+                    else
+                    {
+                        food = new DiscreteFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        int.Parse(textBoxQuantity.Text),
                         int.Parse(textBoxExpiration.Text));
+
+                    }
+                        
 
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
@@ -44,12 +56,22 @@ namespace Wasted
                 }
                 else if (!RB_type_discrete.Checked && RB_type_weighted.Checked && isWeightValid)
                 {
-                    food = new WeighedFood(textBoxName.Text,
+                    if (textBoxExpiration.Text == "")
+                    {
+                        food = new DiscreteFood(textBoxName.Text,
                         textBoxDescription.Text,
                         Double.Parse(textBoxPrice.Text),
-                        Double.Parse(textBoxWeight.Text),
+                        int.Parse(textBoxQuantity.Text));
+                    }
+                    else
+                    {
+                        food = new DiscreteFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        int.Parse(textBoxQuantity.Text),
                         int.Parse(textBoxExpiration.Text));
 
+                    }
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
                     FoodList.GetObject().AddCreatedFood(food);
