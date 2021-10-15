@@ -69,8 +69,9 @@ namespace Wasted
         {
             MessageBox.Show("cia bus nauja lentele editinimui");
         }
+        
 
-        private void add_file_offer_Click(object sender, EventArgs e)
+        private void add_file_offer_Click_1(object sender, EventArgs e)
         {
             lv_offer.BeginUpdate();
 
@@ -81,7 +82,7 @@ namespace Wasted
             ReadingFile file = new ReadingFile();
             file.ReadFileCsv(path);
 
-            while(index < FoodList.GetObject().GetList().Count())
+            while (index < FoodList.GetObject().GetList().Count())
             {
                 Food itm = FoodList.GetObject().GetList()[index];
                 ListViewItem lvItm = new ListViewItem(itm.Name);
@@ -92,6 +93,29 @@ namespace Wasted
             }
             lv_offer.EndUpdate();
         }
+        /*
+private void add_file_offer_Click(object sender, EventArgs e)
+{
+   lv_offer.BeginUpdate();
+
+   string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
+
+   int index = FoodList.GetObject().GetList().Count();
+
+   ReadingFile file = new ReadingFile();
+   file.ReadFileCsv(path);
+
+   while (index < FoodList.GetObject().GetList().Count())
+   {
+       Food itm = FoodList.GetObject().GetList()[index];
+       ListViewItem lvItm = new ListViewItem(itm.Name);
+       lvItm.SubItems.Add(itm.Description);
+       lvItm.SubItems.Add(itm.FullPrice.ToString());
+       lv_offer.Items.Add(lvItm);
+       index++;
+   }
+   lv_offer.EndUpdate();
+}*/
 
 
         private void lv_offer_ColumnClick(object sender, ColumnClickEventArgs e)
