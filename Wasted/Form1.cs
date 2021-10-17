@@ -121,31 +121,6 @@ namespace Wasted
                 lv_offer.Items.Add(item1);
             }
         }
-
-
-        /*
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            DataContext dc = new DataContext();
-            Search sr = new Search();
-            List<Food> SearchedFood = new List<Food>();
-            string input = search_bar.Text;
-            
-            if (!string.IsNullOrEmpty(input))
-            {
-                foreach(var item in dc.Foods)
-                {
-                    if(sr.MatchesName(input, item) || sr.MatchesInDescription(input, item))
-                    {
-                        ListViewItem item1 = new ListViewItem(item.Name);
-                        item1.SubItems.Add(item.Description);
-                        item1.SubItems.Add(item.FullPrice.ToString());
-                        
-                        SearchedFood.Add(item);
-                    }
-                }
-            }
-        }*/
     }
 }
 
