@@ -49,12 +49,13 @@ namespace Wasted
             this.lv_offer.FullRowSelect = true;
             this.lv_offer.HideSelection = false;
             this.lv_offer.Location = new System.Drawing.Point(46, 96);
+            this.lv_offer.MultiSelect = false;
             this.lv_offer.Name = "lv_offer";
             this.lv_offer.Size = new System.Drawing.Size(645, 319);
             this.lv_offer.TabIndex = 0;
             this.lv_offer.UseCompatibleStateImageBehavior = false;
             this.lv_offer.View = System.Windows.Forms.View.Details;
-            this.lv_offer.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lv_offer_ItemSelectionChanged);
+            this.lv_offer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lv_offer_MouseDoubleClick);
             // 
             // pr_name
             // 
@@ -118,7 +119,7 @@ namespace Wasted
             this.Controls.Add(this.add_new_offer);
             this.Controls.Add(this.lv_offer);
             this.Name = "Form1";
-            this.Text = "Wasteless";
+            this.Text = "Left Over";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
