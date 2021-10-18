@@ -7,7 +7,6 @@ namespace Wasted
     {
         [Key]
         public int ID { get; set; }
-        public string fieldToText { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public double FullPrice { get; set; }
