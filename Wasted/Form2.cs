@@ -77,14 +77,14 @@ namespace Wasted
                         food = new WeighedFood(textBoxName.Text,
                         textBoxDescription.Text,
                         Double.Parse(textBoxPrice.Text),
-                        int.Parse(textBoxQuantity.Text));
+                        Double.Parse(textBoxWeight.Text));
                     }
                     else
                     {
                         food = new WeighedFood(textBoxName.Text,
                         textBoxDescription.Text,
                         Double.Parse(textBoxPrice.Text),
-                        int.Parse(textBoxQuantity.Text),
+                        Double.Parse(textBoxWeight.Text),
                         int.Parse(textBoxExpiration.Text));
 
                     }
