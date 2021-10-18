@@ -15,7 +15,6 @@ namespace Wasted
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             // register to the events that will apply FoodList changes to ListView
             FoodList.GetObject().AddedToList += addItemListView;
             FoodList.GetObject().RemovedFromList += removeItemListView;
@@ -56,6 +55,7 @@ namespace Wasted
                 lv_offer.SelectedItems.Clear();
             }
         }
+
 
         private void reloadListView()
         {
@@ -100,10 +100,56 @@ namespace Wasted
                 lvItm.SubItems.Add(itm.Description);
                 lvItm.SubItems.Add(itm.FullPrice.ToString());
                 lv_offer.Items.Add(lvItm);
-                index++;
+                index++; 
             }
  */
             lv_offer.EndUpdate();
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            int index = comboBoxSort.SelectedIndex;
+      
+            OfferComparer srt = new OfferComparer();
+            srt.getSortOrder(index);
+            FoodList.GetObject().GetList().Sort(srt);
+
+            ///-----------reloading listview begins and sorting ends
+
+            lv_offer.BeginUpdate();
+
+            lv_offer.Items.Clear();
+
+            int counter = 0;
+
+            while (counter < FoodList.GetObject().GetList().Count())
+            {
+                Food itm = FoodList.GetObject().GetList()[counter];
+                ListViewItem lvItm = new ListViewItem(itm.Name);
+                lvItm.SubItems.Add(itm.Description);
+                lvItm.SubItems.Add(itm.FullPrice.ToString());
+                lvItm.SubItems.Add(itm.ExpDate.ToString("dd.MM.yy"));
+                lv_offer.Items.Add(lvItm);
+                counter++;
+            }
+            lv_offer.EndUpdate();
+        }
+
+        private void comboBoxSort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+
+
+        /*
+private void add_file_offer_Click(object sender, EventArgs e)
+{
+   lv_offer.BeginUpdate();
+
+   string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
+
+   int index = FoodList.GetObject().GetList().Count();
+
 
         }
 
@@ -120,7 +166,10 @@ namespace Wasted
                 item1.SubItems.Add(item.FullPrice.ToString());
                 lv_offer.Items.Add(item1);
             }
-        }
+
+                Form3 form3 = new Form3();
+                form3.ShowDialog();
+        }*/
     }
 }
 

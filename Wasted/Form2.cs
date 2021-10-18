@@ -19,23 +19,44 @@ namespace Wasted
             string pricePattern = @"^\d+(\,|\.)?(\d{1,2})?$";
             string weightPattern = @"^\d+(\,|\.)?(\d{1,3})?$";
             string amountPattern = @"^\d+$";
+            
             bool isPriceValid = Regex.IsMatch(textBoxPrice.Text, pricePattern);
             bool isWeightValid = Regex.IsMatch(textBoxWeight.Text, weightPattern);
             bool isAmountValid = Regex.IsMatch(textBoxQuantity.Text, amountPattern);
-
+            
             if (!isPriceValid)
             {
                 MessageBox.Show("Netinkamas kainos formatas! Bandykite dar kartą.");
             }
-            
             else
             {
                 if (RB_type_discrete.Checked && !RB_type_weighted.Checked && isAmountValid)
                 {
+
+/*
                         food = new DiscreteFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
                         quantity: int.Parse(textBoxQuantity.Text));
+*/
+
+                    if (textBoxExpiration.Text == "")
+                    {
+                        food = new DiscreteFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        int.Parse(textBoxQuantity.Text));
+                    }
+                    else
+                    {
+                        food = new DiscreteFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        int.Parse(textBoxQuantity.Text),
+                        int.Parse(textBoxExpiration.Text));
+
+                    }
+                        
 
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
@@ -43,11 +64,30 @@ namespace Wasted
                 }
                 else if (!RB_type_discrete.Checked && RB_type_weighted.Checked && isWeightValid)
                 {
+
+/*
                     food = new WeighedFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
                         weight: Double.Parse(textBoxWeight.Text));
+*/
 
+                    if (textBoxExpiration.Text == "")
+                    {
+                        food = new DiscreteFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        int.Parse(textBoxQuantity.Text));
+                    }
+                    else
+                    {
+                        food = new DiscreteFood(textBoxName.Text,
+                        textBoxDescription.Text,
+                        Double.Parse(textBoxPrice.Text),
+                        int.Parse(textBoxQuantity.Text),
+                        int.Parse(textBoxExpiration.Text));
+
+                    }
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
                     FoodList.GetObject().AddCreatedFood(food);

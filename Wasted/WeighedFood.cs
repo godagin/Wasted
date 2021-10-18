@@ -10,7 +10,7 @@ namespace Wasted
 
         public WeighedFood() { ID++; }
 
-        public WeighedFood(string name, string description, double fullPrice, double weight) : base(name, description, fullPrice)
+        public WeighedFood(string name, string description, double fullPrice, double weight, int expDays = 2) : base(name, description, fullPrice, expDays)
         {
             Weight = weight;
         }

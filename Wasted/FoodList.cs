@@ -36,7 +36,6 @@ namespace Wasted
             return FoodOffers;
         }
 
-
         protected virtual void OnAddedToList() //examples showed that this should be a seperate class perhaps for readability
         {
             AddedToList?.Invoke(FoodOffers.Last());
@@ -84,6 +83,11 @@ namespace Wasted
         public void RemoveAll()
         {
             FoodOffers.Clear();
+        }
+      
+        public void AddCreatedFood(string name, string description, double price, double amount, int expDays = 2)
+        {
+            FoodOffers.Add(new Food(name, description, price, expDays));
         }
         
     }
