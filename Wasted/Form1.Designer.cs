@@ -45,6 +45,9 @@ namespace Wasted
             // lv_offer
             // 
             this.lv_offer.AllowColumnReorder = true;
+            this.lv_offer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lv_offer.BackColor = System.Drawing.SystemColors.Menu;
             this.lv_offer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.pr_name,
@@ -53,9 +56,10 @@ namespace Wasted
             this.pr_expiration});
             this.lv_offer.FullRowSelect = true;
             this.lv_offer.HideSelection = false;
-            this.lv_offer.Location = new System.Drawing.Point(46, 96);
+            this.lv_offer.Location = new System.Drawing.Point(40, 72);
+            this.lv_offer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lv_offer.Name = "lv_offer";
-            this.lv_offer.Size = new System.Drawing.Size(693, 319);
+            this.lv_offer.Size = new System.Drawing.Size(662, 240);
             this.lv_offer.TabIndex = 0;
             this.lv_offer.UseCompatibleStateImageBehavior = false;
             this.lv_offer.View = System.Windows.Forms.View.Details;
@@ -83,14 +87,10 @@ namespace Wasted
             // 
             // add_new_offer
             // 
-            this.add_new_offer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.add_new_offer.AutoEllipsis = true;
-            this.add_new_offer.Location = new System.Drawing.Point(46, 32);
-            this.add_new_offer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.add_new_offer.Location = new System.Drawing.Point(40, 24);
             this.add_new_offer.Name = "add_new_offer";
-            this.add_new_offer.Size = new System.Drawing.Size(191, 40);
+            this.add_new_offer.Size = new System.Drawing.Size(147, 30);
             this.add_new_offer.TabIndex = 1;
             this.add_new_offer.Text = "Pridėti pasiūlymą";
             this.add_new_offer.UseVisualStyleBackColor = true;
@@ -98,10 +98,10 @@ namespace Wasted
             // 
             // remove_offer
             // 
-            this.remove_offer.Location = new System.Drawing.Point(608, 32);
-            this.remove_offer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.remove_offer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.remove_offer.Location = new System.Drawing.Point(587, 24);
             this.remove_offer.Name = "remove_offer";
-            this.remove_offer.Size = new System.Drawing.Size(131, 40);
+            this.remove_offer.Size = new System.Drawing.Size(115, 30);
             this.remove_offer.TabIndex = 2;
             this.remove_offer.Text = "Ištrinti visus";
             this.remove_offer.UseVisualStyleBackColor = true;
@@ -109,9 +109,11 @@ namespace Wasted
             // 
             // add_file_offer
             // 
-            this.add_file_offer.Location = new System.Drawing.Point(31, 421);
+            this.add_file_offer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.add_file_offer.Location = new System.Drawing.Point(40, 330);
+            this.add_file_offer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.add_file_offer.Name = "add_file_offer";
-            this.add_file_offer.Size = new System.Drawing.Size(183, 29);
+            this.add_file_offer.Size = new System.Drawing.Size(147, 32);
             this.add_file_offer.TabIndex = 3;
             this.add_file_offer.Text = "Įkelti pasiūlymą iš failo";
             this.add_file_offer.UseVisualStyleBackColor = true;
@@ -119,6 +121,7 @@ namespace Wasted
             // 
             // comboBoxSort
             // 
+            this.comboBoxSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSort.FormattingEnabled = true;
             this.comboBoxSort.Items.AddRange(new object[] {
@@ -128,17 +131,20 @@ namespace Wasted
             "Kainą mažėjančiai",
             "Galiojimo datą didėjančiai",
             "Galiojimo datą mažėjančiai"});
-            this.comboBoxSort.Location = new System.Drawing.Point(439, 420);
+            this.comboBoxSort.Location = new System.Drawing.Point(424, 336);
+            this.comboBoxSort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxSort.Name = "comboBoxSort";
-            this.comboBoxSort.Size = new System.Drawing.Size(189, 28);
+            this.comboBoxSort.Size = new System.Drawing.Size(166, 23);
             this.comboBoxSort.TabIndex = 4;
             this.comboBoxSort.SelectedIndexChanged += new System.EventHandler(this.comboBoxSort_SelectedIndexChanged);
             // 
             // buttonSort
             // 
-            this.buttonSort.Location = new System.Drawing.Point(645, 419);
+            this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSort.Location = new System.Drawing.Point(605, 336);
+            this.buttonSort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSort.Name = "buttonSort";
-            this.buttonSort.Size = new System.Drawing.Size(94, 29);
+            this.buttonSort.Size = new System.Drawing.Size(97, 23);
             this.buttonSort.TabIndex = 5;
             this.buttonSort.Text = "Rūšiuoti";
             this.buttonSort.UseVisualStyleBackColor = true;
@@ -146,19 +152,20 @@ namespace Wasted
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(326, 425);
+            this.label1.Location = new System.Drawing.Point(333, 339);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 20);
+            this.label1.Size = new System.Drawing.Size(85, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "Rūšiuoti pagal:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(785, 451);
+            this.ClientSize = new System.Drawing.Size(736, 382);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.comboBoxSort);
@@ -166,6 +173,7 @@ namespace Wasted
             this.Controls.Add(this.remove_offer);
             this.Controls.Add(this.add_new_offer);
             this.Controls.Add(this.lv_offer);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Wasteless";
             this.Load += new System.EventHandler(this.Form1_Load);
