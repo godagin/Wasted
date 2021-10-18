@@ -19,20 +19,15 @@ namespace Wasted
             int result;
 
             if (sortOrder % 2 == 0) // even numbers - asc order, uneven - desc 
-                                    // 0 1 - name, 2 3 - price, 4 5 - exp date, converted to string
+                                    // 0 1 - name, 2 3 - price, 4 5 - exp date
             {
                 if (sortOrder == 0)
                 {
-                    itemX.fieldToText = itemX.Name;
-                    itemY.fieldToText = itemY.Name;
-
-                    result = String.Compare(itemX.fieldToText, itemY.fieldToText);
+                    result = String.Compare(itemX.Name, itemY.Name);
                 }
                 else if (sortOrder == 4)
                 {           
-                    itemX.fieldToText = itemX.ExpDate.ToString("dd.MM.yy");
-                    itemY.fieldToText = itemY.ExpDate.ToString("dd.MM.yy");
-                    result = String.Compare(itemX.fieldToText, itemY.fieldToText);
+                    result = String.Compare(itemX.ExpDate.ToString("dd.MM.yy"), itemY.ExpDate.ToString("dd.MM.yy"));
                 }
                 else
                 {
@@ -48,15 +43,11 @@ namespace Wasted
             {
                 if (sortOrder == 1)
                 {
-                    itemX.fieldToText = itemX.Name;
-                    itemY.fieldToText = itemY.Name;
-                    result = String.Compare(itemX.fieldToText, itemY.fieldToText) * -1;
+                    result = String.Compare(itemX.Name, itemY.Name) * -1;
                 }
                 else if (sortOrder == 5)
                 {
-                    itemX.fieldToText = itemX.ExpDate.ToString("dd.MM.yy");
-                    itemY.fieldToText = itemY.ExpDate.ToString("dd.MM.yy");
-                    result = String.Compare(itemX.fieldToText, itemY.fieldToText) * -1;
+                    result = String.Compare(itemX.ExpDate.ToString("dd.MM.yy"), itemY.ExpDate.ToString("dd.MM.yy")) * -1;
                 }
                 else
                 {
@@ -68,7 +59,6 @@ namespace Wasted
                         result = 0;
                 }
             }
-
             return result;
         }
      }
