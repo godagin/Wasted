@@ -91,24 +91,17 @@ namespace Wasted
                 lvItm.SubItems.Add(itm.Description);
                 lvItm.SubItems.Add(itm.FullPrice.ToString());
                 lv_offer.Items.Add(lvItm);
-                index++;
-
-                
+                index++; 
             }
             lv_offer.EndUpdate();
         }
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
-           // string selectedItem = comboBoxSort.Items[comboBoxSort.SelectedIndex].ToString();
             int index = comboBoxSort.SelectedIndex;
-          //  MessageBox.Show(index.ToString());
-
-
+      
             OfferComparer srt = new OfferComparer();
-           
             srt.getSortOrder(index);
-
             FoodList.GetObject().GetList().Sort(srt);
 
             ///-----------reloading listview begins and sorting ends
@@ -128,20 +121,14 @@ namespace Wasted
                 lvItm.SubItems.Add(itm.ExpDate.ToString("dd.MM.yy"));
                 lv_offer.Items.Add(lvItm);
                 counter++;
-
             }
-
             lv_offer.EndUpdate();
-
         }
 
         private void comboBoxSort_SelectedIndexChanged(object sender, EventArgs e)
         {
           
         }
-
-        //--------------------
-
 
 
         /*
@@ -167,66 +154,6 @@ private void add_file_offer_Click(object sender, EventArgs e)
    }
    lv_offer.EndUpdate();
 }*/
-
-
-        /*    private void lv_offer_ColumnClick(object sender, ColumnClickEventArgs e)
-            {
-                ItemComparer sorter = lv_offer.ListViewItemSorter as ItemComparer;
-                if (sorter == null)
-                {
-                    sorter = new ItemComparer(e.Column);
-                    sorter.Order = SortOrder.Ascending;
-                    lv_offer.ListViewItemSorter = sorter;
-                }
-
-                if (e.Column == sorter.Column)
-                {
-                    if (sorter.Order == SortOrder.Ascending)
-                        sorter.Order = SortOrder.Descending;
-                    else
-                        sorter.Order = SortOrder.Ascending;
-                }
-                else
-                {
-                    sorter.Column = e.Column;
-                    sorter.Order = SortOrder.Ascending;
-                }
-                lv_offer.Sort();
-
-                System.Text.StringBuilder messageBoxCS = new System.Text.StringBuilder();
-
-                int index;
-
-                foreach (ListViewItem item in lv_offer.Items)
-                {
-                    index = lv_offer.Items.IndexOf(item);
-                    messageBoxCS.AppendFormat("{0} = {1}", "DisplayIndex", index);
-                    messageBoxCS.AppendLine();
-
-                }
-
-
-
-                int index1 = 0;
-
-                while (index1 < FoodList.GetObject().GetList().Count())
-                {
-                    Food itm = FoodList.GetObject().GetList()[index1];
-
-                  //  messageBoxCS.AppendFormat("{0} = {1}, {2}, {3}", "foo", itm.Name, itm.ID, itm.lvID);
-                    messageBoxCS.AppendFormat("{0} = {1}, {2}", "pav", itm.Name, itm.ID);
-                    messageBoxCS.AppendLine();
-
-
-                    index1++;
-                }
-
-                    MessageBox.Show(messageBoxCS.ToString(), "ok");
-
-                // messageBoxCS.AppendFormat("{0} = {1}", "OldDisplayIndex", );
-                // messageBoxCS.AppendLine();
-            }*/
-
 
         /*
         private void textBox1_TextChanged(object sender, EventArgs e)
