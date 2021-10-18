@@ -43,6 +43,8 @@ namespace Wasted
             this.textBoxWeight = new System.Windows.Forms.TextBox();
             this.textBoxQuantity = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.textBoxExpiration = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxName
@@ -108,7 +110,7 @@ namespace Wasted
             // RB_type_weighted
             // 
             this.RB_type_weighted.AutoSize = true;
-            this.RB_type_weighted.Location = new System.Drawing.Point(377, 88);
+            this.RB_type_weighted.Location = new System.Drawing.Point(326, 67);
             this.RB_type_weighted.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.RB_type_weighted.Name = "RB_type_weighted";
             this.RB_type_weighted.Size = new System.Drawing.Size(97, 24);
@@ -121,7 +123,7 @@ namespace Wasted
             // RB_type_discrete
             // 
             this.RB_type_discrete.AutoSize = true;
-            this.RB_type_discrete.Location = new System.Drawing.Point(377, 135);
+            this.RB_type_discrete.Location = new System.Drawing.Point(458, 68);
             this.RB_type_discrete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.RB_type_discrete.Name = "RB_type_discrete";
             this.RB_type_discrete.Size = new System.Drawing.Size(94, 24);
@@ -143,7 +145,7 @@ namespace Wasted
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(326, 187);
+            this.label5.Location = new System.Drawing.Point(326, 112);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 20);
             this.label5.TabIndex = 10;
@@ -151,7 +153,7 @@ namespace Wasted
             // 
             // textBoxWeight
             // 
-            this.textBoxWeight.Location = new System.Drawing.Point(326, 211);
+            this.textBoxWeight.Location = new System.Drawing.Point(326, 145);
             this.textBoxWeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxWeight.Name = "textBoxWeight";
             this.textBoxWeight.Size = new System.Drawing.Size(212, 27);
@@ -159,7 +161,7 @@ namespace Wasted
             // 
             // textBoxQuantity
             // 
-            this.textBoxQuantity.Location = new System.Drawing.Point(326, 280);
+            this.textBoxQuantity.Location = new System.Drawing.Point(326, 200);
             this.textBoxQuantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxQuantity.Name = "textBoxQuantity";
             this.textBoxQuantity.Size = new System.Drawing.Size(212, 27);
@@ -174,11 +176,29 @@ namespace Wasted
             this.label6.TabIndex = 13;
             this.label6.Text = "Kiekis (vnt.)";
             // 
+            // textBoxExpiration
+            // 
+            this.textBoxExpiration.Location = new System.Drawing.Point(326, 280);
+            this.textBoxExpiration.Name = "textBoxExpiration";
+            this.textBoxExpiration.Size = new System.Drawing.Size(212, 27);
+            this.textBoxExpiration.TabIndex = 14;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(326, 257);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(169, 20);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Galiojimo dienų skaičius";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(585, 399);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBoxExpiration);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxQuantity);
             this.Controls.Add(this.textBoxWeight);
@@ -216,5 +236,7 @@ namespace Wasted
         private System.Windows.Forms.TextBox textBoxWeight;
         private System.Windows.Forms.TextBox textBoxQuantity;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxExpiration;
+        private System.Windows.Forms.Label label7;
     }
 }

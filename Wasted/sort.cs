@@ -1,93 +1,76 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Collections;
+using System.Windows.Forms;
 
 namespace Wasted
 {
-    class AlphabeticSortAToZ : IComparer<Food>
+     class OfferComparer : IComparer<Food>
     {
-        public int Compare(Food x, Food y)
+        int sortOrder;
+        public void getSortOrder(int index) // gets chosen option (as an index)
         {
-            if (x.Name == y.Name) // Same name -> sort price low to high
-            {
-                if (x.FullPrice > y.FullPrice)
-                    return 1;
-                else if (x.FullPrice < y.FullPrice)
-                    return -1;
-                else
-                    return 0;
-            }
-            else
-                return string.Compare(x.Name, y.Name);  
+            sortOrder = index;
         }
-    }
-    class AlphabeticSortZToA : IComparer<Food>
-    {
-        public int Compare(Food x, Food y) // Same name -> sort price low to high
-        {
-            if (x.Name == y.Name)
-            {
-                if (x.FullPrice > y.FullPrice)
-                    return 1;
-                else if (x.FullPrice < y.FullPrice)
-                    return -1;
-                else
-                    return 0;
-            }
-            else
-                return string.Compare(x.Name, y.Name) * (-1);
-        }
-    }
-    class PriceSortLowToHigh : IComparer<Food>
-    {
-        public int Compare(Food x, Food y)
-        {
-            if (x.FullPrice == y.FullPrice) // Same price -> sort name A to Z
-                return string.Compare(x.Name, y.Name);
-            else if (x.FullPrice > y.FullPrice)
-                return 1;
-            else if (x.FullPrice < y.FullPrice)
-                return -1;
-            else
-                return 0;
-        }
-    }
-    class PriceSortHighToLow : IComparer<Food>
-    {
-        public int Compare(Food x, Food y)
-        {
-            if (x.FullPrice == y.FullPrice) // Same price -> sort name A to Z 
-                return string.Compare(x.Name, y.Name);
-            else if (x.FullPrice < y.FullPrice)
-                return 1;
-            else if (x.FullPrice > y.FullPrice)
-                return -1;
-            else
-                return 0;
-        }
-    }
 
-    class ExpSortLowToHigh : IComparer<Food>
-    {
-        public int Compare(Food x, Food y)
+        public int Compare(Food itemX, Food itemY)
         {
-            if (x.ExpDate > y.ExpDate)
-                return 1;
-            else if (x.ExpDate < y.ExpDate)
-                return -1;
+            int result;
+
+            if (sortOrder % 2 == 0) // even numbers - asc order, uneven - desc 
+                                    // 0 1 - name, 2 3 - price, 4 5 - exp date, converted to string
+            {
+                if (sortOrder == 0)
+                {
+                    itemX.fieldToText = itemX.Name;
+                    itemY.fieldToText = itemY.Name;
+                }
+                else if (sortOrder == 2)
+                {
+                    itemX.fieldToText = itemX.FullPrice.ToString();
+                    itemY.fieldToText = itemY.FullPrice.ToString();
+                }
+                else
+                {
+                    itemX.fieldToText = itemX.ExpDate.ToString("dd.MM.yy");
+                    itemY.fieldToText = itemY.ExpDate.ToString("dd.MM.yy");
+                }
+            }
             else
-                return 0;
+            {
+                if (sortOrder == 1)
+                {
+                    itemX.fieldToText = itemX.Name;
+                    itemY.fieldToText = itemY.Name;
+                }
+                else if (sortOrder == 3)
+                {
+                    itemX.fieldToText = itemX.FullPrice.ToString();
+                    itemY.fieldToText = itemY.FullPrice.ToString();
+                }
+                else
+                {
+                    itemX.fieldToText = itemX.ExpDate.ToString("dd.MM.yy");
+                    itemY.fieldToText = itemY.ExpDate.ToString("dd.MM.yy");
+                }
+            }
+
+            if (itemX == null && itemY == null)
+                result = 0;
+            else if (itemX == null)
+                result = -1;
+            else if (itemY == null)
+                result = 1;
+            if (itemX == itemY)
+                result = 0;
+
+            result = String.Compare(itemX.fieldToText, itemY.fieldToText);
+
+            if (sortOrder % 2 != 0) // non even indexes - sort desc
+                result *= -1;
+
+            return result;
         }
-    }
-    class ExpSortHighToLow : IComparer<Food>
-    {
-        public int Compare(Food x, Food y)
-        {
-            if (x.ExpDate < y.ExpDate)
-                return 1;
-            else if (x.ExpDate > y.ExpDate)
-                return -1;
-            else
-                return 0;
-        }
-    }
+     }
 }
