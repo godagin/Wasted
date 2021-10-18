@@ -32,10 +32,10 @@ namespace Wasted
             {
                 if (RB_type_discrete.Checked && !RB_type_weighted.Checked && isAmountValid)
                 {
-                        food = new DiscreteFood(textBoxName.Text,
-                        textBoxDescription.Text,
-                        Double.Parse(textBoxPrice.Text),
-                        int.Parse(textBoxQuantity.Text));
+                        food = new DiscreteFood(name: textBoxName.Text,
+                        description: textBoxDescription.Text,
+                        fullPrice: Double.Parse(textBoxPrice.Text),
+                        quantity: int.Parse(textBoxQuantity.Text));
 
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
@@ -43,10 +43,10 @@ namespace Wasted
                 }
                 else if (!RB_type_discrete.Checked && RB_type_weighted.Checked && isWeightValid)
                 {
-                    food = new WeighedFood(textBoxName.Text,
-                        textBoxDescription.Text,
-                        Double.Parse(textBoxPrice.Text),
-                        Double.Parse(textBoxWeight.Text));
+                    food = new WeighedFood(name: textBoxName.Text,
+                        description: textBoxDescription.Text,
+                        fullPrice: Double.Parse(textBoxPrice.Text),
+                        weight: Double.Parse(textBoxWeight.Text));
 
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
