@@ -107,36 +107,20 @@ namespace Wasted
 
         }
 
-        /*
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void search_bar_TextChanged(object sender, EventArgs e)
         {
             DataContext dc = new DataContext();
-            Search sr = new Search();
-            List<Food> SearchedFood = new List<Food>();
             string input = search_bar.Text;
-            
-            if (!string.IsNullOrEmpty(input))
+            var searchedFood = from food in dc.Foods where food.Name.Contains(input) select food;
+            lv_offer.Items.Clear();
+            foreach (var item in searchedFood)
             {
-                foreach(var item in dc.Foods)
-                {
-                    if(sr.MatchesName(input, item) || sr.MatchesInDescription(input, item))
-                    {
-                        ListViewItem item1 = new ListViewItem(item.Name);
-                        item1.SubItems.Add(item.Description);
-                        item1.SubItems.Add(item.FullPrice.ToString());
-                        
-                        SearchedFood.Add(item);
-                    }
-
-                }
-
-
-
+                ListViewItem item1 = new ListViewItem(item.Name);
+                item1.SubItems.Add(item.Description);
+                item1.SubItems.Add(item.FullPrice.ToString());
+                lv_offer.Items.Add(item1);
             }
-
-                Form3 form3 = new Form3();
-                form3.ShowDialog();
-        }*/
+        }
     }
 }
 

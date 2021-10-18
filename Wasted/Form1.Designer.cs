@@ -36,6 +36,7 @@ namespace Wasted
             this.add_new_offer = new System.Windows.Forms.Button();
             this.remove_offer = new System.Windows.Forms.Button();
             this.add_file_offer = new System.Windows.Forms.Button();
+            this.search_bar = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lv_offer
@@ -108,12 +109,22 @@ namespace Wasted
             this.add_file_offer.UseVisualStyleBackColor = true;
             this.add_file_offer.Click += new System.EventHandler(this.add_file_offer_Click_1);
             // 
+            // search_bar
+            // 
+            this.search_bar.Location = new System.Drawing.Point(222, 45);
+            this.search_bar.Name = "search_bar";
+            this.search_bar.PlaceholderText = "Ieškoti...";
+            this.search_bar.Size = new System.Drawing.Size(153, 27);
+            this.search_bar.TabIndex = 4;
+            this.search_bar.TextChanged += new System.EventHandler(this.search_bar_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(736, 451);
+            this.Controls.Add(this.search_bar);
             this.Controls.Add(this.add_file_offer);
             this.Controls.Add(this.remove_offer);
             this.Controls.Add(this.add_new_offer);
@@ -122,6 +133,7 @@ namespace Wasted
             this.Text = "Left Over";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -134,6 +146,7 @@ namespace Wasted
         private System.Windows.Forms.ColumnHeader pr_price;
         private System.Windows.Forms.Button remove_offer;
         private System.Windows.Forms.Button add_file_offer;
+        private System.Windows.Forms.TextBox search_bar;
     }
 }
 
