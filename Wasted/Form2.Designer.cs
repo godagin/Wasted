@@ -31,7 +31,7 @@ namespace Wasted
         {
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.submit = new System.Windows.Forms.Button();
             this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,15 +62,15 @@ namespace Wasted
             this.textBoxDescription.Size = new System.Drawing.Size(213, 105);
             this.textBoxDescription.TabIndex = 1;
             // 
-            // button1
+            // submit
             // 
-            this.button1.Location = new System.Drawing.Point(445, 339);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Submit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.submit.Location = new System.Drawing.Point(445, 339);
+            this.submit.Name = "submit";
+            this.submit.Size = new System.Drawing.Size(94, 29);
+            this.submit.TabIndex = 2;
+            this.submit.Text = "Patvirtinti";
+            this.submit.UseVisualStyleBackColor = true;
+            this.submit.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBoxPrice
             // 
@@ -170,7 +170,7 @@ namespace Wasted
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(326, 176);
+            this.label6.Location = new System.Drawing.Point(326, 256);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 20);
             this.label6.TabIndex = 13;
@@ -210,7 +210,7 @@ namespace Wasted
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPrice);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.submit);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.textBoxName);
             this.Name = "Form2";
@@ -224,7 +224,7 @@ namespace Wasted
 
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button submit;
         private System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

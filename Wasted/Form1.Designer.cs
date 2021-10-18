@@ -40,6 +40,7 @@ namespace Wasted
             this.comboBoxSort = new System.Windows.Forms.ComboBox();
             this.buttonSort = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.search_bar = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lv_offer
@@ -56,14 +57,15 @@ namespace Wasted
             this.pr_expiration});
             this.lv_offer.FullRowSelect = true;
             this.lv_offer.HideSelection = false;
-            this.lv_offer.Location = new System.Drawing.Point(40, 72);
             this.lv_offer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lv_offer.Location = new System.Drawing.Point(46, 96);
+            this.lv_offer.MultiSelect = false;
             this.lv_offer.Name = "lv_offer";
             this.lv_offer.Size = new System.Drawing.Size(662, 240);
             this.lv_offer.TabIndex = 0;
             this.lv_offer.UseCompatibleStateImageBehavior = false;
             this.lv_offer.View = System.Windows.Forms.View.Details;
-            this.lv_offer.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lv_offer_ItemSelectionChanged);
+            this.lv_offer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lv_offer_MouseDoubleClick);
             // 
             // pr_name
             // 
@@ -159,23 +161,33 @@ namespace Wasted
             this.label1.Size = new System.Drawing.Size(85, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "Rūšiuoti pagal:";
+            //
+            // search_bar
+            // 
+            this.search_bar.Location = new System.Drawing.Point(222, 45);
+            this.search_bar.Name = "search_bar";
+            this.search_bar.PlaceholderText = "Ieškoti...";
+            this.search_bar.Size = new System.Drawing.Size(153, 27);
+            this.search_bar.TabIndex = 4;
+            this.search_bar.TextChanged += new System.EventHandler(this.search_bar_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(736, 382);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.comboBoxSort);
+            this.ClientSize = new System.Drawing.Size(736, 451);
+            this.Controls.Add(this.search_bar);
             this.Controls.Add(this.add_file_offer);
             this.Controls.Add(this.remove_offer);
             this.Controls.Add(this.add_new_offer);
             this.Controls.Add(this.lv_offer);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Text = "Wasteless";
+            this.Text = "Left Over";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,13 +202,13 @@ namespace Wasted
         private System.Windows.Forms.ColumnHeader pr_description;
         private System.Windows.Forms.ColumnHeader pr_price;
         private System.Windows.Forms.Button remove_offer;
-
         private System.Windows.Forms.ColumnHeader pr_expiration;
-
         private System.Windows.Forms.Button add_file_offer;
         private System.Windows.Forms.ComboBox comboBoxSort;
         private System.Windows.Forms.Button buttonSort;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox search_bar;
+
     }
 }
 
