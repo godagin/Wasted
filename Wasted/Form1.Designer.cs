@@ -37,6 +37,9 @@ namespace Wasted
             this.add_new_offer = new System.Windows.Forms.Button();
             this.remove_offer = new System.Windows.Forms.Button();
             this.add_file_offer = new System.Windows.Forms.Button();
+            this.comboBoxSort = new System.Windows.Forms.ComboBox();
+            this.buttonSort = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lv_offer
@@ -56,7 +59,6 @@ namespace Wasted
             this.lv_offer.TabIndex = 0;
             this.lv_offer.UseCompatibleStateImageBehavior = false;
             this.lv_offer.View = System.Windows.Forms.View.Details;
-            this.lv_offer.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lv_offer_ColumnClick);
             this.lv_offer.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lv_offer_ItemSelectionChanged);
             // 
             // pr_name
@@ -115,16 +117,52 @@ namespace Wasted
             this.add_file_offer.UseVisualStyleBackColor = true;
             this.add_file_offer.Click += new System.EventHandler(this.add_file_offer_Click_1);
             // 
+            // comboBoxSort
+            // 
+            this.comboBoxSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSort.FormattingEnabled = true;
+            this.comboBoxSort.Items.AddRange(new object[] {
+            "Pavadinimą nuo A iki Z",
+            "Pavadinimą nuo Z iki A",
+            "Kainą didėjančiai",
+            "Kainą mažėjančiai",
+            "Galiojimo datą didėjančiai",
+            "Galiojimo datą mažėjančiai"});
+            this.comboBoxSort.Location = new System.Drawing.Point(439, 420);
+            this.comboBoxSort.Name = "comboBoxSort";
+            this.comboBoxSort.Size = new System.Drawing.Size(189, 28);
+            this.comboBoxSort.TabIndex = 4;
+            this.comboBoxSort.SelectedIndexChanged += new System.EventHandler(this.comboBoxSort_SelectedIndexChanged);
+            // 
+            // buttonSort
+            // 
+            this.buttonSort.Location = new System.Drawing.Point(645, 419);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(94, 29);
+            this.buttonSort.TabIndex = 5;
+            this.buttonSort.Text = "Rūšiuoti";
+            this.buttonSort.UseVisualStyleBackColor = true;
+            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(326, 425);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 20);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Rūšiuoti pagal:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-
             this.ClientSize = new System.Drawing.Size(785, 451);
-
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonSort);
+            this.Controls.Add(this.comboBoxSort);
             this.Controls.Add(this.add_file_offer);
-
             this.Controls.Add(this.remove_offer);
             this.Controls.Add(this.add_new_offer);
             this.Controls.Add(this.lv_offer);
@@ -132,6 +170,7 @@ namespace Wasted
             this.Text = "Wasteless";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -147,7 +186,9 @@ namespace Wasted
         private System.Windows.Forms.ColumnHeader pr_expiration;
 
         private System.Windows.Forms.Button add_file_offer;
-
+        private System.Windows.Forms.ComboBox comboBoxSort;
+        private System.Windows.Forms.Button buttonSort;
+        private System.Windows.Forms.Label label1;
     }
 }
 
