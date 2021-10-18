@@ -32,6 +32,14 @@ namespace Wasted
             {
                 if (RB_type_discrete.Checked && !RB_type_weighted.Checked && isAmountValid)
                 {
+
+/*
+                        food = new DiscreteFood(name: textBoxName.Text,
+                        description: textBoxDescription.Text,
+                        fullPrice: Double.Parse(textBoxPrice.Text),
+                        quantity: int.Parse(textBoxQuantity.Text));
+*/
+
                     if (textBoxExpiration.Text == "")
                     {
                         food = new DiscreteFood(textBoxName.Text,
@@ -56,6 +64,14 @@ namespace Wasted
                 }
                 else if (!RB_type_discrete.Checked && RB_type_weighted.Checked && isWeightValid)
                 {
+
+/*
+                    food = new WeighedFood(name: textBoxName.Text,
+                        description: textBoxDescription.Text,
+                        fullPrice: Double.Parse(textBoxPrice.Text),
+                        weight: Double.Parse(textBoxWeight.Text));
+*/
+
                     if (textBoxExpiration.Text == "")
                     {
                         food = new DiscreteFood(textBoxName.Text,
