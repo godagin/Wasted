@@ -74,14 +74,14 @@ namespace Wasted
 
                     if (textBoxExpiration.Text == "")
                     {
-                        food = new DiscreteFood(textBoxName.Text,
+                        food = new WeighedFood(textBoxName.Text,
                         textBoxDescription.Text,
                         Double.Parse(textBoxPrice.Text),
                         int.Parse(textBoxQuantity.Text));
                     }
                     else
                     {
-                        food = new DiscreteFood(textBoxName.Text,
+                        food = new WeighedFood(textBoxName.Text,
                         textBoxDescription.Text,
                         Double.Parse(textBoxPrice.Text),
                         int.Parse(textBoxQuantity.Text),
