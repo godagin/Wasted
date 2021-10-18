@@ -73,6 +73,7 @@ namespace Wasted
             item.Text = food.Name;
             item.SubItems.Add(food.Description);
             item.SubItems.Add(food.FullPrice.ToString());
+            item.SubItems.Add(food.ExpDate.ToString("dd.MM.yy"));
             lv_offer.Items.Add(item);
         }
 
@@ -153,6 +154,7 @@ namespace Wasted
                 ListViewItem item1 = new ListViewItem(item.Name);
                 item1.SubItems.Add(item.Description);
                 item1.SubItems.Add(item.FullPrice.ToString());
+                item1.SubItems.Add(item.ExpDate.ToString("dd.MM.yy"));
                 lv_offer.Items.Add(item1);
             }
         }
