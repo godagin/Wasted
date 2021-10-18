@@ -25,16 +25,23 @@ namespace Wasted
                 {
                     itemX.fieldToText = itemX.Name;
                     itemY.fieldToText = itemY.Name;
+
+                    result = String.Compare(itemX.fieldToText, itemY.fieldToText);
                 }
-                else if (sortOrder == 2)
-                {
-                    itemX.fieldToText = itemX.FullPrice.ToString();
-                    itemY.fieldToText = itemY.FullPrice.ToString();
+                else if (sortOrder == 4)
+                {           
+                    itemX.fieldToText = itemX.ExpDate.ToString("dd.MM.yy");
+                    itemY.fieldToText = itemY.ExpDate.ToString("dd.MM.yy");
+                    result = String.Compare(itemX.fieldToText, itemY.fieldToText);
                 }
                 else
                 {
-                    itemX.fieldToText = itemX.ExpDate.ToString("dd.MM.yy");
-                    itemY.fieldToText = itemY.ExpDate.ToString("dd.MM.yy");
+                    if (itemX.FullPrice > itemY.FullPrice)
+                        result = 1;
+                    if (itemX.FullPrice < itemY.FullPrice)
+                        result = -1;
+                    else
+                        result = 0;
                 }
             }
             else
@@ -43,32 +50,24 @@ namespace Wasted
                 {
                     itemX.fieldToText = itemX.Name;
                     itemY.fieldToText = itemY.Name;
+                    result = String.Compare(itemX.fieldToText, itemY.fieldToText) * -1;
                 }
-                else if (sortOrder == 3)
-                {
-                    itemX.fieldToText = itemX.FullPrice.ToString();
-                    itemY.fieldToText = itemY.FullPrice.ToString();
-                }
-                else
+                else if (sortOrder == 5)
                 {
                     itemX.fieldToText = itemX.ExpDate.ToString("dd.MM.yy");
                     itemY.fieldToText = itemY.ExpDate.ToString("dd.MM.yy");
+                    result = String.Compare(itemX.fieldToText, itemY.fieldToText) * -1;
+                }
+                else
+                {
+                    if (itemX.FullPrice < itemY.FullPrice)
+                        result = 1;
+                    if (itemX.FullPrice > itemY.FullPrice)
+                        result = -1;
+                    else
+                        result = 0;
                 }
             }
-
-            if (itemX == null && itemY == null)
-                result = 0;
-            else if (itemX == null)
-                result = -1;
-            else if (itemY == null)
-                result = 1;
-            if (itemX == itemY)
-                result = 0;
-
-            result = String.Compare(itemX.fieldToText, itemY.fieldToText);
-
-            if (sortOrder % 2 != 0) // non even indexes - sort desc
-                result *= -1;
 
             return result;
         }
