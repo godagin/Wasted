@@ -141,18 +141,7 @@ namespace Wasted
         }
 
 
-        /*
-private void add_file_offer_Click(object sender, EventArgs e)
-{
-   lv_offer.BeginUpdate();
-
-   string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
-
-   int index = FoodList.GetObject().GetList().Count();
-
-
-        }
-
+        
         private void search_bar_TextChanged(object sender, EventArgs e)
         {
             DataContext dc = new DataContext();
@@ -166,10 +155,7 @@ private void add_file_offer_Click(object sender, EventArgs e)
                 item1.SubItems.Add(item.FullPrice.ToString());
                 lv_offer.Items.Add(item1);
             }
-
-                Form3 form3 = new Form3();
-                form3.ShowDialog();
-        }*/
+        }
     }
 }
 
