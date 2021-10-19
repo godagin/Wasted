@@ -104,12 +104,6 @@ namespace Wasted
 
             ///-----------reloading listview begins and sorting ends
             reloadListView();
-
-            double _d = 5.896;
-           
-            int _i = (int)_d;
-            double _id = (double)_i;
-            MessageBox.Show(_d.ToString() + " " + _i.ToString() + " " + _id.ToString());
         }
 
         private void comboBoxSort_SelectedIndexChanged(object sender, EventArgs e)
