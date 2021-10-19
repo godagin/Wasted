@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Wasted
 {
     class DiscreteFood : Food
     {
         public int Quantity { get; set; }
 
-        public DiscreteFood() { ID++; }
+        public DiscreteFood() : base() { }
 
-        public DiscreteFood(string name, string description, double fullPrice, int quantity, int expDays = 2) : base(name, description, fullPrice, expDays)
+        public DiscreteFood(string name, string description, double fullPrice, int quantity, int expDays = 2) 
+            : base(name, description, fullPrice, expDays)
         {
             Quantity = quantity;
         }

@@ -14,33 +14,27 @@ namespace Wasted
         public DateTime ExpDate { get; set; }
 
         public Food() { ID++; }
-      
-        public Food(string name, string description, double fullPrice, int expDays = 2)
-        {
-            this.Name = name;
-            this.Description = description;
-            this.FullPrice = fullPrice;
-            //this.Amount = amount;
-
-            Type = (int)Category.Other;
-
-            this.ExpDate = DateTime.Now.AddDays(expDays);
-
-            ID++;
-        }
 
         public Food(string name, string description, int expDays = 2)
+            : this()
         {
             this.Name = name;
             this.Description = description;
-            // this.Amount = amount;
+            this.FullPrice = 0;
             this.ExpDate = DateTime.Now.AddDays(expDays);
-            ID++;
+            Type = (int)Category.Default;
+        }
+
+        public Food(string name, string description, double fullPrice, int expDays = 2) 
+            : this(name, description, expDays)
+        {
+            this.FullPrice = fullPrice;
         }
 
         [Flags]
         enum Category
         {
+            Default = 0,
             Vegetables = 1,
             Fruits = 2,
             Fish_and_Seafood = 3,

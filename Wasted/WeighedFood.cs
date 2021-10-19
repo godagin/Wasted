@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Wasted
 {
     class WeighedFood : Food
     {
         public double Weight { get; set; }
 
-        public WeighedFood() { ID++; }
+        public WeighedFood() : base() { }
 
-        public WeighedFood(string name, string description, double fullPrice, double weight, int expDays = 2) : base(name, description, fullPrice, expDays)
+        public WeighedFood(string name, string description, double fullPrice, double weight, int expDays = 2) 
+            : base(name, description, fullPrice, expDays)
         {
             Weight = weight;
         }

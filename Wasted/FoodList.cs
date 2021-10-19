@@ -36,7 +36,7 @@ namespace Wasted
             return FoodOffers;
         }
 
-        protected virtual void OnAddedToList() //examples showed that this should be a seperate class perhaps for readability
+        protected virtual void OnAddedToList() //examples showed that this should be a seperate method perhaps for readability
         {
             AddedToList?.Invoke(FoodOffers.Last());
         }
@@ -47,7 +47,7 @@ namespace Wasted
             OnAddedToList();
         }
 
-        protected virtual void OnRemovedFromList(int index) //examples showed that this should be a seperate class
+        protected virtual void OnRemovedFromList(int index) //examples showed that this should be a seperate method
         {
             RemovedFromList?.Invoke(index);
         }
@@ -58,7 +58,7 @@ namespace Wasted
             OnRemovedFromList(index);
         }
 
-        protected virtual void OnEditedListItem() //examples showed that this should be a seperate class
+        protected virtual void OnEditedListItem() //examples showed that this should be a seperate method
         {
             EditedListItem?.Invoke();
         }

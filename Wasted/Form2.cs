@@ -33,31 +33,22 @@ namespace Wasted
                 if (RB_type_discrete.Checked && !RB_type_weighted.Checked && isAmountValid)
                 {
 
-/*
+                    if (textBoxExpiration.Text == "")
+                    {
                         food = new DiscreteFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
                         quantity: int.Parse(textBoxQuantity.Text));
-*/
-
-                    if (textBoxExpiration.Text == "")
-                    {
-                        food = new DiscreteFood(textBoxName.Text,
-                        textBoxDescription.Text,
-                        Double.Parse(textBoxPrice.Text),
-                        int.Parse(textBoxQuantity.Text));
                     }
                     else
                     {
-                        food = new DiscreteFood(textBoxName.Text,
-                        textBoxDescription.Text,
-                        Double.Parse(textBoxPrice.Text),
-                        int.Parse(textBoxQuantity.Text),
-                        int.Parse(textBoxExpiration.Text));
-
+                        food = new DiscreteFood(name: textBoxName.Text,
+                        description: textBoxDescription.Text,
+                        fullPrice: Double.Parse(textBoxPrice.Text),
+                        quantity: int.Parse(textBoxQuantity.Text),
+                        expDays: int.Parse(textBoxExpiration.Text));
                     }
                         
-
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
                     FoodList.GetObject().AddCreatedFood(food);
@@ -65,27 +56,20 @@ namespace Wasted
                 else if (!RB_type_discrete.Checked && RB_type_weighted.Checked && isWeightValid)
                 {
 
-/*
-                    food = new WeighedFood(name: textBoxName.Text,
+                    if (textBoxExpiration.Text == "")
+                    {
+                        food = new WeighedFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
                         weight: Double.Parse(textBoxWeight.Text));
-*/
-
-                    if (textBoxExpiration.Text == "")
-                    {
-                        food = new WeighedFood(textBoxName.Text,
-                        textBoxDescription.Text,
-                        Double.Parse(textBoxPrice.Text),
-                        Double.Parse(textBoxWeight.Text));
                     }
                     else
                     {
-                        food = new WeighedFood(textBoxName.Text,
-                        textBoxDescription.Text,
-                        Double.Parse(textBoxPrice.Text),
-                        Double.Parse(textBoxWeight.Text),
-                        int.Parse(textBoxExpiration.Text));
+                        food = new WeighedFood(name: textBoxName.Text,
+                        description: textBoxDescription.Text,
+                        fullPrice: Double.Parse(textBoxPrice.Text),
+                        weight: Double.Parse(textBoxWeight.Text),
+                        expDays: int.Parse(textBoxExpiration.Text));
 
                     }
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
@@ -103,9 +87,6 @@ namespace Wasted
                         Double.Parse(textBoxPrice.Text));
                     */
                 }
-                //DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
-            
-                //FoodList.GetObject().AddCreatedFood(food); 
             }
             
             this.Close();
@@ -121,6 +102,11 @@ namespace Wasted
         {
             textBoxQuantity.Enabled = true;
             textBoxWeight.Enabled = false;
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

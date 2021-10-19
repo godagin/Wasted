@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-using System.Windows.Forms;
 
 namespace Wasted
 {
+    
      class OfferComparer : IComparer<Food>
     {
         int sortOrder;
@@ -13,7 +11,7 @@ namespace Wasted
         {
             sortOrder = index;
         }
-
+        
         public int Compare(Food itemX, Food itemY)
         {
             int result;

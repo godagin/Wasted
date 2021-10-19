@@ -45,6 +45,7 @@ namespace Wasted
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxExpiration = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxName
@@ -153,7 +154,7 @@ namespace Wasted
             // 
             // textBoxWeight
             // 
-            this.textBoxWeight.Location = new System.Drawing.Point(326, 145);
+            this.textBoxWeight.Location = new System.Drawing.Point(326, 135);
             this.textBoxWeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxWeight.Name = "textBoxWeight";
             this.textBoxWeight.Size = new System.Drawing.Size(212, 27);
@@ -161,7 +162,7 @@ namespace Wasted
             // 
             // textBoxQuantity
             // 
-            this.textBoxQuantity.Location = new System.Drawing.Point(326, 200);
+            this.textBoxQuantity.Location = new System.Drawing.Point(326, 211);
             this.textBoxQuantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxQuantity.Name = "textBoxQuantity";
             this.textBoxQuantity.Size = new System.Drawing.Size(212, 27);
@@ -192,11 +193,21 @@ namespace Wasted
             this.label7.TabIndex = 15;
             this.label7.Text = "Galiojimo dienų skaičius";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(326, 187);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 20);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Kiekis (vnt.)";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(585, 399);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxExpiration);
             this.Controls.Add(this.label6);
@@ -215,6 +226,7 @@ namespace Wasted
             this.Controls.Add(this.textBoxName);
             this.Name = "Form2";
             this.Text = "Produkto pridėjimas";
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,5 +250,6 @@ namespace Wasted
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxExpiration;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
