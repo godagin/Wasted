@@ -6,19 +6,14 @@ namespace Wasted
 {
     class Charity
     {
-        public string Name { get; set; }
-        public string Contacts { get; set; }
-        public string About { get; set; }
-        
-        private bool verified;
+        public CharityInfo About = new CharityInfo();
 
-        private List<Food> CharityOrders; //food has to have priority
+        private List<Food> CharityOrders = new List<Food>(); //food has to have priority
 
         public Charity(string name)
         {
-            this.Name = name;
-            verified = false;
-            CharityOrders = new List<Food>();
+            About.Name = name;
+            
         }
         
         public void AddCharityOrder(Food foodItem)
@@ -36,7 +31,7 @@ namespace Wasted
             RemoveCharityOrder(foodItem);
             CharityOrders.Insert(0, foodItem);
         }
-
+/*
         public void VerifyCharity() /// so that fake charities wouldn't be created
         {
             if (!verified)
@@ -44,6 +39,7 @@ namespace Wasted
                 verified = true;
             }
         }
+*/
     }
  
 }
