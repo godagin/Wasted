@@ -41,28 +41,28 @@ namespace Wasted
                     {
                         double weight = Convert.ToDouble(data[3]);
 
-                        if (data.Length == 5)
+                        if (data.Length < 5)
                         {
-                            int days = Convert.ToInt32(data[4]);
-                            food = new WeighedFood(data[0], data[1], price, weight, days);
+                            food = new WeighedFood(data[0], data[1], price, weight);
                         }
                         else
                         {
-                            food = new WeighedFood(data[0], data[1], price, weight);
+                            int days = Convert.ToInt32(data[4]);
+                            food = new WeighedFood(data[0], data[1], price, weight, days);
                         }
                     }
                     else
                     {
                         int amount = Convert.ToInt32(data[3]);
 
-                        if (data.Length == 5)
+                        if (data.Length < 5)
                         {
-                            int days = Convert.ToInt32(data[4]);
-                            food = new DiscreteFood(data[0], data[1], price, amount, days);
+                            food = new DiscreteFood(data[0], data[1], price, amount);
                         }
                         else
                         {
-                            food = new DiscreteFood(data[0], data[1], price, amount);
+                            int days = Convert.ToInt32(data[4]);
+                            food = new DiscreteFood(data[0], data[1], price, amount, days);
                         }
                     }
 
