@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -89,21 +88,9 @@ namespace Wasted
 
             string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\file.csv");
 
-            //int index = FoodList.GetObject().GetList().Count();
-
             ReadingFile file = new ReadingFile();
             file.ReadFileCsv(path);
-/*
-            while (index < FoodList.GetObject().GetList().Count())
-            {
-                Food itm = FoodList.GetObject().GetList()[index];
-                ListViewItem lvItm = new ListViewItem(itm.Name);
-                lvItm.SubItems.Add(itm.Description);
-                lvItm.SubItems.Add(itm.FullPrice.ToString());
-                lv_offer.Items.Add(lvItm);
-                index++; 
-            }
- */
+
             lv_offer.EndUpdate();
         }
 
@@ -116,32 +103,19 @@ namespace Wasted
             FoodList.GetObject().GetList().Sort(srt);
 
             ///-----------reloading listview begins and sorting ends
+            reloadListView();
 
-            lv_offer.BeginUpdate();
-
-            lv_offer.Items.Clear();
-
-            int counter = 0;
-
-            while (counter < FoodList.GetObject().GetList().Count())
-            {
-                Food itm = FoodList.GetObject().GetList()[counter];
-                ListViewItem lvItm = new ListViewItem(itm.Name);
-                lvItm.SubItems.Add(itm.Description);
-                lvItm.SubItems.Add(itm.FullPrice.ToString());
-                lvItm.SubItems.Add(itm.ExpDate.ToString("dd.MM.yy"));
-                lv_offer.Items.Add(lvItm);
-                counter++;
-            }
-            lv_offer.EndUpdate();
+            double _d = 5.896;
+           
+            int _i = (int)_d;
+            double _id = (double)_i;
+            MessageBox.Show(_d.ToString() + " " + _i.ToString() + " " + _id.ToString());
         }
 
         private void comboBoxSort_SelectedIndexChanged(object sender, EventArgs e)
         {
           
         }
-
-
         
         private void search_bar_TextChanged(object sender, EventArgs e)
         {

@@ -48,10 +48,12 @@ namespace Wasted
                         quantity: int.Parse(textBoxQuantity.Text),
                         expDays: int.Parse(textBoxExpiration.Text));
                     }
-                        
+
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
                     FoodList.GetObject().AddCreatedFood(food);
+
+                    this.Close();
                 }
                 else if (!RB_type_discrete.Checked && RB_type_weighted.Checked && isWeightValid)
                 {
@@ -75,21 +77,14 @@ namespace Wasted
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food); //add entity to the add method
 
                     FoodList.GetObject().AddCreatedFood(food);
+
+                    this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Netinkamas formatas! Bandykite dar kartą.");
-
-                    /*
-                    //catch exceptions what if in the place of double we get a string OR empty
-                    food = new Food(textBoxName.Text,
-                        textBoxDescription.Text,
-                        Double.Parse(textBoxPrice.Text));
-                    */
+                    MessageBox.Show("Netinkamas kiekio formatas! Bandykite dar kartą.");
                 }
             }
-            
-            this.Close();
         }
 
         private void RB_type_weighted_CheckedChanged(object sender, EventArgs e)

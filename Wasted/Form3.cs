@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Wasted
+
+    //REIKIA PALIKTI TIK VIENĄ LAUKELĮ KIEKIUI
 {
     public partial class Form3 : Form
     {
@@ -16,7 +14,7 @@ namespace Wasted
         {
             InitializeComponent();
         }
-
+        
         public Form3(Food food)
         {
             InitializeComponent();
@@ -30,23 +28,17 @@ namespace Wasted
             if (food.GetType() == typeof(WeighedFood))
             {
                 RB_weighed.Checked = true;
-                textBoxWeight.Text = ((WeighedFood)food).Weight.ToString();
-                textBoxQuantity.Enabled = false;
+                textBoxAmount.Text = ((WeighedFood)food).Weight.ToString();
             } 
             else if(food.GetType() == typeof(DiscreteFood))
             {
                 RB_discrete.Checked = true;
-                textBoxQuantity.Text = ((DiscreteFood)food).Quantity.ToString();
-                textBoxWeight.Enabled = false;
+                textBoxAmount.Text = ((DiscreteFood)food).Quantity.ToString();
             }
             else
             {
-                textBoxQuantity.Enabled = false;
-                textBoxWeight.Enabled = false;
+                textBoxAmount.Enabled = false;
             }
-
-            RB_discrete.Enabled = false;
-            RB_weighed.Enabled = false;
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -65,22 +57,59 @@ namespace Wasted
 
         private void submit_changes_Click(object sender, EventArgs e)
         {
-            double amount;
-            if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood))
+            bool isAmountInt = Regex.IsMatch(textBoxAmount.Text, @"^\d+$");
+            bool isAmountDouble = Regex.IsMatch(textBoxAmount.Text, @"^\d+(\,|\.)?(\d{1,3})?$");
+            
+            if (isAmountInt)
             {
-                amount = Double.Parse(textBoxWeight.Text);
-                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), amount);
+                var amount = int.Parse(textBoxAmount.Text);
+                Food food = FoodList.GetObject().GetList()[Index];
+                DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
+                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), (double)amount);
+
+                //if food is weighed and chosen to convert to discrete
+                if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
+                {     
+                    FoodList.GetObject().ChangeFoodTypeToDiscrete(Index, food, amount);
+                } 
+                //if food is discrete
+                else if (FoodList.GetObject().GetList()[Index].GetType() == typeof(DiscreteFood) && RB_weighed.Checked)
+                {
+                    FoodList.GetObject().ChangeFoodTypeToWeighed(Index, food, (double)amount);
+                }
+                
+                DatabaseHandler.GetHandler().AddItemToFoodTable(FoodList.GetObject().GetList()[Index]);
+
+                this.Close();
+
             }
-            else if (FoodList.GetObject().GetList()[Index].GetType() == typeof(DiscreteFood))
+            else if (isAmountDouble)
             {
-                amount = Double.Parse(textBoxQuantity.Text);
+                var amount = Double.Parse(textBoxAmount.Text);
+                Food food = FoodList.GetObject().GetList()[Index];
+                DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
                 FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), amount);
+
+                //if food is weighed and chosen to convert to discrete
+                if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
+                {
+                    FoodList.GetObject().ChangeFoodTypeToDiscrete(Index, food, (int)amount);
+                }
+                //if food is discrete
+                else if (FoodList.GetObject().GetList()[Index].GetType() == typeof(DiscreteFood) && RB_weighed.Checked)
+                {
+                    FoodList.GetObject().ChangeFoodTypeToWeighed(Index, food, amount);
+                }
+
+                DatabaseHandler.GetHandler().AddItemToFoodTable(FoodList.GetObject().GetList()[Index]);
+                
+                this.Close();
+
             }
-            FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text));
-
-            DatabaseHandler.GetHandler().EditFoodTableItem(FoodList.GetObject().GetList()[Index]);
-
-            this.Close();
+            else
+            {
+                MessageBox.Show("Netinkamas kiekio formatas! Bandykite dar kartą.");
+            }
         }
     }
 }

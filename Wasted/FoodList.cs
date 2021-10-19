@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Wasted
 {
@@ -78,6 +79,26 @@ namespace Wasted
             }
 
             OnEditedListItem();
+        }
+
+        public void ChangeFoodTypeToWeighed(int index, Food food, double amount)
+        {
+            FoodOffers.RemoveAt(index);
+
+            WeighedFood weighed = new WeighedFood(food.Name, food.Description, food.FullPrice, amount, food.GetShelfDays());//naujas sukurs nauja ID
+            weighed.ID = food.ID;
+
+            FoodOffers.Insert(index, weighed);
+        }
+
+        public void ChangeFoodTypeToDiscrete(int index, Food food, int amount)
+        {
+            FoodOffers.RemoveAt(index); 
+            
+            DiscreteFood discrete = new DiscreteFood(food.Name, food.Description, food.FullPrice, amount, food.GetShelfDays());//naujas sukurs nauja ID
+            discrete.ID = food.ID;
+
+            FoodOffers.Insert(index, discrete);
         }
 
         public void RemoveAll()

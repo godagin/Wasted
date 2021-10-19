@@ -37,16 +37,17 @@ namespace Wasted
             this.RB_weighed = new System.Windows.Forms.RadioButton();
             this.RB_discrete = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.textBoxWeight = new System.Windows.Forms.TextBox();
-            this.textBoxQuantity = new System.Windows.Forms.TextBox();
+            this.textBoxAmount = new System.Windows.Forms.TextBox();
             this.submit_changes = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // bin
             // 
-            this.bin.Location = new System.Drawing.Point(496, 244);
+            this.bin.Location = new System.Drawing.Point(434, 224);
+            this.bin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bin.Name = "bin";
-            this.bin.Size = new System.Drawing.Size(94, 35);
+            this.bin.Size = new System.Drawing.Size(82, 26);
             this.bin.TabIndex = 0;
             this.bin.Text = "Į šiukšlinę";
             this.bin.UseVisualStyleBackColor = true;
@@ -54,32 +55,36 @@ namespace Wasted
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(41, 42);
+            this.textBoxName.Location = new System.Drawing.Point(36, 32);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(257, 27);
+            this.textBoxName.Size = new System.Drawing.Size(225, 23);
             this.textBoxName.TabIndex = 1;
             // 
             // textBoxPrice
             // 
-            this.textBoxPrice.Location = new System.Drawing.Point(41, 252);
+            this.textBoxPrice.Location = new System.Drawing.Point(36, 189);
+            this.textBoxPrice.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPrice.Name = "textBoxPrice";
-            this.textBoxPrice.Size = new System.Drawing.Size(257, 27);
+            this.textBoxPrice.Size = new System.Drawing.Size(225, 23);
             this.textBoxPrice.TabIndex = 3;
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Location = new System.Drawing.Point(41, 107);
+            this.textBoxDescription.Location = new System.Drawing.Point(36, 80);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(257, 101);
+            this.textBoxDescription.Size = new System.Drawing.Size(225, 77);
             this.textBoxDescription.TabIndex = 4;
             // 
             // RB_weighed
             // 
             this.RB_weighed.AutoSize = true;
-            this.RB_weighed.Location = new System.Drawing.Point(357, 42);
+            this.RB_weighed.Location = new System.Drawing.Point(312, 32);
+            this.RB_weighed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RB_weighed.Name = "RB_weighed";
-            this.RB_weighed.Size = new System.Drawing.Size(97, 24);
+            this.RB_weighed.Size = new System.Drawing.Size(78, 19);
             this.RB_weighed.TabIndex = 5;
             this.RB_weighed.TabStop = true;
             this.RB_weighed.Text = "Sveriamas";
@@ -88,9 +93,10 @@ namespace Wasted
             // RB_discrete
             // 
             this.RB_discrete.AutoSize = true;
-            this.RB_discrete.Location = new System.Drawing.Point(496, 42);
+            this.RB_discrete.Location = new System.Drawing.Point(434, 32);
+            this.RB_discrete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RB_discrete.Name = "RB_discrete";
-            this.RB_discrete.Size = new System.Drawing.Size(94, 24);
+            this.RB_discrete.Size = new System.Drawing.Size(76, 19);
             this.RB_discrete.TabIndex = 6;
             this.RB_discrete.TabStop = true;
             this.RB_discrete.Text = "Vienetinis";
@@ -102,44 +108,47 @@ namespace Wasted
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // textBoxWeight
+            // textBoxAmount
             // 
-            this.textBoxWeight.Location = new System.Drawing.Point(357, 120);
-            this.textBoxWeight.Name = "textBoxWeight";
-            this.textBoxWeight.Size = new System.Drawing.Size(233, 27);
-            this.textBoxWeight.TabIndex = 8;
-            // 
-            // textBoxQuantity
-            // 
-            this.textBoxQuantity.Location = new System.Drawing.Point(357, 181);
-            this.textBoxQuantity.Name = "textBoxQuantity";
-            this.textBoxQuantity.Size = new System.Drawing.Size(233, 27);
-            this.textBoxQuantity.TabIndex = 9;
+            this.textBoxAmount.Location = new System.Drawing.Point(312, 80);
+            this.textBoxAmount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxAmount.Name = "textBoxAmount";
+            this.textBoxAmount.Size = new System.Drawing.Size(204, 23);
+            this.textBoxAmount.TabIndex = 8;
             // 
             // submit_changes
             // 
-            this.submit_changes.Location = new System.Drawing.Point(357, 244);
+            this.submit_changes.Location = new System.Drawing.Point(312, 224);
+            this.submit_changes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.submit_changes.Name = "submit_changes";
-            this.submit_changes.Size = new System.Drawing.Size(94, 35);
+            this.submit_changes.Size = new System.Drawing.Size(82, 26);
             this.submit_changes.TabIndex = 10;
             this.submit_changes.Text = "Patvirtinti";
             this.submit_changes.UseVisualStyleBackColor = true;
             this.submit_changes.Click += new System.EventHandler(this.submit_changes_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(312, 189);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(204, 23);
+            this.textBox1.TabIndex = 11;
+            // 
             // Form3
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 335);
+            this.ClientSize = new System.Drawing.Size(542, 302);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.submit_changes);
-            this.Controls.Add(this.textBoxQuantity);
-            this.Controls.Add(this.textBoxWeight);
+            this.Controls.Add(this.textBoxAmount);
             this.Controls.Add(this.RB_discrete);
             this.Controls.Add(this.RB_weighed);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.bin);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form3";
             this.Text = "Produkto redagavimas";
             this.Load += new System.EventHandler(this.Form3_Load);
@@ -157,8 +166,8 @@ namespace Wasted
         private System.Windows.Forms.RadioButton RB_weighed;
         private System.Windows.Forms.RadioButton RB_discrete;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.TextBox textBoxWeight;
-        private System.Windows.Forms.TextBox textBoxQuantity;
+        private System.Windows.Forms.TextBox textBoxAmount;
         private System.Windows.Forms.Button submit_changes;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
