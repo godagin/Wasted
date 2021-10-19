@@ -60,6 +60,10 @@ namespace Wasted
         {
             return DateTime.Now.AddDays(days).ToString("dd.MM.yy");
         }
+        public int GetShelfDays()
+        {
+            return (int)(this.ExpDate - DateTime.Now).TotalDays;
+        }
     }
 }
 
