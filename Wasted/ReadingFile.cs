@@ -55,7 +55,7 @@ namespace Wasted
                     {
                         int amount = Convert.ToInt32(data[3]);
 
-                        if (data.Length == 5)
+                        if (data.Length >= 5)
                         {
                             int days = Convert.ToInt32(data[4]);
                             food = new DiscreteFood(data[0], data[1], price, amount, days);
