@@ -24,6 +24,7 @@ namespace Wasted
                     double price = Convert.ToDouble(data[2]);
 
                     //if that string contains ".", it means that it will be kg
+            /*
                     if (data[3].Contains("."))
                     {
                         double weight = Convert.ToDouble(data[3]);
@@ -34,6 +35,37 @@ namespace Wasted
                         int amount = Convert.ToInt32(data[3]);
                         food = new DiscreteFood(data[0], data[1], price, amount);
                     }
+            */
+
+                    if (data[3].Contains("."))
+                    {
+                        double weight = Convert.ToDouble(data[3]);
+
+                        if (data.Length == 5)
+                        {
+                            int days = Convert.ToInt32(data[4]);
+                            food = new WeighedFood(data[0], data[1], price, weight, days);
+                        }
+                        else
+                        {
+                            food = new WeighedFood(data[0], data[1], price, weight);
+                        }
+                    }
+                    else
+                    {
+                        int amount = Convert.ToInt32(data[3]);
+
+                        if (data.Length == 5)
+                        {
+                            int days = Convert.ToInt32(data[4]);
+                            food = new DiscreteFood(data[0], data[1], price, amount, days);
+                        }
+                        else
+                        {
+                            food = new DiscreteFood(data[0], data[1], price, amount);
+                        }
+                    }
+
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food);
                    
                     FoodList.GetObject().AddCreatedFood(food);

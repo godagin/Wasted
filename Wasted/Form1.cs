@@ -119,20 +119,29 @@ namespace Wasted
 
             lv_offer.BeginUpdate();
 
-            lv_offer.Items.Clear();
+            reloadListView();
 
-            int counter = 0;
+            /*
+             lv_offer.Items.Clear();
 
-            while (counter < FoodList.GetObject().GetList().Count())
-            {
-                Food itm = FoodList.GetObject().GetList()[counter];
-                ListViewItem lvItm = new ListViewItem(itm.Name);
-                lvItm.SubItems.Add(itm.Description);
-                lvItm.SubItems.Add(itm.FullPrice.ToString());
-                lvItm.SubItems.Add(itm.ExpDate.ToString("dd.MM.yy"));
-                lv_offer.Items.Add(lvItm);
-                counter++;
-            }
+             int counter = 0;
+
+             while (counter < FoodList.GetObject().GetList().Count())
+             {
+                 Food itm = FoodList.GetObject().GetList()[counter];
+
+
+                 ListViewItem lvItm = new ListViewItem(itm.Name);
+                 lvItm.SubItems.Add(itm.Description);
+                 lvItm.SubItems.Add(itm.FullPrice.ToString());
+                 lvItm.SubItems.Add(itm.ExpDate.ToString("dd.MM.yy"));
+                 lv_offer.Items.Add(lvItm);
+
+
+                 counter++;
+             }
+            */
+          
             lv_offer.EndUpdate();
         }
 
