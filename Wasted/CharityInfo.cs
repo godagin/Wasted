@@ -8,6 +8,6 @@ namespace Wasted
     {
         public string Name;
         public string Contacts;
-        public string Descriptiont;
+        public string Description;
     }
 }
