@@ -64,11 +64,13 @@ namespace Wasted
             EditedListItem?.Invoke();
         }
 
-        public void EditItem(int index, string name, string description, double price, double amount = 0)//amount can be either weight or quantity
+        public void EditItem(int index, string name, string description, double price,  int type, double amount = 0)//amount can be either weight or quantity
         {
             FoodOffers[index].Name = name;
             FoodOffers[index].Description = description;
             FoodOffers[index].FullPrice = price;
+            FoodOffers[index].Type = type;
+
             if (FoodOffers[index].GetType() == typeof(WeighedFood))
             {
                 ((WeighedFood)FoodOffers[index]).Weight = amount;

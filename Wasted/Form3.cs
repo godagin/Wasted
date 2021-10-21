@@ -24,7 +24,8 @@ namespace Wasted
             textBoxName.Text = food.Name;
             textBoxDescription.Text = food.Description;
             textBoxPrice.Text = food.FullPrice.ToString();
-            
+            comboBoxType.Text = comboBoxType.Items[food.Type].ToString();
+         
             if (food.GetType() == typeof(WeighedFood))
             {
                 RB_weighed.Checked = true;
@@ -65,7 +66,8 @@ namespace Wasted
                 var amount = int.Parse(textBoxAmount.Text);
                 Food food = FoodList.GetObject().GetList()[Index];
                 DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
-                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), (double)amount);
+                //FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), (double)amount);
+                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), comboBoxType.SelectedIndex, (double)amount);
 
                 //if food is weighed and chosen to convert to discrete
                 if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
@@ -88,7 +90,8 @@ namespace Wasted
                 var amount = Double.Parse(textBoxAmount.Text);
                 Food food = FoodList.GetObject().GetList()[Index];
                 DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
-                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), amount);
+                //FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), amount);
+                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), comboBoxType.SelectedIndex, amount);
 
                 //if food is weighed and chosen to convert to discrete
                 if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
@@ -110,6 +113,11 @@ namespace Wasted
             {
                 MessageBox.Show("Netinkamas kiekio formatas! Bandykite dar kartą.");
             }
+        }
+
+        private void comboBoxType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
