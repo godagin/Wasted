@@ -15,20 +15,23 @@ namespace Wasted
 
         public Food() { ID++; }
 
-        public Food(string name, string description, int expDays = 2)
+        public Food(string name, string description, int type, int expDays = 2)
             : this()
         {
             this.Name = name;
             this.Description = description;
             this.FullPrice = 0;
             this.ExpDate = DateTime.Now.AddDays(expDays);
-            Type = (int)Category.Default;
+            //Type = (int)Category.Default;
+            this.Type = type;
         }
 
-        public Food(string name, string description, double fullPrice, int expDays = 2) 
+        public Food(string name, string description, double fullPrice, int type, int expDays = 2) 
             : this(name, description, expDays)
-        {
+        {    
             this.FullPrice = fullPrice;
+            this.Type = type;
+            this.ExpDate = DateTime.Now.AddDays(expDays);
         }
 
         [Flags]

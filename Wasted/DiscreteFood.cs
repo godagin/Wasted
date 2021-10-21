@@ -7,8 +7,8 @@ namespace Wasted
 
         public DiscreteFood() : base() { }
 
-        public DiscreteFood(string name, string description, double fullPrice, int quantity, int expDays = 2) 
-            : base(name, description, fullPrice, expDays)
+        public DiscreteFood(string name, string description, double fullPrice, int type, int quantity, int expDays = 2) 
+            : base(name, description, fullPrice, type, expDays)
         {
             Quantity = quantity;
         }

@@ -64,7 +64,7 @@ namespace Wasted
             EditedListItem?.Invoke();
         }
 
-        public void EditItem(int index, string name, string description, double price,  int type, double amount = 0)//amount can be either weight or quantity
+        public void EditItem(int index, string name, string description, double price, int type, double amount = 0)//amount can be either weight or quantity
         {
             FoodOffers[index].Name = name;
             FoodOffers[index].Description = description;
@@ -87,7 +87,7 @@ namespace Wasted
         {
             FoodOffers.RemoveAt(index);
 
-            WeighedFood weighed = new WeighedFood(food.Name, food.Description, food.FullPrice, amount, food.GetShelfDays());//naujas sukurs nauja ID
+            WeighedFood weighed = new WeighedFood(food.Name, food.Description, food.FullPrice, food.Type, amount, food.GetShelfDays());//naujas sukurs nauja ID
             weighed.ID = food.ID;
 
             FoodOffers.Insert(index, weighed);
@@ -97,7 +97,7 @@ namespace Wasted
         {
             FoodOffers.RemoveAt(index); 
             
-            DiscreteFood discrete = new DiscreteFood(food.Name, food.Description, food.FullPrice, amount, food.GetShelfDays());//naujas sukurs nauja ID
+            DiscreteFood discrete = new DiscreteFood(food.Name, food.Description, food.FullPrice, food.Type, amount, food.GetShelfDays());//naujas sukurs nauja ID
             discrete.ID = food.ID;
 
             FoodOffers.Insert(index, discrete);
