@@ -19,14 +19,21 @@ namespace Wasted
             string pricePattern = @"^\d+(\,|\.)?(\d{1,2})?$";
             string weightPattern = @"^\d+(\,|\.)?(\d{1,3})?$";
             string amountPattern = @"^\d+$";
-            
+            string expirationPattern = @"^\d+$";
+
             bool isPriceValid = Regex.IsMatch(textBoxPrice.Text, pricePattern);
             bool isWeightValid = Regex.IsMatch(textBoxWeight.Text, weightPattern);
             bool isAmountValid = Regex.IsMatch(textBoxQuantity.Text, amountPattern);
-            
-            if (!isPriceValid)
+            bool isExpirationValid = Regex.IsMatch(textBoxExpiration.Text, expirationPattern);
+
+            if (!isPriceValid || !isExpirationValid)
             {
+                if (!isExpirationValid && !isPriceValid)
+                MessageBox.Show("Netinkamas kainos ir galiojimo dienų formatas! Bandykite dar kartą.");
+                else if (!isPriceValid)
                 MessageBox.Show("Netinkamas kainos formatas! Bandykite dar kartą.");
+                else if (!isExpirationValid)
+                MessageBox.Show("Netinkamas galiojimo dienų formatas! Bandykite dar kartą.");
             }
             else
             {
