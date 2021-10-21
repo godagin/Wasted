@@ -17,7 +17,8 @@ namespace Wasted
 		public List<Food> addedCharityFoodOffers;
 
 		public User() { ID++; }
-		public User(String name)
+		public User(String name) 
+			: this()
 		{
 			this.Name = name;
 			addedFoodOffers = new List<Food>();
