@@ -38,6 +38,7 @@ namespace Wasted
                         food = new DiscreteFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
+                        type: comboBoxCateg.SelectedIndex,
                         quantity: int.Parse(textBoxQuantity.Text));
                     }
                     else
@@ -45,6 +46,7 @@ namespace Wasted
                         food = new DiscreteFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
+                        type: comboBoxCateg.SelectedIndex,
                         quantity: int.Parse(textBoxQuantity.Text),
                         expDays: int.Parse(textBoxExpiration.Text));
                     }
@@ -63,6 +65,7 @@ namespace Wasted
                         food = new WeighedFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
+                        type: comboBoxCateg.SelectedIndex,
                         weight: Double.Parse(textBoxWeight.Text));
                     }
                     else
@@ -70,6 +73,7 @@ namespace Wasted
                         food = new WeighedFood(name: textBoxName.Text,
                         description: textBoxDescription.Text,
                         fullPrice: Double.Parse(textBoxPrice.Text),
+                        type: comboBoxCateg.SelectedIndex,
                         weight: Double.Parse(textBoxWeight.Text),
                         expDays: int.Parse(textBoxExpiration.Text));
 
@@ -98,10 +102,15 @@ namespace Wasted
             textBoxQuantity.Enabled = true;
             textBoxWeight.Enabled = false;
         }
+        private void comboBoxCateg_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
         private void Form2_Load(object sender, EventArgs e)
         {
 
         }
+
+        
     }
 }

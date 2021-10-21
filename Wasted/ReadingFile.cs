@@ -41,30 +41,32 @@ namespace Wasted
 
                     if (data[3].Contains("."))
                     {
-                        double weight = Convert.ToDouble(data[3]);
+                        double weight = Convert.ToDouble(data[4]);
+                        int type = Convert.ToInt32(data[3]);
 
-                        if (data.Length < 5)
+                        if (data.Length < 6)
                         {
-                            food = new WeighedFood(data[0], data[1], price, weight);
+                            food = new WeighedFood(data[0], data[1], price, type, weight);
                         }
                         else
                         {
-                            int days = Convert.ToInt32(data[4]);
-                            food = new WeighedFood(data[0], data[1], price, weight, days);
+                            int days = Convert.ToInt32(data[5]);
+                            food = new WeighedFood(data[0], data[1], price, type, weight, days);
                         }
                     }
                     else
                     {
-                        int amount = Convert.ToInt32(data[3]);
+                        int amount = Convert.ToInt32(data[4]);
+                        int type = Convert.ToInt32(data[3]);
 
-                        if (data.Length < 5)
+                        if (data.Length < 6)
                         {
-                            food = new DiscreteFood(data[0], data[1], price, amount);
+                            food = new DiscreteFood(data[0], data[1], price, type, amount);
                         }
                         else
                         {
-                            int days = Convert.ToInt32(data[4]);
-                            food = new DiscreteFood(data[0], data[1], price, amount, days);
+                            int days = Convert.ToInt32(data[5]);
+                            food = new DiscreteFood(data[0], data[1], price, type, amount, days);
                         }
                     }
 

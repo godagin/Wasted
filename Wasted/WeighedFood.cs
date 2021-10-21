@@ -7,8 +7,8 @@ namespace Wasted
 
         public WeighedFood() : base() { }
 
-        public WeighedFood(string name, string description, double fullPrice, double weight, int expDays = 2) 
-            : base(name, description, fullPrice, expDays)
+        public WeighedFood(string name, string description, double fullPrice, int type, double weight, int expDays = 2) 
+            : base(name, description, fullPrice, type, expDays)
         {
             Weight = weight;
         }

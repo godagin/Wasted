@@ -26,9 +26,9 @@ namespace Wasted
 
 		//prideti pasiulyma
 
-		public void AddFoodOffer(string foodName, string foodDescription, double fullPrice, int foodAmount)
+		public void AddFoodOffer(string foodName, string foodDescription, double fullPrice, int foodType, int foodAmount)
 		{
-			addedFoodOffers.Add(new Food (foodName, foodDescription, fullPrice));
+			addedFoodOffers.Add(new Food (foodName, foodDescription, fullPrice, foodType));
 		}
 
 		public void AddFoodOffer(Food newOffer)
@@ -46,9 +46,9 @@ namespace Wasted
 		{
 			addedFoodOffers.Remove(food);
 		}
-		public void AddCharityFoodOffer(string foodName, string foodDescription, int foodAmount)
+		public void AddCharityFoodOffer(string foodName, string foodDescription, int foodType, int foodAmount)
 		{
-			addedCharityFoodOffers.Add(new Food(foodName, foodDescription, 0));
+			addedCharityFoodOffers.Add(new Food(foodName, foodDescription, foodType, 0));
 		}
 
 		public void RemoveCharityFoodOffer(int offerID)
