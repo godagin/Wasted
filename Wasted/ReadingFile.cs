@@ -11,8 +11,10 @@ namespace Wasted
 
         }
 
-        public void ReadFileCsv(string path)
-        {            
+        public void ReadFileCsv(string fileName)
+        {
+            string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory())
+               .Parent.FullName + "\\" + fileName + ".csv");
             string line;
             Food food;
             if (File.Exists(path))
