@@ -21,6 +21,10 @@ namespace Wasted
 
             // load all food offers from dbo.Foods to FoodList
             DatabaseHandler.GetHandler().LoadFoodList();
+            MessageBox.Show(FoodList.GetObject().GetList().GetMostWeightingFood().Weight.ToString()
+                + " " + FoodList.GetObject().GetList().GetMostWeightingFood().Name
+                + "\n" + FoodList.GetObject().GetList().GetMostQuantityDiscreteFood().Quantity.ToString()
+                + " " + FoodList.GetObject().GetList().GetMostQuantityDiscreteFood().Name);
         }
 
         private void remove_offer_Click(object sender, EventArgs e) 
@@ -118,11 +122,7 @@ namespace Wasted
             lv_offer.Items.Clear();
             foreach (var item in searchedFood)
             {
-                ListViewItem item1 = new ListViewItem(item.Name);
-                item1.SubItems.Add(item.Description);
-                item1.SubItems.Add(item.FullPrice.ToString());
-                item1.SubItems.Add(item.ExpDate.ToString("dd.MM.yy"));
-                lv_offer.Items.Add(item1);
+                addItemListView(item);
             }
         }
 

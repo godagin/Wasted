@@ -1,7 +1,7 @@
 ﻿
 namespace Wasted
 {
-    class DiscreteFood : Food
+    public class DiscreteFood : Food
     {
         public int Quantity { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿
 namespace Wasted
 {
-    class WeighedFood : Food
+    public class WeighedFood : Food
     {
         public double Weight { get; set; }
 
