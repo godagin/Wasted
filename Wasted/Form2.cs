@@ -19,7 +19,7 @@ namespace Wasted
             string pricePattern = @"^\d+(\,|\.)?(\d{1,2})?$";
             string weightPattern = @"^\d+(\,|\.)?(\d{1,3})?$";
             string amountPattern = @"^\d+$";
-            string expirationPattern = @"^\d+$";
+            string expirationPattern = @"^\d*$";
 
             bool isPriceValid = Regex.IsMatch(textBoxPrice.Text, pricePattern);
             bool isWeightValid = Regex.IsMatch(textBoxWeight.Text, weightPattern);
