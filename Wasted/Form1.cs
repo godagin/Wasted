@@ -85,12 +85,10 @@ namespace Wasted
         private void add_file_offer_Click_1(object sender, EventArgs e)
         {
             lv_offer.BeginUpdate();
-
-            string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory())
-                .Parent.FullName + @"\file.csv");
-
+            
             ReadingFile file = new ReadingFile();
-            file.ReadFileCsv(path);
+            string fileName = "file";
+            file.ReadFileCsv(fileName);
 
             lv_offer.EndUpdate();
         }
@@ -130,12 +128,10 @@ namespace Wasted
 
         private void writing_to_file_Click(object sender, EventArgs e)
         {
-            string path = Path.GetFullPath(Directory.GetParent(Directory.GetCurrentDirectory())
-                .Parent.FullName + @"\offers.csv");
             WritingToFile write = new WritingToFile();
             
             var offers = FoodList.GetObject().GetList();
-            write.WriteToCsv(offers, path);
+            write.WriteToCsv(offers);
             MessageBox.Show("Pasiūlymai sėkmingai surašyti į failą.");
         }
     }
