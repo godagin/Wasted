@@ -55,7 +55,9 @@ namespace Wasted
             dc.Foods.Find(food.ID).Description = food.Description;
             dc.Foods.Find(food.ID).FullPrice = food.FullPrice;
             dc.Foods.Find(food.ID).Type = food.Type;
-            if(food.GetType() == typeof(WeighedFood))
+            dc.Foods.Find(food.ID).ExpDate = food.ExpDate;
+
+            if (food.GetType() == typeof(WeighedFood))
             {
                 ((WeighedFood)dc.Foods.Find(food.ID)).Weight = ((WeighedFood)food).Weight;
             }
