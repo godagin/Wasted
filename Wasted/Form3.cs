@@ -61,58 +61,67 @@ namespace Wasted
         {
             bool isAmountInt = Regex.IsMatch(textBoxAmount.Text, @"^\d+$");
             bool isAmountDouble = Regex.IsMatch(textBoxAmount.Text, @"^\d+(\,|\.)?(\d{1,3})?$");
-            
-            if (isAmountInt)
+            bool isPriceValid = Regex.IsMatch(textBoxPrice.Text, @"^\d+(\,|\.)?(\d{1,2})?$");
+            bool isExpirationValid = Regex.IsMatch(textBoxExpiration.Text, @"^\d*$");
+
+            if (isPriceValid && isExpirationValid)
             {
-                var amount = int.Parse(textBoxAmount.Text);
-                Food food = FoodList.GetObject().GetList()[Index];
-                DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
-                //FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), (double)amount);
-                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), comboBoxType.SelectedIndex, int.Parse(textBoxExpiration.Text), (double)amount);
-
-                //if food is weighed and chosen to convert to discrete
-                if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
-                {     
-                    FoodList.GetObject().ChangeFoodTypeToDiscrete(Index, food, amount);
-                } 
-                //if food is discrete
-                else if (FoodList.GetObject().GetList()[Index].GetType() == typeof(DiscreteFood) && RB_weighed.Checked)
+                if (isAmountInt)
                 {
-                    FoodList.GetObject().ChangeFoodTypeToWeighed(Index, food, (double)amount);
+                    var amount = int.Parse(textBoxAmount.Text);
+                    Food food = FoodList.GetObject().GetList()[Index];
+                    DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
+                    //FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), (double)amount);
+                    FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), comboBoxType.SelectedIndex, int.Parse(textBoxExpiration.Text), (double)amount);
+
+                    //if food is weighed and chosen to convert to discrete
+                    if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
+                    {
+                        FoodList.GetObject().ChangeFoodTypeToDiscrete(Index, food, amount);
+                    }
+                    //if food is discrete
+                    else if (FoodList.GetObject().GetList()[Index].GetType() == typeof(DiscreteFood) && RB_weighed.Checked)
+                    {
+                        FoodList.GetObject().ChangeFoodTypeToWeighed(Index, food, (double)amount);
+                    }
+
+                    DatabaseHandler.GetHandler().AddItemToFoodTable(FoodList.GetObject().GetList()[Index]);
+
+                    this.Close();
+
                 }
-                
-                DatabaseHandler.GetHandler().AddItemToFoodTable(FoodList.GetObject().GetList()[Index]);
-
-                this.Close();
-
-            }
-            else if (isAmountDouble)
-            {
-                var amount = Double.Parse(textBoxAmount.Text);
-                Food food = FoodList.GetObject().GetList()[Index];
-                DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
-                //FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), amount);
-                FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), comboBoxType.SelectedIndex, int.Parse(textBoxExpiration.Text), amount);
-
-                //if food is weighed and chosen to convert to discrete
-                if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
+                else if (isAmountDouble)
                 {
-                    FoodList.GetObject().ChangeFoodTypeToDiscrete(Index, food, (int)amount);
+                    var amount = Double.Parse(textBoxAmount.Text);
+                    Food food = FoodList.GetObject().GetList()[Index];
+                    DatabaseHandler.GetHandler().RemoveItemFromFoodTable(food);
+                    //FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), amount);
+                    FoodList.GetObject().EditItem(Index, textBoxName.Text, textBoxDescription.Text, Double.Parse(textBoxPrice.Text), comboBoxType.SelectedIndex, int.Parse(textBoxExpiration.Text), amount);
+
+                    //if food is weighed and chosen to convert to discrete
+                    if (FoodList.GetObject().GetList()[Index].GetType() == typeof(WeighedFood) && RB_discrete.Checked)
+                    {
+                        FoodList.GetObject().ChangeFoodTypeToDiscrete(Index, food, (int)amount);
+                    }
+                    //if food is discrete
+                    else if (FoodList.GetObject().GetList()[Index].GetType() == typeof(DiscreteFood) && RB_weighed.Checked)
+                    {
+                        FoodList.GetObject().ChangeFoodTypeToWeighed(Index, food, amount);
+                    }
+
+                    DatabaseHandler.GetHandler().AddItemToFoodTable(FoodList.GetObject().GetList()[Index]);
+
+                    this.Close();
+
                 }
-                //if food is discrete
-                else if (FoodList.GetObject().GetList()[Index].GetType() == typeof(DiscreteFood) && RB_weighed.Checked)
+                else
                 {
-                    FoodList.GetObject().ChangeFoodTypeToWeighed(Index, food, amount);
+                    MessageBox.Show("Netinkamas kiekio formatas! Bandykite dar kartą.");
                 }
-
-                DatabaseHandler.GetHandler().AddItemToFoodTable(FoodList.GetObject().GetList()[Index]);
-                
-                this.Close();
-
             }
             else
             {
-                MessageBox.Show("Netinkamas kiekio formatas! Bandykite dar kartą.");
+                MessageBox.Show("Netinkamas kainos arba galiojimo laiko formatas! Bandykite dar kartą. ");
             }
         }
 
