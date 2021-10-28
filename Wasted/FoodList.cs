@@ -6,15 +6,15 @@ using System.Text.RegularExpressions;
 namespace Wasted
 {
     public delegate void AddDelegate(Food food);
-    public delegate void RemoveDelegate(int index);
-    public delegate void EditDelegate();
+    public delegate void RemoveDelegate(int index); 
+
 
     /// singleton
     class FoodList //this is publisher
     {
         public event AddDelegate AddedToList;
         public event RemoveDelegate RemovedFromList;
-        public event EditDelegate EditedListItem;
+        public event EventHandler EditedListItem;
 
         List<Food> FoodOffers;
         private static FoodList _obj = null;
@@ -60,9 +60,9 @@ namespace Wasted
             OnRemovedFromList(index);
         }
 
-        protected virtual void OnEditedListItem() //examples showed that this should be a seperate method
+        protected virtual void OnEditedListItem(EventArgs e) //examples showed that this should be a seperate method
         {
-            EditedListItem?.Invoke();
+            EditedListItem?.Invoke(this, e);
         }
 
         public void EditItem(int index, string name, string description, double price, int type, int expDays, double amount = 0)//amount can be either weight or quantity
@@ -82,7 +82,7 @@ namespace Wasted
                 ((DiscreteFood)FoodOffers[index]).Quantity = (int)amount;
             }
 
-            OnEditedListItem();
+            OnEditedListItem(EventArgs.Empty);
         }
 
         public void ChangeFoodTypeToWeighed(int index, Food food, double amount)

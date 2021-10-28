@@ -21,7 +21,8 @@ namespace Wasted
 
             // load all food offers from dbo.Foods to FoodList
             DatabaseHandler.GetHandler().LoadFoodList();
-            MessageBox.Show(FoodList.GetObject().GetList().GetMostWeightingFood().Weight.ToString()
+            MessageBox.Show("Imkite šiuos pasiūlymus! Didžiausi kiekiai šių produktų:"
+                + "\n" + FoodList.GetObject().GetList().GetMostWeightingFood().Weight.ToString()
                 + " " + FoodList.GetObject().GetList().GetMostWeightingFood().Name
                 + "\n" + FoodList.GetObject().GetList().GetMostQuantityDiscreteFood().Quantity.ToString()
                 + " " + FoodList.GetObject().GetList().GetMostQuantityDiscreteFood().Name);
@@ -59,8 +60,7 @@ namespace Wasted
             }
         }
 
-
-        private void reloadListView()
+        private void reloadListView(object sender, EventArgs e)
         {
             lv_offer.Items.Clear();
             foreach (Food food in FoodList.GetObject().GetList())
@@ -106,7 +106,7 @@ namespace Wasted
             FoodList.GetObject().GetList().Sort(srt);
 
             ///-----------reloading listview begins and sorting ends
-            reloadListView();
+            reloadListView(this, EventArgs.Empty);
         }
 
         private void comboBoxSort_SelectedIndexChanged(object sender, EventArgs e)
