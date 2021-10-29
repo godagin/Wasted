@@ -17,7 +17,7 @@ namespace Wasted
                .Parent.FullName + "\\" + fileName + ".csv");
             string line;
             Food food;
-            if (File.Exists(path))
+            try
             {
                 using StreamReader file = new StreamReader(path);
                 while ((line = file.ReadLine()) != null)
@@ -26,18 +26,18 @@ namespace Wasted
                     double price = Convert.ToDouble(data[2]);
 
                     //if that string contains ".", it means that it will be kg
-            /*
-                    if (data[3].Contains("."))
-                    {
-                        double weight = Convert.ToDouble(data[3]);
-                        food = new WeighedFood(data[0], data[1], price, weight);
-                    }
-                    else
-                    {
-                        int amount = Convert.ToInt32(data[3]);
-                        food = new DiscreteFood(data[0], data[1], price, amount);
-                    }
-            */
+                    /*
+                            if (data[3].Contains("."))
+                            {
+                                double weight = Convert.ToDouble(data[3]);
+                                food = new WeighedFood(data[0], data[1], price, weight);
+                            }
+                            else
+                            {
+                                int amount = Convert.ToInt32(data[3]);
+                                food = new DiscreteFood(data[0], data[1], price, amount);
+                            }
+                    */
 
                     if (data[3].Contains("."))
                     {
@@ -71,11 +71,16 @@ namespace Wasted
                     }
 
                     DatabaseHandler.GetHandler().AddItemToFoodTable(food);
-                   
+
                     FoodList.GetObject().AddCreatedFood(food);
-                    
+
                 }
             }
+            catch (FileNotFoundException exc)
+            {
+                Console.WriteLine(exc);
+            }
+        }
 
             /*public void ReadFileTxt(string fileName, List<Food> foodList)
             {
@@ -100,7 +105,6 @@ namespace Wasted
             }
             */
 
-        }
     }
 
 }
