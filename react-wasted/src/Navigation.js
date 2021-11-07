@@ -18,6 +18,12 @@ export class Navigation extends Component{
                         Foods
                     </NavLink>
                 </Nav>
+                <Nav>
+                    <NavLink className="d-inline p-2 bg-dark text-white" to="/Cart">
+                        Cart
+                    </NavLink>
+                </Nav>
+                
                 </Navbar.Collapse>
                 
             </Navbar>

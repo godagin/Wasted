@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WebWasted.Models;
 
 namespace WebWasted
 {
@@ -12,14 +13,17 @@ namespace WebWasted
         public string Name { get; set; }
         public string Description { get; set; }
         public double FullPrice { get; set; }
-        public int Type { get; set; }
+        public Category Type { get; set; }
         public DateTime ExpDate { get; set; }
 
-        public Food() { ID++; }
-
-        public Food(string name, string description, int type, int expDays = 2)
-            : this()
+        protected Food()
         {
+
+        }
+        
+        public Food(int owner, string name, string description, Category type, int expDays)
+        {
+            this.OwnerID = owner;
             this.Name = name;
             this.Description = description;
             this.FullPrice = 0;
@@ -28,31 +32,12 @@ namespace WebWasted
             this.Type = type;
         }
 
-        public Food(string name, string description, double fullPrice, int type, int expDays = 2) 
-            : this(name, description, expDays)
+        public Food(int owner, string name, string description, double fullPrice, Category type, int expDays) 
+            : this(owner, name, description, type, expDays)
         {    
             this.FullPrice = fullPrice;
-            this.Type = type;
             this.ExpDate = DateTime.Now.AddDays(expDays);
         }
-
-        [Flags]
-        enum Category
-        {
-            Default = 0,
-            Vegetables = 1,
-            Fruits = 2,
-            Fish_and_Seafood = 3,
-            Meat_and_Poultry = 4,
-            Dairy = 5,
-            Grains_Beans_and_Nuts = 6,
-            Sweets = 7,
-            Soups = 8,
-            Meals = 9,
-            Bakery = 10,
-            Confectionery = 11,
-            Other = 12
-        };
 
         public double CalcPrice(int discountPercentage)
         {
@@ -61,10 +46,6 @@ namespace WebWasted
             return price;
         }
         
-        public string SetExpDate(int days)
-        {
-            return DateTime.Now.AddDays(days).ToString("dd.MM.yy");
-        }
         public int GetShelfDays()
         {
             return (int)(this.ExpDate - DateTime.Now).TotalDays;

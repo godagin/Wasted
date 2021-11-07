@@ -2,7 +2,7 @@
 
 namespace WebWasted
 {
-    class DataContext : DbContext
+    public class DataContext : DbContext
     { 
         public DataContext() : base("LeftOverDB")
         {

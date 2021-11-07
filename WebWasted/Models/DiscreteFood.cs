@@ -1,4 +1,6 @@
 ﻿
+using WebWasted.Models;
+
 namespace WebWasted
 {
     public class DiscreteFood : Food
@@ -7,8 +9,8 @@ namespace WebWasted
 
         public DiscreteFood() : base() { }
 
-        public DiscreteFood(string name, string description, double fullPrice, int type, int quantity, int expDays = 2) 
-            : base(name, description, fullPrice, type, expDays)
+        public DiscreteFood(int owner, string name, string description, double fullPrice, Category type, int quantity, int expDays = 2) 
+            : base(owner, name, description, fullPrice, type, expDays)
         {
             Quantity = quantity;
         }

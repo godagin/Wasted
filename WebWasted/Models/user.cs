@@ -7,54 +7,31 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebWasted
 {
-	class User
+	public class User
 	{
 		[Key]
 		public int ID { get; set; }
+		public String UserName { get; set; }
 		public String Name { get; set; }
-
-		public List<Food> addedFoodOffers;
-		public List<Food> addedCharityFoodOffers;
-
-		public User() { ID++; }
-		public User(String name) 
-			: this()
+		public String Surname { get; set; }
+		public String ContactEmail { get; set; }
+		public String Password { get; set; }
+		
+		
+		//it is bad to save password directly in the database, this is only temporary solution 
+		public User(String username, String name, String surname, String email, String password)
 		{
+			this.UserName = username;
 			this.Name = name;
-			addedFoodOffers = new List<Food>();
-			addedCharityFoodOffers = new List<Food>();
+			this.Surname = surname;
+			this.ContactEmail = email;
+			this.Password = password;
 		}
 
-		//prideti pasiulyma
-
-		public void AddFoodOffer(string foodName, string foodDescription, double fullPrice, int foodType, int foodAmount)
-		{
-			addedFoodOffers.Add(new Food (foodName, foodDescription, fullPrice, foodType));
-		}
-
-		public void AddFoodOffer(Food newOffer)
+		protected User()
         {
-			addedFoodOffers.Add(newOffer);
 
-		}
+        }
 
-		public void RemoveFoodOffer(int offerID)
-		{
-			addedFoodOffers.RemoveAt(offerID);
-		}
-
-		public void RemoveFoodOffer(Food food) 
-		{
-			addedFoodOffers.Remove(food);
-		}
-		public void AddCharityFoodOffer(string foodName, string foodDescription, int foodType, int foodAmount)
-		{
-			addedCharityFoodOffers.Add(new Food(foodName, foodDescription, foodType, 0));
-		}
-
-		public void RemoveCharityFoodOffer(int offerID)
-		{
-			addedCharityFoodOffers.RemoveAt(offerID);
-		}
 	}
 }

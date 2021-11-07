@@ -5,7 +5,8 @@ export class Foods extends Component{
     constructor(props){
         super(props);
         this.state={
-            foods:[]
+            foods:[],
+            cartItems:[]
         }
     }
 
@@ -14,7 +15,6 @@ export class Foods extends Component{
         fetch(process.env.REACT_APP_API + '/api/foods')
         .then(response => {
             response.json().then(data => {
-                
                 this.setState(() => {
                     return{
                         foods : data
@@ -29,12 +29,17 @@ export class Foods extends Component{
         this.refreshList();
     }
 
-    componentDidUpdate(){
-        //this.refreshList();
+    onAddedToCart = (food) => {
+       /*
+        this.setState(prevState => ({
+            cartItems : prevState.cartItems.concat(food)
+        }))
+        */
+        //console.log(cartItems);
     }
 
     render(){
-        //const {foods}=this.state;
+        
         return(
             <div>
                 <Table className="table">
@@ -44,17 +49,21 @@ export class Foods extends Component{
                             <th scope="col">Description</th>
                             <th scope="col">Price</th>
                             <th scope="col">Amount</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.foods.map(food=>
+                            
                             <tr>
                                 <td>{food.Name}</td>
                                 <td>{food.Description}</td>
                                 <td >{food.FullPrice}</td>
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
+                                <td >{food.ExpDate}</td>
                                 <td>Edit / Delete</td>
+                                <button onClick={() => this.onAddedToCart(food)}>Add to cart</button>
                             </tr>)}
                     </tbody>
                 </Table>

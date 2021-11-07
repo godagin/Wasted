@@ -1,4 +1,6 @@
 ﻿
+using WebWasted.Models;
+
 namespace WebWasted
 {
     public class WeighedFood : Food
@@ -7,8 +9,8 @@ namespace WebWasted
 
         public WeighedFood() : base() { }
 
-        public WeighedFood(string name, string description, double fullPrice, int type, double weight, int expDays = 2) 
-            : base(name, description, fullPrice, type, expDays)
+        public WeighedFood(int owner, string name, string description, double fullPrice, Category type, double weight, int expDays = 2) 
+            : base(owner, name, description, fullPrice, type, expDays)
         {
             Weight = weight;
         }
