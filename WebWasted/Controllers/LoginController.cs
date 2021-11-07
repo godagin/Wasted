@@ -21,6 +21,7 @@ namespace WebWasted.Controllers
                 {
                     return -1;
                 }
+                //Console.WriteLine("yes " + findUser.ID);
                 return findUser.ID;
             }
         }

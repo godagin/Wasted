@@ -14,22 +14,21 @@ namespace WebWasted.Controllers
         [HttpPost]
         public int Post([FromBody] User user)
         {
-            Console.WriteLine(user.UserName + " " + user.Name + " " + user.Surname + " " + user.ContactEmail + " " + user.Password);
-            //context
+            //Console.WriteLine(user.UserName + " " + user.Name + " " + user.Surname + " " + user.ContactEmail + " " + user.Password);
+            
             using(DataContext context = new DataContext())
             {
-                Console.WriteLine("using");
 
                 if (context.Users.Any(u => u.UserName == user.UserName))
                 {
-                    Console.WriteLine("if");
+                    //Console.WriteLine("if");
                     return -1;
                 }
-                Console.WriteLine("ne if");
+                //Console.WriteLine("ne if");
                 User newUser = new User(user.UserName, user.Name, user.Surname, user.ContactEmail, user.Password);
                 context.Users.Add(newUser);
                 context.SaveChanges();
-                Console.WriteLine("return?");
+                //Console.WriteLine(newUser.ID);
                 return newUser.ID;
 
             }

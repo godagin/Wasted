@@ -88,7 +88,7 @@ export class Register extends Component{
                 <Button variant="primary" type="submit" onClick={this.submitHandler}>
                     Submit
                 </Button>
-                </Form>
+            </Form>
         )
     }
 }
