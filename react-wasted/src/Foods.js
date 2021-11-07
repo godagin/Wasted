@@ -1,4 +1,4 @@
-import React,{Component, useState} from 'react';
+import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
 
 export class Foods extends Component{
@@ -11,12 +11,26 @@ export class Foods extends Component{
         }
     }
 
-    handleAddToCart = (food) => {
+  /*  handleAddToCart = (food) => {
         console.log('in cart');
-        this.setState(prevState => ({
+        console.log(food.ID);
+        this.setState( (prevState) => ({
             cartItems: prevState.cartItems.concat(food)
         }))
+        
     
+    }*/
+
+    addToCart = (ID) =>{
+
+        const {foods, cartItems} = this.state;
+        const data = foods.filter(food =>{
+            return food.ID === ID
+        })
+        
+        //console.log(data);
+        this.setState({cartItems: [...cartItems,...data]})
+
     }
 
     refreshList(){
@@ -68,7 +82,7 @@ export class Foods extends Component{
                                 <td >{food.FullPrice}</td>
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                 <td>Edit / Delete</td>
-                                <button onClick={() => this.handleAddToCart(food)}>Add to cart</button>
+                                <button onClick={() => this.addToCart(food.ID)}>Add to cart</button>
                             </tr>)}
                     </tbody>
                 </Table>
