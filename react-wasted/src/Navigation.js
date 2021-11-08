@@ -23,6 +23,16 @@ export class Navigation extends Component{
                         Cart
                     </NavLink>
                 </Nav>
+                <Nav>
+                    <NavLink className="d-inline p-2 bg-dark text-white" to="/Register">
+                        Register
+                    </NavLink>
+                </Nav>
+                <Nav>
+                    <NavLink className="d-inline p-2 bg-dark text-white" to="/Login">
+                        Login
+                    </NavLink>
+                </Nav>
                 
                 </Navbar.Collapse>
                 

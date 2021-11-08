@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
+import {Cart} from './Cart';
 
 export class Foods extends Component{
     constructor(props){
@@ -9,6 +10,45 @@ export class Foods extends Component{
             cartItems:[]
         }
     }
+    addToCart = (ID) =>{
+
+            const {foods, cartItems} = this.state;
+            const cartData = foods.filter(food =>{
+                return food.ID === ID
+            })
+            
+            //console.log(data);
+
+            this.setState( {cartItems: [...cartItems,...cartData]} ) 
+
+            const requestOptions = {
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    BuyerID: localStorage.getItem('userID'),
+                    ID: ID
+                 })
+            };
+            fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+              /*  .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                });*/
+                .then((response) => {
+                    /*if (response.headers.get('content-type').match(/application\/json/))
+                    {
+                        return response.json();
+                    }*/
+                    console.log(response.body);
+                    return response;
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                
+
+
+        }
 
     refreshList(){
         //get data from api
@@ -29,18 +69,13 @@ export class Foods extends Component{
         this.refreshList();
     }
 
-    onAddedToCart = (food) => {
-       /*
-        this.setState(prevState => ({
-            cartItems : prevState.cartItems.concat(food)
-        }))
-        */
-        //console.log(cartItems);
-    }
+    
 
     render(){
         
         return(
+            <div>
+            <Cart cartData={this.state.cartItems} />
             <div>
                 <Table className="table">
                     <thead>
@@ -63,10 +98,11 @@ export class Foods extends Component{
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                 <td >{food.ExpDate}</td>
                                 <td>Edit / Delete</td>
-                                <button onClick={() => this.onAddedToCart(food)}>Add to cart</button>
+                                <button onClick={() => this.addToCart(food.ID)}>Add to cart</button>
                             </tr>)}
                     </tbody>
                 </Table>
+            </div>
             </div>
         )
     }
