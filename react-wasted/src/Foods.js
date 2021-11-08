@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
+import {Cart} from './Cart';
+
 
 export class Foods extends Component{
 
@@ -29,7 +31,8 @@ export class Foods extends Component{
         })
         
         //console.log(data);
-        this.setState({cartItems: [...cartItems,...data]})
+
+         this.setState( {cartItems: [...cartItems,...data]} ) 
 
     }
 
@@ -61,6 +64,9 @@ export class Foods extends Component{
     
         //const {foods}=this.state;
         return(
+
+            <div>
+            <Cart data={this.state.cartItems} />
             <div>
                 <Table className="table">
                     <thead>
@@ -87,6 +93,7 @@ export class Foods extends Component{
                     </tbody>
                 </Table>
             </div>
+        </div>
         )
     }
 }
