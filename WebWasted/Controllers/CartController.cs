@@ -25,7 +25,7 @@ namespace WebWasted.Controllers
             {
                 var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
 
-                if ((findFood == null) && (IDS.userID != findFood.OwnerID))
+                if ((findFood == null) || (IDS.userID == findFood.OwnerID))
                 {
                     return -1;
                 }
