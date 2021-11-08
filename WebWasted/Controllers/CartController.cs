@@ -8,23 +8,29 @@ using WebWasted.Models;
 
 namespace WebWasted.Controllers
 {
+    public class CartArguments
+    {
+        public int userID;
+        public int foodID;
+    }
+
     [ApiController]
     [Route("api/[controller]")]
     public class CartController : ControllerBase
     {
         [HttpPost]
-        public int Post(int userID, int foodID)
+        public int Post([FromBody] CartArguments IDS)
         {
             using (DataContext context = new DataContext())
             {
-                var findFood = (from food in context.Foods where food.ID == foodID select food).First();
+                var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
 
-                if ((findFood == null) && (userID != findFood.OwnerID))
+                if ((findFood == null) && (IDS.userID != findFood.OwnerID))
                 {
                     return -1;
                 }
 
-                findFood.BuyerID = userID;
+                findFood.BuyerID = IDS.userID;
                 
                 return findFood.BuyerID;
             }

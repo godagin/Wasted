@@ -25,11 +25,11 @@ export class Foods extends Component{
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    BuyerID: localStorage.getItem('userID'),
-                    ID: ID
+                    userID: localStorage.getItem('userID'),
+                    foodID: ID
                  })
             };
-            fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+            fetch(process.env.REACT_APP_API + '/api/foods', requestOptions) 
               /*  .then(response => response.json())
                 .then(data => {
                     console.log(data);
