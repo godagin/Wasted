@@ -34,24 +34,44 @@ namespace WebWasted.Controllers
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
-            using(var dataContext = new DataContext())
+            Lazy<List<Food>> offersLazy = new Lazy<List<Food>>();
+
+            using (var dataContext = new DataContext())
             {
-                var userOffers = from food in dataContext.Foods where food.OwnerID.Equals(id) select food;
-                return userOffers.ToList();
+                var myOffers = from food in dataContext.Foods where food.OwnerID.Equals(id) select food;
+                foreach (var item in myOffers)
+                {
+                    offersLazy.Value.Add(item);
+                }
             }
+            return offersLazy.Value.ToList();
         }
 
         [HttpPost]
         public IActionResult Post(int type, int owner, string name, string description, double fullPrice, double amount, Category foodType, int expTime = 3)
         {
-            Food food;
+            Food food = null;
             switch (type)
             {
                 case 1: // food obj is weighed
-                    food = new WeighedFood(owner, name, description, fullPrice, foodType, amount, expTime);
+                    try
+                    {
+                        food = new WeighedFood(owner, name, description, fullPrice, foodType, amount, expTime);
+                    }
+                    catch (InvalidCastException)
+                    {
+                        Console.WriteLine("The creation of a weighed food offer failed.");
+                    }
                     break;
                 case 2:
-                    food = new DiscreteFood(owner, name, description, fullPrice, foodType, (int)amount, expTime);
+                    try
+                    {
+                        food = new DiscreteFood(owner, name, description, fullPrice, foodType, (int)amount, expTime);
+                    }
+                    catch (InvalidCastException)
+                    {
+                        Console.WriteLine("The creation of a discrete food offer failed.");
+                    }
                     break;
                 default:
                     food = new Food(owner, name, description, foodType, expTime);
