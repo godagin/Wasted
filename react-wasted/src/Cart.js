@@ -2,16 +2,24 @@ import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
 
 export class Cart extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            cartItems:[]
+        }
+    }
+
+    removeFromCart = (ID) =>{
+
+        console.log(ID);
+    }
+
+    
     render(){
 
-        // return(
-            // <div className="mt-5 d-flex justify-content-left">
-               //  cart.
-            // </div>
-        // )
-     
- 
         return(
+            
              <div>
                  <Table className="table">
                      <thead>
@@ -21,8 +29,8 @@ export class Cart extends Component{
                              <th scope="col">Description</th>
                              <th scope="col">Price</th>
                              <th scope="col">Amount</th>
-                             <th scope="col">buyer id</th>
-                           
+                             <th scope="col">Buyer ID</th> 
+                
                          </tr>
                      </thead>
                      <tbody>
@@ -34,11 +42,13 @@ export class Cart extends Component{
                                  <td >{food.FullPrice}</td>
                                  <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                  <td >{food.BuyerID}</td>
-                               
+                                 <button onClick={() => this.removeFromCart(food.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>
                  </Table>
              </div>
+            
          )
      }
 }
+

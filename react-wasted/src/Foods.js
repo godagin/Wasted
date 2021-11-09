@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 import {Cart} from './Cart';
 
 export class Foods extends Component{
+
     constructor(props){
         super(props);
         this.state={
@@ -10,6 +11,7 @@ export class Foods extends Component{
             cartItems:[]
         }
     }
+
     addToCart = (ID) =>{
 
             const {foods, cartItems} = this.state;
@@ -29,26 +31,17 @@ export class Foods extends Component{
                     foodID: ID
                  })
             };
-            fetch(process.env.REACT_APP_API + '/api/foods', requestOptions) 
-              /*  .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                });*/
-                .then((response) => {
-                    /*if (response.headers.get('content-type').match(/application\/json/))
-                    {
-                        return response.json();
-                    }*/
-                    console.log(response.body);
-                    return response;
-                })
+            fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+                .then((response) => response.json())
                 .then(data => {
                     console.log(data);
                 })
-                
 
 
+               // console.log(localStorage.getItem('userID'));
+              
         }
+
 
     refreshList(){
         //get data from api
@@ -107,3 +100,4 @@ export class Foods extends Component{
         )
     }
 }
+

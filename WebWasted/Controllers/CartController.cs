@@ -15,12 +15,27 @@ namespace WebWasted.Controllers
     }
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/cart")]
     public class CartController : ControllerBase
     {
+        [HttpGet]
+        public IEnumerable<Food> Get()
+        {
+            using (DataContext context = new DataContext())
+            {
+                var userCart = from food in context.Foods 
+                               join user in context.Users on food.BuyerID equals user.ID
+                               where food.BuyerID == user.ID 
+                               select food;
+                return userCart.ToList();
+
+            }
+        }
+
         [HttpPost]
         public int Post([FromBody] CartArguments IDS)
         {
+            Console.WriteLine("veikia????");
             using (DataContext context = new DataContext())
             {
                 var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
