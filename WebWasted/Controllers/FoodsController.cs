@@ -25,7 +25,7 @@ namespace WebWasted.Controllers
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            using(var dataContext = new DataContext())
+            using (var dataContext = new DataContext())
             {
                 return dataContext.Foods.ToList();
             }

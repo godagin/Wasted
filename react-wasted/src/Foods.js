@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
-import {Cart} from './Cart';
+//import {Cart} from './Cart';
 
 export class Foods extends Component{
 
@@ -8,12 +8,13 @@ export class Foods extends Component{
         super(props);
         this.state={
             foods:[],
-            cartItems:[]
+            //cartItems:[]
         }
     }
 
     addToCart = (ID) =>{
 
+        /*
             const {foods, cartItems} = this.state;
             const cartData = foods.filter(food =>{
                 return food.ID === ID
@@ -22,7 +23,7 @@ export class Foods extends Component{
             //console.log(data);
 
             this.setState( {cartItems: [...cartItems,...cartData]} ) 
-
+*/ //nebereikia cartItems for now
             const requestOptions = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
@@ -67,8 +68,8 @@ export class Foods extends Component{
     render(){
         
         return(
-            <div>
-            <Cart cartData={this.state.cartItems} />
+            //<div>
+            //<Cart cartData={this.state.cartItems} />
             <div>
                 <Table className="table">
                     <thead>
@@ -96,7 +97,7 @@ export class Foods extends Component{
                     </tbody>
                 </Table>
             </div>
-            </div>
+           // </div>
         )
     }
 }

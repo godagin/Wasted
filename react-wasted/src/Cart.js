@@ -10,33 +10,62 @@ export class Cart extends Component{
         }
     }
 
+    
+    refreshList(){
+        fetch(process.env.REACT_APP_API + '/api/cart')
+        .then(response => {
+            response.json().then(data => {
+                this.setState(() => {
+                    return{
+                        cartItems: data
+                    }
+                })
+            });
+        });
+    }
+
+    componentDidMount(){
+        this.refreshList();
+    }
+
+
     removeFromCart = (ID) =>{
 
         console.log(ID);
+      /*  const requestOptions = {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                userID: localStorage.getItem('userID'),
+                foodID: ID
+             })
+        };
+        fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+            .then((response) => response.json())
+            .then(data => {
+                console.log(data);
+            })*/
     }
 
     
     render(){
-
+        
         return(
-            
              <div>
                  <Table className="table">
                      <thead>
                          <tr>
-                         <th scope="col">ID</th>
                              <th scope="col">Name</th>
                              <th scope="col">Description</th>
                              <th scope="col">Price</th>
                              <th scope="col">Amount</th>
                              <th scope="col">Buyer ID</th> 
-                
                          </tr>
                      </thead>
+                     
                      <tbody>
-                         {this.props.cartData.map(food=>
+                         {this.state.cartItems.map(food=>
                              <tr>
-                                 <td>{food.ID}</td>
                                  <td>{food.Name}</td>
                                  <td>{food.Description}</td>
                                  <td >{food.FullPrice}</td>
@@ -47,8 +76,7 @@ export class Cart extends Component{
                      </tbody>
                  </Table>
              </div>
-            
-         )
-     }
+        )
+    }
 }
 
