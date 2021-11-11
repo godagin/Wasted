@@ -30,11 +30,29 @@ namespace WebWasted.Controllers
                 return dataContext.Foods.ToList();
             }
         }
- 
+
+        [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
+        public IEnumerable<Food> Get(int id)
+        {
+            Lazy<List<Food>> offersLazy = new Lazy<List<Food>>();
+
+            using (var dataContext = new DataContext())
+            {
+                var myOffers = from food in dataContext.Foods where food.OwnerID.Equals(id) select food;
+                foreach (var item in myOffers)
+                {
+                    offersLazy.Value.Add(item);
+                }
+            }
+            return offersLazy.Value.ToList();
+        }
+
         [HttpPost]
         public IActionResult Post(int type, int owner, string name, string description, double fullPrice, double amount, Category foodType, int expTime = 3)
         {
-            Food food= null;
+
+            Food food = null;
+
             switch (type)
             {
 
@@ -43,7 +61,9 @@ namespace WebWasted.Controllers
                     {
                         food = new WeighedFood(owner, name, description, fullPrice, foodType, amount, expTime);
                     }
+
                     catch(InvalidCastException)
+
                     {
                         Console.WriteLine("The creation of a weighed food offer failed.");
                     }
