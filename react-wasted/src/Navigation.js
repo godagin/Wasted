@@ -13,16 +13,22 @@ export class Navigation extends Component{
                         Home
                     </NavLink>
                 </Nav>
-                <Nav>
-                    <NavLink className="d-inline p-2 bg-dark text-white" to="/Foods">
-                        Foods
-                    </NavLink>
-                </Nav>
-                <Nav>
-                    <NavLink className="d-inline p-2 bg-dark text-white" to="/Cart">
-                        Cart
-                    </NavLink>
-                </Nav>
+                {
+                    localStorage.getItem('userID') != null &&
+                    <Nav>
+                        <NavLink className="d-inline p-2 bg-dark text-white" to="/Foods">
+                            Foods
+                        </NavLink>
+                    </Nav>
+                }
+                {
+                    localStorage.getItem('userID') != null &&
+                    <Nav>
+                        <NavLink className="d-inline p-2 bg-dark text-white" to="/Cart">
+                            Cart
+                        </NavLink>
+                    </Nav>
+                }
                 <Nav>
                     <NavLink className="d-inline p-2 bg-dark text-white" to="/Register">
                         Register

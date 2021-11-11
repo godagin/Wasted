@@ -11,6 +11,19 @@ using WebWasted.Models;
 
 namespace WebWasted.Controllers
 {
+    public class NewFoodArguments
+    {
+        public int type;
+        public int owner;
+        public string name;
+        public string description;
+        public double fullPrice;
+        public double amount;
+        public Category foodType;
+        public int expTime = 3;
+    }
+
+
     [ApiController]
     [Route("api/[controller]")]
     public class FoodsController : ControllerBase
@@ -30,11 +43,11 @@ namespace WebWasted.Controllers
                 return dataContext.Foods.ToList();
             }
         }
-
+        
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
-            Lazy<List<Food>> offersLazy = new Lazy<List<Food>>();
+            Lazy<List<Food>> offersLazy = new Lazy<List<Food>>(); // netinka
 
             using (var dataContext = new DataContext())
             {
@@ -48,18 +61,19 @@ namespace WebWasted.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(int type, int owner, string name, string description, double fullPrice, double amount, Category foodType, int expTime = 3)
+        public IActionResult Post([FromBody] NewFoodArguments args)
         {
 
             Food food = null;
-
-            switch (type)
+            Console.WriteLine(args.type);
+            Console.WriteLine(args.description);
+            Console.WriteLine(args.amount);
+            switch (args.type)
             {
-
                 case 1: // food obj is weighed
                     try
                     {
-                        food = new WeighedFood(owner, name, description, fullPrice, foodType, amount, expTime);
+                        food = new WeighedFood(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.amount, args.expTime);
                     }
 
                     catch(InvalidCastException)
@@ -68,10 +82,10 @@ namespace WebWasted.Controllers
                         Console.WriteLine("The creation of a weighed food offer failed.");
                     }
                     break;
-                case 2:
+                case 2: //food obj is discrete
                     try
                     {
-                        food = new DiscreteFood(owner, name, description, fullPrice, foodType, (int)amount, expTime);
+                        food = new DiscreteFood(args.owner, args.name, args.description, args.fullPrice, args.foodType, (int)(args.amount), args.expTime);
                     }
                     catch (InvalidCastException)
                     {
@@ -79,7 +93,8 @@ namespace WebWasted.Controllers
                     }
                     break;
                 default:
-                    food = new Food(owner, name, description, foodType, expTime);
+                    
+                    food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
                     break;
             }
             
@@ -90,61 +105,5 @@ namespace WebWasted.Controllers
                     return Ok();
             }
         }
-        /*
-        [HttpPut]
-        public JsonResult Put(Food food)
-        {
-            string query = @"
-                    update dbo.Foods set
-                    Name = '" + food.Name + @"'
-                    ,Description = '" + food.Description + @"'
-                    ,FullPrice = '" + food.FullPrice + @"'
-                    where ID = '" + food.ID + @"'
-                    ";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("FoodsAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-
-            return new JsonResult("Updated Successfully");
-        }
-
-        [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
-        {
-            string query = @"
-                    delete from dbo.Foods
-                    where ID = '" + id + @"'
-                    ";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("FoodsAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-
-            return new JsonResult("Deleted Successfully");
-        }
-        */
     }
 }

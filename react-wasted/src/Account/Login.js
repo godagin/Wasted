@@ -46,7 +46,7 @@ export class Login extends Component{
 
     render(){
         if(localStorage.getItem('userID') != null){
-            return (<Redirect to ='/'/>);
+            return (<Redirect to = '/'/>);
         }
         return(
             <Form >
