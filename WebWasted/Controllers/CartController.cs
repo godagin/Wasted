@@ -26,8 +26,8 @@ namespace WebWasted.Controllers
             _configuration = configuration;
         }
         
-        [HttpGet]
-        public IEnumerable<Food> Get()
+        [HttpGet("{id}")]
+        public IEnumerable<Food> Get(int id)
         {
             using (DataContext context = new DataContext())
             {
@@ -37,12 +37,15 @@ namespace WebWasted.Controllers
                                select food;
                 */
 
-                var userCart = from user in context.Users
+                
+               /* var userCart = from user in context.Users
                                join food in context.Foods on user.ID equals food.BuyerID
                                where food.BuyerID == user.ID
+                               select food;*/
+                
+                var userCart = from food in context.Foods
+                               where food.BuyerID == id
                                select food;
-
-
 
                 return userCart.ToList();
 
@@ -52,27 +55,21 @@ namespace WebWasted.Controllers
         [HttpPost]
         public int Post([FromBody] CartArguments IDS)
         {
-            Console.WriteLine("veikia????");
             using (DataContext context = new DataContext())
             {
                 var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
-                if ((findFood == null) || (IDS.userID == findFood.OwnerID))
+               /* if ((findFood == null) || (IDS.userID == findFood.OwnerID))
+                {
+                    return -1;
+                }*/
+                if (findFood == null)
                 {
                     return -1;
                 }
+                findFood.BuyerID = IDS.userID;
+                context.SaveChanges();
+                Console.WriteLine("add");
 
-                if (findFood.BuyerID != IDS.userID)
-                {
-                    findFood.BuyerID = IDS.userID;
-                    context.SaveChanges();
-                }
-              /*  else
-                {
-                    findFood.BuyerID = 0;
-                    context.SaveChanges();
-                }*/
-                
-                Console.WriteLine("veikia????");
                 return findFood.BuyerID;
             }
         }

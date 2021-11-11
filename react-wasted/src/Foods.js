@@ -7,8 +7,9 @@ export class Foods extends Component{
     constructor(props){
         super(props);
         this.state={
-            foods:[],
+            foods:[]
             //cartItems:[]
+        
         }
     }
 

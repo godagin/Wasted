@@ -12,7 +12,9 @@ export class Cart extends Component{
 
     
     refreshList(){
-        fetch(process.env.REACT_APP_API + '/api/cart')
+
+        
+        fetch(process.env.REACT_APP_API + '/api/cart/' + localStorage.getItem('userID'))
         .then(response => {
             response.json().then(data => {
                 this.setState(() => {
@@ -32,11 +34,11 @@ export class Cart extends Component{
     removeFromCart = (ID) =>{
 
         console.log(ID);
-      /*  const requestOptions = {
+        const requestOptions = {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                userID: localStorage.getItem('userID'),
+                userID: 0,
                 foodID: ID
              })
         };
@@ -44,7 +46,8 @@ export class Cart extends Component{
             .then((response) => response.json())
             .then(data => {
                 console.log(data);
-            })*/
+            })
+            //this.refreshList();
     }
 
     
