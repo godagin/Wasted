@@ -13,7 +13,7 @@ export class Foods extends Component{
         }
     }
 
-    addToCart = (ID) =>{
+    addToCart = (ID, BuyerID) =>{
 
         /*
             const {foods, cartItems} = this.state;
@@ -25,7 +25,9 @@ export class Foods extends Component{
 
             this.setState( {cartItems: [...cartItems,...cartData]} ) 
 */ //nebereikia cartItems for now
-            const requestOptions = {
+            if (BuyerID == 0)
+            {
+                const requestOptions = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -38,6 +40,18 @@ export class Foods extends Component{
                 .then(data => {
                     console.log(data);
                 })
+
+                console.log('added');
+            }
+            else if (BuyerID == localStorage.getItem('userID'))
+            {
+                console.log('already in cart');
+            }
+            else
+            {
+                console.log('unavailable');
+            }
+            
 
 
                // console.log(localStorage.getItem('userID'));
@@ -93,7 +107,7 @@ export class Foods extends Component{
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                 <td >{food.ExpDate}</td>
                                 <td>Edit / Delete</td>
-                                <button onClick={() => this.addToCart(food.ID)}>Add to cart</button>
+                                <button onClick={() => this.addToCart(food.ID, food.BuyerID)}>Add to cart</button>
                             </tr>)}
                     </tbody>
                 </Table>
