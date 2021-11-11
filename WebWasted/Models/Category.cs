@@ -16,7 +16,6 @@ namespace WebWasted.Models
         Grains_Beans_and_Nuts,
         Confectionery,
         Bakery,
-        Meals,
-        Other
+        Meals
     }
 }
