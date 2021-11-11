@@ -34,14 +34,29 @@ namespace WebWasted.Controllers
         [HttpPost]
         public IActionResult Post(int type, int owner, string name, string description, double fullPrice, double amount, Category foodType, int expTime = 3)
         {
-            Food food;
+            Food food= null;
             switch (type)
             {
+
                 case 1: // food obj is weighed
-                    food = new WeighedFood(owner, name, description, fullPrice, foodType, amount, expTime);
+                    try
+                    {
+                        food = new WeighedFood(owner, name, description, fullPrice, foodType, amount, expTime);
+                    }
+                    catch(InvalidCastException)
+                    {
+                        Console.WriteLine("The creation of a weighed food offer failed.");
+                    }
                     break;
                 case 2:
-                    food = new DiscreteFood(owner, name, description, fullPrice, foodType, (int)amount, expTime);
+                    try
+                    {
+                        food = new DiscreteFood(owner, name, description, fullPrice, foodType, (int)amount, expTime);
+                    }
+                    catch (InvalidCastException)
+                    {
+                        Console.WriteLine("The creation of a discrete food offer failed.");
+                    }
                     break;
                 default:
                     food = new Food(owner, name, description, foodType, expTime);
