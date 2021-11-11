@@ -57,20 +57,38 @@ namespace WebWasted.Controllers
         {
             using (DataContext context = new DataContext())
             {
-                var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
-               /* if ((findFood == null) || (IDS.userID == findFood.OwnerID))
-                {
-                    return -1;
-                }*/
+               /* var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
+              
                 if (findFood == null)
                 {
                     return -1;
-                }
-                findFood.BuyerID = IDS.userID;
-                context.SaveChanges();
-                Console.WriteLine("add");
+                }*/
 
-                return findFood.BuyerID;
+                Food findItem = context.Foods.ToList().Find(
+                delegate (Food item)
+                {
+                    return item.ID == IDS.foodID;
+                }
+
+                 );
+
+                if (findItem != null)
+                {
+                    findItem.BuyerID = IDS.userID;
+                    context.SaveChanges();
+                }
+                else
+                {  
+                    Console.WriteLine("not found");
+                    return -1;
+                }
+
+              /*  findFood.BuyerID = IDS.userID;
+                context.SaveChanges();
+                Console.WriteLine("add");*/
+
+                //return findFood.BuyerID;
+                return findItem.BuyerID;
             }
         }
     }
