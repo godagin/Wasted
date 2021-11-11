@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using WebWasted.Models;
+using System.Data.Entity;
 
 namespace WebWasted.Controllers
 {
@@ -23,11 +24,11 @@ namespace WebWasted.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Food> Get()
+        public async Task<IEnumerable<Food>> Get()
         {
             using (var dataContext = new DataContext())
             {
-                return dataContext.Foods.ToList();
+                return await dataContext.Foods.ToListAsync();
             }
         }
 
@@ -47,8 +48,9 @@ namespace WebWasted.Controllers
             return offersLazy.Value.ToList();
         }
 
+
         [HttpPost]
-        public IActionResult Post(int type, int owner, string name, string description, double fullPrice, double amount, Category foodType, int expTime = 3)
+        public async Task<IActionResult> Post(int type, int owner, string name, string description, double fullPrice, double amount, Category foodType, int expTime = 3)
         {
 
             Food food = null;
@@ -86,7 +88,7 @@ namespace WebWasted.Controllers
             using (var dataContext = new DataContext())
             {
                     dataContext.Foods.Add(food);
-                    dataContext.SaveChanges();
+                    await dataContext.SaveChangesAsync();
                     return Ok();
             }
         }

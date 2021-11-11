@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWasted.Models;
@@ -27,7 +28,7 @@ namespace WebWasted.Controllers
         }
         
         [HttpGet("{id}")]
-        public IEnumerable<Food> Get(int id)
+        public async Task<IEnumerable<Food>> Get(int id)
         {
             using (DataContext context = new DataContext())
             {
@@ -47,13 +48,13 @@ namespace WebWasted.Controllers
                                where food.BuyerID == id
                                select food;
 
-                return userCart.ToList();
+                return await userCart.ToListAsync();
 
             }
         }
         
         [HttpPost]
-        public int Post([FromBody] CartArguments IDS)
+        public async Task<int> Post([FromBody] CartArguments IDS)
         {
             using (DataContext context = new DataContext())
             {
@@ -75,7 +76,7 @@ namespace WebWasted.Controllers
                 if (findItem != null)
                 {
                     findItem.BuyerID = IDS.userID;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 else
                 {  
