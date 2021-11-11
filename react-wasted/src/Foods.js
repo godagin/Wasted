@@ -1,14 +1,63 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
+//import {Cart} from './Cart';
 
 export class Foods extends Component{
+
     constructor(props){
         super(props);
         this.state={
-            foods:[],
-            cartItems:[]
+            foods:[]
+            //cartItems:[]
+        
         }
     }
+
+    addToCart = (ID, BuyerID) =>{
+
+        /*
+            const {foods, cartItems} = this.state;
+            const cartData = foods.filter(food =>{
+                return food.ID === ID
+            })
+            
+            //console.log(data);
+
+            this.setState( {cartItems: [...cartItems,...cartData]} ) 
+*/ //nebereikia cartItems for now
+            if (BuyerID == 0)
+            {
+                const requestOptions = {
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    userID: localStorage.getItem('userID'),
+                    foodID: ID
+                 })
+            };
+            fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+                .then((response) => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+
+                console.log('added');
+            }
+            else if (BuyerID == localStorage.getItem('userID'))
+            {
+                console.log('already in cart');
+            }
+            else
+            {
+                console.log('unavailable');
+            }
+            
+
+
+               // console.log(localStorage.getItem('userID'));
+              
+        }
+
 
     refreshList(){
         //get data from api
@@ -29,18 +78,13 @@ export class Foods extends Component{
         this.refreshList();
     }
 
-    onAddedToCart = (food) => {
-       /*
-        this.setState(prevState => ({
-            cartItems : prevState.cartItems.concat(food)
-        }))
-        */
-        //console.log(cartItems);
-    }
+    
 
     render(){
         
         return(
+            //<div>
+            //<Cart cartData={this.state.cartItems} />
             <div>
                 <Table className="table">
                     <thead>
@@ -63,11 +107,13 @@ export class Foods extends Component{
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                 <td >{food.ExpDate}</td>
                                 <td>Edit / Delete</td>
-                                <button onClick={() => this.onAddedToCart(food)}>Add to cart</button>
+                                <button onClick={() => this.addToCart(food.ID, food.BuyerID)}>Add to cart</button>
                             </tr>)}
                     </tbody>
                 </Table>
             </div>
+           // </div>
         )
     }
 }
+
