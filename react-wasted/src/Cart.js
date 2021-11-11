@@ -6,7 +6,8 @@ export class Cart extends Component{
     constructor(props){
         super(props);
         this.state={
-            cartItems:[]
+            cartItems:[],
+            ownerCon: ''
         }
     }
 
@@ -56,6 +57,23 @@ export class Cart extends Component{
         });
     }
 
+     getContacts = (OwnerID) =>{
+
+        fetch(process.env.REACT_APP_API + '/api/contacts/' + OwnerID)
+            .then(response => {
+                response.json().then(data => {
+                    this.setState(() => {
+                        return{
+                            ownerCon: data
+                        }
+                    })
+                });
+            });
+
+            return this.state.ownerCon
+
+    }
+
     
     render(){
         
@@ -69,6 +87,7 @@ export class Cart extends Component{
                              <th scope="col">Price</th>
                              <th scope="col">Amount</th>
                              <th scope="col">Buyer ID</th> 
+                             <th scope="col">Owner Contacts</th> 
                          </tr>
                      </thead>
                      
@@ -80,6 +99,7 @@ export class Cart extends Component{
                                  <td >{food.FullPrice}</td>
                                  <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                  <td >{food.BuyerID}</td>
+                                 <td >{this.getContacts(food.OwnerID)}</td>
                                  <button onClick={() => this.onRemoveFromCart(food.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>
