@@ -1,31 +1,19 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
-//import {Cart} from './Cart';
+import { CreateOffer } from './CreateOffer';
 
 export class Foods extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            foods:[]
-            //cartItems:[]
-        
+            foods:[],
+            createOffer: false
         }
     }
 
     addToCart = (ID, BuyerID) =>{
-
-        /*
-            const {foods, cartItems} = this.state;
-            const cartData = foods.filter(food =>{
-                return food.ID === ID
-            })
-            
-            //console.log(data);
-
-            this.setState( {cartItems: [...cartItems,...cartData]} ) 
-*/ //nebereikia cartItems for now
-            if (BuyerID == 0)
+            if (BuyerID === 0)
             {
                 const requestOptions = {
                 method: 'POST', 
@@ -43,49 +31,55 @@ export class Foods extends Component{
 
                 console.log('added');
             }
-            else if (BuyerID == localStorage.getItem('userID'))
+            else if (BuyerID === localStorage.getItem('userID'))
             {
                 console.log('already in cart');
             }
             else
             {
                 console.log('unavailable');
-            }
-            
+            }  
 
-
-               // console.log(localStorage.getItem('userID'));
-              
-        }
+            this.refreshList();     
+    }
 
 
     refreshList(){
-        //get data from api
         fetch(process.env.REACT_APP_API + '/api/foods')
         .then(response => {
             response.json().then(data => {
                 this.setState(() => {
+                    console.log(data);
                     return{
                         foods : data
                     }
                 })
-                //this.state.foods = data;
             });
         });
     }
 
+    onAddFood(){
+        this.setState(() => {return{ createOffer: true}});
+    }
+    /*
+    handleFoodAdded(){
+        this.setState(() => {return{ createOffer: false}});
+    }
+*/
     componentDidMount(){
         this.refreshList();
     }
 
-    
-
     render(){
         
         return(
-            //<div>
-            //<Cart cartData={this.state.cartItems} />
             <div>
+                
+                {this.state.createOffer && <CreateOffer/>}
+                
+                <button onClick={()=>{this.onAddFood()}}> 
+                    +
+                </button>
                 <Table className="table">
                     <thead>
                         <tr>
@@ -107,7 +101,15 @@ export class Foods extends Component{
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                 <td >{food.ExpDate}</td>
                                 <td>Edit / Delete</td>
-                                <button onClick={() => this.addToCart(food.ID, food.BuyerID)}>Add to cart</button>
+                                <div>
+                                    {
+                                        food.BuyerID === 0 && food.OwnerID !== localStorage.userID &&
+                                        <button onClick={() => this.addToCart(food.ID, food.BuyerID)}> 
+                                            Add to cart
+                                        </button>
+                                    }
+                                </div>
+                                
                             </tr>)}
                     </tbody>
                 </Table>

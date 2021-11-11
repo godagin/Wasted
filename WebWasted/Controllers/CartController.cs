@@ -30,25 +30,12 @@ namespace WebWasted.Controllers
         public IEnumerable<Food> Get(int id)
         {
             using (DataContext context = new DataContext())
-            {
-                /*var userCart = from food in context.Foods 
-                               join user in context.Users on food.BuyerID equals user.ID
-                               where food.BuyerID == user.ID 
-                               select food;
-                */
-
-                
-               /* var userCart = from user in context.Users
-                               join food in context.Foods on user.ID equals food.BuyerID
-                               where food.BuyerID == user.ID
-                               select food;*/
-                
+            {   
                 var userCart = from food in context.Foods
                                where food.BuyerID == id
                                select food;
 
                 return userCart.ToList();
-
             }
         }
         

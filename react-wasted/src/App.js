@@ -17,8 +17,8 @@ function App() {
       <Container>
         <Switch>
           <Route path='/' component={Home} exact/>
-          <Route path='/foods' component={Foods}/>
-          <Route path='/cart' component={Cart}/>
+          {localStorage.getItem('userID') != null && <Route path='/foods' component={Foods}/>}
+          {localStorage.getItem('userID') != null && <Route path='/cart' component={Cart}/>}
           <Route path='/register' component={Register}/>
           <Route path='/login' component={Login}/>
         </Switch>

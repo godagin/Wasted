@@ -13,7 +13,6 @@ export class Cart extends Component{
     
     refreshList(){
 
-        
         fetch(process.env.REACT_APP_API + '/api/cart/' + localStorage.getItem('userID'))
         .then(response => {
             response.json().then(data => {
@@ -31,9 +30,9 @@ export class Cart extends Component{
     }
 
 
-    removeFromCart = (ID) =>{
+    onRemoveFromCart = (ID) =>{
 
-        console.log(ID);
+        //console.log(ID);
         const requestOptions = {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
@@ -47,7 +46,14 @@ export class Cart extends Component{
             .then(data => {
                 console.log(data);
             })
-            //this.refreshList();
+
+
+        this.setState(state => { //instead of rerendering we just remove item from this local list
+            const cartItems = state.cartItems.filter((item) => ID != item.ID);
+            return{
+                cartItems,
+            };
+        });
     }
 
     
@@ -74,7 +80,7 @@ export class Cart extends Component{
                                  <td >{food.FullPrice}</td>
                                  <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                  <td >{food.BuyerID}</td>
-                                 <button onClick={() => this.removeFromCart(food.ID)}>Remove from cart</button>
+                                 <button onClick={() => this.onRemoveFromCart(food.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>
                  </Table>
