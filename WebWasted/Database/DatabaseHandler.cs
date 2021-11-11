@@ -1,33 +1,22 @@
 ﻿
+using System;
+
 namespace WebWasted
 {
-    class DatabaseHandler
+    public class DatabaseHandler
     {
+        //application start
+        private static readonly Lazy<DatabaseHandler> lazy =
+            new Lazy<DatabaseHandler>(() => new DatabaseHandler());
+
+        public static DatabaseHandler Instance { get { return lazy.Value; } }
+
         public DataContext dc = new DataContext();
-        private static DatabaseHandler _obj = null;
         
         private DatabaseHandler()
         {
-
+            Food.FoodCreatedEvent += AddItemToFoodTable;
         }
-
-        public static DatabaseHandler GetHandler()
-        {
-            if (_obj == null)
-            {
-                _obj = new DatabaseHandler();
-            }
-            return _obj;
-        }
-/*
-        public void LoadFoodList()
-        {
-            foreach (Food item in dc.Foods)
-            {
-                FoodList.GetObject().AddCreatedFood(item);
-            }
-        }
-*/  
 
         public void AddItemToFoodTable(Food item)
         {
