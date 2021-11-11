@@ -1,19 +1,20 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 
 export class Cart extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            cartItems:[]
+            cartItems:[],
+            ownerCon: ''
         }
     }
 
     
     refreshList(){
 
-        
         fetch(process.env.REACT_APP_API + '/api/cart/' + localStorage.getItem('userID'))
         .then(response => {
             response.json().then(data => {
@@ -24,9 +25,12 @@ export class Cart extends Component{
                 })
             });
         });
+       
+        
     }
 
     componentDidMount(){
+
         this.refreshList();
     }
 
@@ -51,6 +55,26 @@ export class Cart extends Component{
     }
 
     
+    getContacts = (OwnerID) =>{
+
+        fetch(process.env.REACT_APP_API + '/api/contacts/' + OwnerID)
+            .then(response => {
+                response.json().then(data => {
+                    this.setState(() => {
+                        return{
+                            ownerCon: data
+                        }
+                    })
+                });
+            });
+
+            return this.state.ownerCon
+
+    }
+
+
+
+    
     render(){
         
         return(
@@ -63,6 +87,7 @@ export class Cart extends Component{
                              <th scope="col">Price</th>
                              <th scope="col">Amount</th>
                              <th scope="col">Buyer ID</th> 
+                             <th scope="col">Owner Contacts</th>
                          </tr>
                      </thead>
                      
@@ -73,12 +98,15 @@ export class Cart extends Component{
                                  <td>{food.Description}</td>
                                  <td >{food.FullPrice}</td>
                                  <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
-                                 <td >{food.BuyerID}</td>
+                                 <td >{food.BuyerID}</td> 
+                                 <td >{this.getContacts(food.OwnerID)}</td> 
                                  <button onClick={() => this.removeFromCart(food.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>
                  </Table>
-             </div>
+
+             </div>           
+          
         )
     }
 }
