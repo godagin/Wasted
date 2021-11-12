@@ -41,21 +41,28 @@ namespace WebWasted.Controllers
         [HttpPost]
         public int Post([FromBody] CartArguments IDS)
         {
-            var findFood = (from food in DatabaseHandler.Instance.dc.Foods where food.ID == IDS.foodID select food).First();
-            /* if ((findFood == null) || (IDS.userID == findFood.OwnerID))
+          
+
+            Food findItem = DatabaseHandler.Instance.dc.Foods.ToList().Find(
+                delegate (Food item)
+                {
+                    return item.ID == IDS.foodID;
+                }
+             );
+
+            if (findItem != null)
             {
-                return -1;
-            }*/
-            if (findFood == null)
-            {
+                findItem.BuyerID = IDS.userID;
+                DatabaseHandler.Instance.dc.SaveChanges();
+            }
+            else
+            {  
+                Console.WriteLine("not found");
                 return -1;
             }
-            findFood.BuyerID = IDS.userID;
-            DatabaseHandler.Instance.dc.SaveChanges();
-                
 
-            return findFood.BuyerID;
-            
-        }
-    }
+            return findItem.BuyerID;
+          }
+
+   
 }

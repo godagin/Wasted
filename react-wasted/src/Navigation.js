@@ -39,6 +39,11 @@ export class Navigation extends Component{
                         Login
                     </NavLink>
                 </Nav>
+                <Nav>
+                    <NavLink className="d-inline p-2 bg-dark text-white" to="/Logout">
+                        Logout
+                    </NavLink>
+                </Nav>
                 
                 </Navbar.Collapse>
                 

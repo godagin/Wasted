@@ -7,6 +7,7 @@ import {Navigation} from './Navigation';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { Login } from './Account/Login';
+import { Logout } from './Account/Logout';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           {localStorage.getItem('userID') != null && <Route path='/cart' component={Cart}/>}
           <Route path='/register' component={Register}/>
           <Route path='/login' component={Login}/>
+          <Route path='/logout' component={Logout}/>
         </Switch>
       </Container>
     
