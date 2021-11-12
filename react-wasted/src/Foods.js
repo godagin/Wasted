@@ -34,6 +34,7 @@ export class Foods extends Component{
 
                 console.log('added');
         }
+        window.location.reload(false);
         this.refreshList();        
     }
 

@@ -20,8 +20,8 @@ function App() {
           <Route path='/' component={Home} exact/>
           {localStorage.getItem('userID') != null && <Route path='/foods' component={Foods}/>}
           {localStorage.getItem('userID') != null && <Route path='/cart' component={Cart}/>}
-          <Route path='/register' component={Register}/>
-          <Route path='/login' component={Login}/>
+          { localStorage.getItem('userID') == null && <Route path='/register' component={Register}/>}
+          { localStorage.getItem('userID') == null && <Route path='/login' component={Login}/>}
           <Route path='/logout' component={Logout}/>
         </Switch>
       </Container>

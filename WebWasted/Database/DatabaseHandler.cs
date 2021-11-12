@@ -7,7 +7,7 @@ namespace WebWasted
 {
     public class DatabaseHandler
     {
-        //application start
+        //static metodai not good dependency injection
         private static readonly Lazy<DatabaseHandler> lazy =
             new Lazy<DatabaseHandler>(() => new DatabaseHandler());
 

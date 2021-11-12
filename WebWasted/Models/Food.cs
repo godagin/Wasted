@@ -8,7 +8,7 @@ namespace WebWasted
 
     public class Food
     {
-        public static event CreateFoodDelegate FoodCreatedEvent;
+        public static event CreateFoodDelegate FoodCreatedEvent; //perdaryt su dependancy injection?? service.addFood
 
         [Key]
         public int ID { get; set; }

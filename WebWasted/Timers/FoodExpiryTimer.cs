@@ -15,6 +15,7 @@ namespace WebWasted.Timers
         {
             lock (DatabaseHandler.Instance.dc)
             {
+                //Console.WriteLine("tick");
                 var foods = DatabaseHandler.Instance.dc.Foods.ToList();
                 var expiredFoods = new List<Food>();
 

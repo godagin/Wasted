@@ -40,17 +40,29 @@ namespace WebWasted.Controllers
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            return DatabaseHandler.Instance.dc.Foods.ToList();
+            lock (DatabaseHandler.Instance.dc)
+            {
+                return DatabaseHandler.Instance.dc.Foods.ToList();
+            }
+            
         }
         
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
-            var myOffers = from food in DatabaseHandler.Instance.dc.Foods where food.OwnerID.Equals(id) select food;
-            return myOffers.ToList();
+            lock (DatabaseHandler.Instance.dc)
+            {
+                var myOffers = from food in DatabaseHandler.Instance.dc.Foods where food.OwnerID.Equals(id) select food;
+                return myOffers.ToList();
+            }
+            
         }
 
+        //1uzd paspaudziam checkout i console parasyt kad issicheckoutino per eventa controlleris iskviecia
+        //hadleris zinute gali but skirtingu type kad butut generic
         
+        //2uzd padaryt uzloginima i faila kad ivyko exception
+
         [HttpPost]
         public IActionResult Post([FromBody] NewFoodArguments args)
         {
@@ -64,6 +76,7 @@ namespace WebWasted.Controllers
                     }
                     catch(InvalidCastException)
                     {
+                        //right way butu i faila
                         Console.WriteLine("The creation of a weighed food offer failed.");
                     }
                     break;

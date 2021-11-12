@@ -67,7 +67,7 @@ namespace WebWasted
             var autoEvent = new AutoResetEvent(false);
             var foodExpiryTimer = new FoodExpiryTimer();
             this.foodExpiryTimer = new Timer(foodExpiryTimer.RemoveExpiredFood,
-                                       autoEvent, 15000, 60 * 60 * 1000);
+                                       autoEvent, 15000, 20 * 1000);
         }
     }
 }
