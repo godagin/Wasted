@@ -29,54 +29,40 @@ namespace WebWasted.Controllers
         [HttpGet("{id}")]
         public IEnumerable<Food> Get(int id)
         {
-            using (DataContext context = new DataContext())
-            {   
-                var userCart = from food in context.Foods
+               
+                var userCart = from food in DatabaseHandler.Instance.dc.Foods
                                where food.BuyerID == id
                                select food;
 
                 return userCart.ToList();
-            }
+            
         }
         
         [HttpPost]
         public int Post([FromBody] CartArguments IDS)
         {
-            using (DataContext context = new DataContext())
-            {
-               /* var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
-              
-                if (findFood == null)
-                {
-                    return -1;
-                }*/
+          
 
-                Food findItem = context.Foods.ToList().Find(
+            Food findItem = DatabaseHandler.Instance.dc.Foods.ToList().Find(
                 delegate (Food item)
                 {
                     return item.ID == IDS.foodID;
                 }
+             );
 
-                 );
-
-                if (findItem != null)
-                {
-                    findItem.BuyerID = IDS.userID;
-                    context.SaveChanges();
-                }
-                else
-                {  
-                    Console.WriteLine("not found");
-                    return -1;
-                }
-
-              /*  findFood.BuyerID = IDS.userID;
-                context.SaveChanges();
-                Console.WriteLine("add");*/
-
-                //return findFood.BuyerID;
-                return findItem.BuyerID;
+            if (findItem != null)
+            {
+                findItem.BuyerID = IDS.userID;
+                DatabaseHandler.Instance.dc.SaveChanges();
             }
-        }
-    }
+            else
+            {  
+                Console.WriteLine("not found");
+                return -1;
+            }
+
+            return findItem.BuyerID;
+          }
+
+   
 }
