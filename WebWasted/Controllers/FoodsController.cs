@@ -11,6 +11,8 @@ using WebWasted.Models;
 
 namespace WebWasted.Controllers
 {
+    public delegate void CreateFoodDelegate(Food food);
+
     public class NewFoodArguments
     {
         public int type;
@@ -38,36 +40,21 @@ namespace WebWasted.Controllers
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            using (var dataContext = new DataContext())
-            {
-                return dataContext.Foods.ToList();
-            }
+            return DatabaseHandler.Instance.dc.Foods.ToList();
         }
         
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
-            Lazy<List<Food>> offersLazy = new Lazy<List<Food>>(); // netinka
-
-            using (var dataContext = new DataContext())
-            {
-                var myOffers = from food in dataContext.Foods where food.OwnerID.Equals(id) select food;
-                foreach (var item in myOffers)
-                {
-                    offersLazy.Value.Add(item);
-                }
-            }
-            return offersLazy.Value.ToList();
+            var myOffers = from food in DatabaseHandler.Instance.dc.Foods where food.OwnerID.Equals(id) select food;
+            return myOffers.ToList();
         }
 
+        
         [HttpPost]
         public IActionResult Post([FromBody] NewFoodArguments args)
         {
-
             Food food = null;
-            Console.WriteLine(args.type);
-            Console.WriteLine(args.description);
-            Console.WriteLine(args.amount);
             switch (args.type)
             {
                 case 1: // food obj is weighed
@@ -75,9 +62,7 @@ namespace WebWasted.Controllers
                     {
                         food = new WeighedFood(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.amount, args.expTime);
                     }
-
                     catch(InvalidCastException)
-
                     {
                         Console.WriteLine("The creation of a weighed food offer failed.");
                     }
@@ -93,17 +78,12 @@ namespace WebWasted.Controllers
                     }
                     break;
                 default:
-                    
                     food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
                     break;
             }
-            
-            using (var dataContext = new DataContext())
-            {
-                    dataContext.Foods.Add(food);
-                    dataContext.SaveChanges();
-                    return Ok();
-            }
+
+            return Ok();            
         }
+
     }
 }

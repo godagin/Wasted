@@ -4,8 +4,12 @@ using WebWasted.Models;
 
 namespace WebWasted
 {
+    public delegate void CreateFoodDelegate(Food food);
+
     public class Food
     {
+        public static event CreateFoodDelegate FoodCreatedEvent;
+
         [Key]
         public int ID { get; set; }
         public int OwnerID { get; set; }
@@ -20,7 +24,12 @@ namespace WebWasted
         {
 
         }
-        
+
+        protected virtual void OnAddRequest() //examples showed that this should be a seperate method perhaps for readability
+        {
+            FoodCreatedEvent?.Invoke(this);
+        }
+
         public Food(int owner, string name, string description, Category type, int expDays)
         {
             this.OwnerID = owner;
@@ -30,6 +39,7 @@ namespace WebWasted
             this.ExpDate = DateTime.Now.AddDays(expDays);
             //Type = (int)Category.Default;
             this.Type = type;
+            OnAddRequest();
         }
 
         public Food(int owner, string name, string description, double fullPrice, Category type, int expDays) 

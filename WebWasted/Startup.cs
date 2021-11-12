@@ -9,12 +9,15 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using WebWasted.Timers;
 
 namespace WebWasted
 {
     public class Startup
     {
+        private Timer foodExpiryTimer;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -60,6 +63,11 @@ namespace WebWasted
             {
                 endpoints.MapControllers();
             });
+
+            var autoEvent = new AutoResetEvent(false);
+            var foodExpiryTimer = new FoodExpiryTimer();
+            this.foodExpiryTimer = new Timer(foodExpiryTimer.RemoveExpiredFood,
+                                       autoEvent, 15000, 60 * 60 * 1000);
         }
     }
 }
