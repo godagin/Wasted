@@ -71,7 +71,9 @@ export class Foods extends Component{
     }
 
     render(){
-        
+        if(localStorage.getItem('userID') == null || localStorage.getItem('userID') == undefined){
+            return (<div> </div>);
+        }
         return(
             <div>
                 

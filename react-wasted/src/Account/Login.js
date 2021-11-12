@@ -40,6 +40,7 @@ export class Login extends Component{
             .then(data => {
                 console.log(data);
                 localStorage.setItem('userID', data);
+                window.location.reload(false);
             });
         event.preventDefault();
     }

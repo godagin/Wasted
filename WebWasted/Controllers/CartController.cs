@@ -14,6 +14,12 @@ namespace WebWasted.Controllers
         public int foodID;
     }
 
+    public class FoodOwner
+    {
+        public Food food;
+        public User user;
+    }
+
     [ApiController]
     [Route("api/cart")]
     public class CartController : ControllerBase
@@ -27,24 +33,31 @@ namespace WebWasted.Controllers
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Food> Get(int id)
+        public List<FoodOwner> Get(int id)
         {
-            using (DataContext context = new DataContext())
-            {   
-               /* var userCart = from food in context.Foods
-                               where food.BuyerID == id
-                               select food;
-               */
 
-                var userC = from food in context.Foods
-                            join user in context.Users
-                            on food.BuyerID equals user.ID
+            /* var userCart = from food in context.Foods
                             where food.BuyerID == id
-                            select new { food.Name, food.Description, food.FullPrice, user.ContactEmail };
-
-               // return userCart.ToList();
-                return userC.ToList();
+                            select food;
+            */
+            lock (DatabaseHandler.Instance.dc)
+            {
+                var userCart = DatabaseHandler.Instance.dc.Foods.Where(food => food.BuyerID == id);
+                List<FoodOwner> foodOwners = new();
+                foreach(var item in userCart)
+                {
+                    var user = DatabaseHandler.Instance.dc.Users.Find(item.OwnerID);
+                    foodOwners.Add(new FoodOwner { food = item, user = user });
+                }
+               
+                foreach(var item in foodOwners)
+                {
+                    Console.WriteLine(item.user.ContactEmail);
+                }
+                
+                return foodOwners;
             }
+            
         }
 
         [HttpPost]

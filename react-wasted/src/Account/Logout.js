@@ -7,9 +7,10 @@ export class Logout extends Component{
         console.log(localStorage.getItem('userID'));
         if(localStorage.getItem('userID') != null)
         {
-
-            localStorage.setItem('userID', null);
-            console.log(localStorage.getItem('userID'));
+            localStorage.removeItem('userID');
+            //localStorage.setItem('userID', null);
+            //console.log(localStorage.getItem('userID'));
+            window.location.reload(false);
 
         }
         return (<Redirect to ='/login'/>); 

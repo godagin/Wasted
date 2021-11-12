@@ -29,21 +29,27 @@ export class Navigation extends Component{
                         </NavLink>
                     </Nav>
                 }
+                { localStorage.getItem('userID') == null &&
                 <Nav>
                     <NavLink className="d-inline p-2 bg-dark text-white" to="/Register">
                         Register
                     </NavLink>
                 </Nav>
+                }
+                { localStorage.getItem('userID') == null &&
                 <Nav>
                     <NavLink className="d-inline p-2 bg-dark text-white" to="/Login">
                         Login
                     </NavLink>
                 </Nav>
+                }
+                { localStorage.getItem('userID') != null &&
                 <Nav>
                     <NavLink className="d-inline p-2 bg-dark text-white" to="/Logout">
                         Logout
                     </NavLink>
                 </Nav>
+                }
                 
                 </Navbar.Collapse>
                 

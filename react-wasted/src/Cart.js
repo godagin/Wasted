@@ -17,11 +17,12 @@ export class Cart extends Component{
         fetch(process.env.REACT_APP_API + '/api/cart/' + localStorage.getItem('userID'))
         .then(response => {
             response.json().then(data => {
-                this.setState(() => {
+                console.log(data);
+                /*this.setState(() => {
                     return{
                         cartItems: data
                     }
-                })
+                })*/
             });
         });
     }
@@ -31,14 +32,14 @@ export class Cart extends Component{
     }
 
 
-    onRemoveFromCart = (ID) =>{
+    /*onRemoveFromCart = (ID) =>{
 
         //console.log(ID);
         const requestOptions = {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                userID: 0,
+                userID: localStorage.getItem('userID'),
                 foodID: ID
              })
         };
@@ -59,7 +60,7 @@ export class Cart extends Component{
 
      getContacts = (OwnerID) =>{
 
-        fetch(process.env.REACT_APP_API + '/api/contacts/' + OwnerID)
+        fetch(process.env.REACT_APP_API + '/api/cart/' + OwnerID)
             .then(response => {
                 response.json().then(data => {
                     this.setState(() => {
@@ -67,12 +68,10 @@ export class Cart extends Component{
                             ownerCon: data
                         }
                     })
+                    console.log(data);
                 });
             });
-
-            return this.state.ownerCon
-
-    }
+    }*/
 
     
     render(){

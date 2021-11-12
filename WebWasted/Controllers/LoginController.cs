@@ -21,13 +21,16 @@ namespace WebWasted.Controllers
         [HttpPost]
         public int Post([FromBody] LoginArguments Credentials)
         {
-            var findUser = (from user in DatabaseHandler.Instance.dc.Users where user.UserName == Credentials.UserName && user.Password == Credentials.Password select user).First();
-            if(findUser == null)
+            lock (DatabaseHandler.Instance.dc.Users)
             {
-                return -1;
+                var findUser = (from user in DatabaseHandler.Instance.dc.Users where user.UserName == Credentials.UserName && user.Password == Credentials.Password select user).FirstOrDefault();
+                if (findUser == null)
+                {
+                    return -1;
+                }
+                //Console.WriteLine("yes " + findUser.ID);
+                return findUser.ID;
             }
-            //Console.WriteLine("yes " + findUser.ID);
-            return findUser.ID;
         }
     }
 }
