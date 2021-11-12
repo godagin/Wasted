@@ -40,21 +40,14 @@ namespace WebWasted.Controllers
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            using (var dataContext = new DataContext())
-            {
-                return dataContext.Foods.ToList();
-            }
+            return DatabaseHandler.Instance.dc.Foods.ToList();
         }
         
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
-            using (var dataContext = new DataContext())
-            {
-                var myOffers = from food in dataContext.Foods where food.OwnerID.Equals(id) select food;
-                return myOffers.ToList();
-            }
-            
+            var myOffers = from food in DatabaseHandler.Instance.dc.Foods where food.OwnerID.Equals(id) select food;
+            return myOffers.ToList();
         }
 
         
@@ -91,5 +84,6 @@ namespace WebWasted.Controllers
 
             return Ok();            
         }
+
     }
 }

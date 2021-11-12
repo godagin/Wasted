@@ -15,23 +15,18 @@ namespace WebWasted.Controllers
         public int Post([FromBody] User user)
         {
             //Console.WriteLine(user.UserName + " " + user.Name + " " + user.Surname + " " + user.ContactEmail + " " + user.Password);
-            
-            using(DataContext context = new DataContext())
-            {
 
-                if (context.Users.Any(u => u.UserName == user.UserName))
+                if (DatabaseHandler.Instance.dc.Users.Any(u => u.UserName == user.UserName))
                 {
                     //Console.WriteLine("if");
                     return -1;
                 }
                 //Console.WriteLine("ne if");
                 User newUser = new User(user.UserName, user.Name, user.Surname, user.ContactEmail, user.Password);
-                context.Users.Add(newUser);
-                context.SaveChanges();
+                DatabaseHandler.Instance.dc.Users.Add(newUser);
+                DatabaseHandler.Instance.dc.SaveChanges();
                 //Console.WriteLine(newUser.ID);
                 return newUser.ID;
-
-            }
         }
     }
 }

@@ -29,36 +29,33 @@ namespace WebWasted.Controllers
         [HttpGet("{id}")]
         public IEnumerable<Food> Get(int id)
         {
-            using (DataContext context = new DataContext())
-            {   
-                var userCart = from food in context.Foods
+               
+                var userCart = from food in DatabaseHandler.Instance.dc.Foods
                                where food.BuyerID == id
                                select food;
 
                 return userCart.ToList();
-            }
+            
         }
         
         [HttpPost]
         public int Post([FromBody] CartArguments IDS)
         {
-            using (DataContext context = new DataContext())
+            var findFood = (from food in DatabaseHandler.Instance.dc.Foods where food.ID == IDS.foodID select food).First();
+            /* if ((findFood == null) || (IDS.userID == findFood.OwnerID))
             {
-                var findFood = (from food in context.Foods where food.ID == IDS.foodID select food).First();
-               /* if ((findFood == null) || (IDS.userID == findFood.OwnerID))
-                {
-                    return -1;
-                }*/
-                if (findFood == null)
-                {
-                    return -1;
-                }
-                findFood.BuyerID = IDS.userID;
-                context.SaveChanges();
-                Console.WriteLine("add");
-
-                return findFood.BuyerID;
+                return -1;
+            }*/
+            if (findFood == null)
+            {
+                return -1;
             }
+            findFood.BuyerID = IDS.userID;
+            DatabaseHandler.Instance.dc.SaveChanges();
+                
+
+            return findFood.BuyerID;
+            
         }
     }
 }

@@ -88,7 +88,6 @@ export class Foods extends Component{
                             <th scope="col">Price</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,10 +99,9 @@ export class Foods extends Component{
                                 <td >{food.FullPrice}</td>
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                 <td >{food.ExpDate}</td>
-                                <td>Edit / Delete</td>
                                 <div>
                                     {
-                                        food.BuyerID === 0 && food.OwnerID !== localStorage.userID &&
+                                        food.BuyerID == 0 && food.OwnerID != localStorage.userID &&
                                         <button onClick={() => this.addToCart(food.ID, food.BuyerID)}> 
                                             Add to cart
                                         </button>

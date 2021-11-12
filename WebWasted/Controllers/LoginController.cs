@@ -21,16 +21,13 @@ namespace WebWasted.Controllers
         [HttpPost]
         public int Post([FromBody] LoginArguments Credentials)
         {
-            using(DataContext context = new DataContext())
+            var findUser = (from user in DatabaseHandler.Instance.dc.Users where user.UserName == Credentials.UserName && user.Password == Credentials.Password select user).First();
+            if(findUser == null)
             {
-                var findUser = (from user in context.Users where user.UserName == Credentials.UserName && user.Password == Credentials.Password select user).First();
-                if(findUser == null)
-                {
-                    return -1;
-                }
-                //Console.WriteLine("yes " + findUser.ID);
-                return findUser.ID;
+                return -1;
             }
+            //Console.WriteLine("yes " + findUser.ID);
+            return findUser.ID;
         }
     }
 }

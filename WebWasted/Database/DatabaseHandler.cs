@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Threading;
+using WebWasted.Timers;
 
 namespace WebWasted
 {
@@ -16,46 +18,67 @@ namespace WebWasted
         private DatabaseHandler()
         {
             Food.FoodCreatedEvent += AddItemToFoodTable;
+            
+        }
+
+        public void CloseConnection()
+        {
+            dc.SaveChanges();
+            dc.Dispose();
         }
 
         public void AddItemToFoodTable(Food item)
         {
-            dc.Foods.Add(item);
-            dc.SaveChanges();
+            lock (dc) {
+                dc.Foods.Add(item);
+                dc.SaveChanges();
+            }
         }
 
         public void RemoveItemFromFoodTable(Food item)
         {
-            dc.Foods.Remove(item);
-            dc.SaveChanges();
+            lock (dc)
+            {
+                dc.Foods.Remove(item);
+                dc.SaveChanges();
+            }
+            
         }
 
         public void RemoveAllFromFoodTable()
         {
-            foreach (Food item in dc.Foods) //remove from database table
+            lock (dc)
             {
-                dc.Foods.Remove(item);
+                foreach (Food item in dc.Foods) //remove from database table
+                {
+                    dc.Foods.Remove(item);
+                }
+                dc.SaveChanges();
             }
-            dc.SaveChanges();
+            
         }
 
         public void EditFoodTableItem(Food food)
         {
-            dc.Foods.Find(food.ID).Name = food.Name;
-            dc.Foods.Find(food.ID).Description = food.Description;
-            dc.Foods.Find(food.ID).FullPrice = food.FullPrice;
-            dc.Foods.Find(food.ID).Type = food.Type;
-            dc.Foods.Find(food.ID).ExpDate = food.ExpDate;
+            lock (dc)
+            {
+                dc.Foods.Find(food.ID).Name = food.Name;
+                dc.Foods.Find(food.ID).Description = food.Description;
+                dc.Foods.Find(food.ID).FullPrice = food.FullPrice;
+                dc.Foods.Find(food.ID).Type = food.Type;
+                dc.Foods.Find(food.ID).ExpDate = food.ExpDate;
 
-            if (food.GetType() == typeof(WeighedFood))
-            {
-                ((WeighedFood)dc.Foods.Find(food.ID)).Weight = ((WeighedFood)food).Weight;
+                if (food.GetType() == typeof(WeighedFood))
+                {
+                    ((WeighedFood)dc.Foods.Find(food.ID)).Weight = ((WeighedFood)food).Weight;
+                }
+                else if (food.GetType() == typeof(DiscreteFood))
+                {
+                    ((DiscreteFood)dc.Foods.Find(food.ID)).Quantity = ((DiscreteFood)food).Quantity;
+                }
+                dc.SaveChanges();
             }
-            else if(food.GetType() == typeof(DiscreteFood))
-            {
-                ((DiscreteFood)dc.Foods.Find(food.ID)).Quantity = ((DiscreteFood)food).Quantity;
-            }
-            dc.SaveChanges();
+            
         }
     }
 }
