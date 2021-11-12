@@ -18,11 +18,11 @@ export class Cart extends Component{
         .then(response => {
             response.json().then(data => {
                 console.log(data);
-                /*this.setState(() => {
+                this.setState(() => {
                     return{
                         cartItems: data
                     }
-                })*/
+                })
             });
         });
     }
@@ -32,14 +32,14 @@ export class Cart extends Component{
     }
 
 
-    /*onRemoveFromCart = (ID) =>{
+    onRemoveFromCart = (ID) =>{
 
         //console.log(ID);
         const requestOptions = {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                userID: localStorage.getItem('userID'),
+                userID: 0,
                 foodID: ID
              })
         };
@@ -57,7 +57,7 @@ export class Cart extends Component{
             };
         });
     }
-
+/*
      getContacts = (OwnerID) =>{
 
         fetch(process.env.REACT_APP_API + '/api/cart/' + OwnerID)
@@ -71,8 +71,8 @@ export class Cart extends Component{
                     console.log(data);
                 });
             });
-    }*/
-
+    }
+*/
     
     render(){
         
@@ -98,7 +98,7 @@ export class Cart extends Component{
                                  <td >{food.FullPrice}</td>
                                  <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                  <td >{food.BuyerID}</td>
-                                 <td >{this.getContacts(food.OwnerID)}</td>
+                                 <td > </td>
                                  <button onClick={() => this.onRemoveFromCart(food.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>

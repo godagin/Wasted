@@ -33,15 +33,18 @@ namespace WebWasted.Controllers
         }
 
         [HttpGet("{id}")]
-        public List<FoodOwner> Get(int id)
+        public List<Food> Get(int id)
         {
 
-            /* var userCart = from food in context.Foods
-                            where food.BuyerID == id
-                            select food;
-            */
+            
+            
             lock (DatabaseHandler.Instance.dc)
             {
+                var userCart = from food in DatabaseHandler.Instance.dc.Foods
+                               where food.BuyerID == id
+                               select food;
+                return userCart.ToList();
+                /*
                 var userCart = DatabaseHandler.Instance.dc.Foods.Where(food => food.BuyerID == id);
                 List<FoodOwner> foodOwners = new();
                 foreach(var item in userCart)
@@ -56,6 +59,7 @@ namespace WebWasted.Controllers
                 }
                 
                 return foodOwners;
+                */
             }
             
         }

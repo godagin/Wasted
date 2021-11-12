@@ -13,16 +13,19 @@ export class Foods extends Component{
     }
 
     addToCart = (ID, BuyerID) =>{
-            if (BuyerID === 0)
-            {
-                const requestOptions = {
+        if (BuyerID == localStorage.getItem('userID'))
+        {
+            console.log('already in cart');
+        }
+        else{
+            const requestOptions = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     userID: localStorage.getItem('userID'),
                     foodID: ID
-                 })
-            };
+                    })
+                };
             fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
                 .then((response) => response.json())
                 .then(data => {
@@ -30,17 +33,8 @@ export class Foods extends Component{
                 })
 
                 console.log('added');
-            }
-            else if (BuyerID === localStorage.getItem('userID'))
-            {
-                console.log('already in cart');
-            }
-            else
-            {
-                console.log('unavailable');
-            }  
-
-            this.refreshList();     
+        }
+        this.refreshList();        
     }
 
 
