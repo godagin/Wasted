@@ -29,13 +29,22 @@ namespace WebWasted.Controllers
         [HttpGet("{id}")]
         public IEnumerable<Food> Get(int id)
         {
+            using (DataContext context = new DataContext())
+            {   
+               /* var userCart = from food in context.Foods
+                               where food.BuyerID == id
+                               select food;
+               */
 
-            var userCart = from food in DatabaseHandler.Instance.dc.Foods
-                           where food.BuyerID == id
-                           select food;
+                var userC = from food in context.Foods
+                            join user in context.Users
+                            on food.BuyerID equals user.ID
+                            where food.BuyerID == id
+                            select new { food.Name, food.Description, food.FullPrice, user.ContactEmail };
 
-            return userCart.ToList();
-
+               // return userCart.ToList();
+                return userC.ToList();
+            }
         }
 
         [HttpPost]
