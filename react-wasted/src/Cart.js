@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
+//import { Contacts } from './Contacts';
 
 export class Cart extends Component{
 
@@ -57,10 +58,12 @@ export class Cart extends Component{
             };
         });
     }
-/*
+
      getContacts = (OwnerID) =>{
 
-        fetch(process.env.REACT_APP_API + '/api/cart/' + OwnerID)
+        var text ;
+        console.log('in');
+        fetch(process.env.REACT_APP_API + '/api/contacts/' + OwnerID)
             .then(response => {
                 response.json().then(data => {
                     this.setState(() => {
@@ -68,11 +71,13 @@ export class Cart extends Component{
                             ownerCon: data
                         }
                     })
+                    console.log(this.state.ownerCon);
                     console.log(data);
+
                 });
             });
     }
-*/
+
     
     render(){
         
@@ -98,7 +103,7 @@ export class Cart extends Component{
                                  <td >{food.FullPrice}</td>
                                  <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                  <td >{food.BuyerID}</td>
-                                 <td > </td>
+                                 <button onClick={() => this.getContacts(food.OwnerID)}>contacts</button>
                                  <button onClick={() => this.onRemoveFromCart(food.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>

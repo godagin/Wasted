@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace WebWasted.Controllers
 {
+
     [ApiController]
     [Route("api/contacts")]
+
     public class ContactsController : ControllerBase
     {
 
@@ -22,22 +24,32 @@ namespace WebWasted.Controllers
         [HttpGet("{id}")]
         public String Get(int id)
         {
+            Console.WriteLine("test");
 
-            using (DataContext context = new DataContext())
+            lock (DatabaseHandler.Instance.dc)
             {
-                var owner = (from user in context.Users where user.ID == id select user).First();
+                Console.WriteLine("test1");
+                var owner = (from user in DatabaseHandler.Instance.dc.Users where user.ID == id select user).FirstOrDefault();
 
                 if (owner == null)
                 {
                     return "";
                 }
- 
-                Console.WriteLine(owner.ContactEmail);
- 
-                return owner.ContactEmail;
+   
 
+                String json = " [ {\"Mail\": \"" + owner.ContactEmail + "\"} ]";
+     
+                Console.WriteLine(json);
+
+                Console.WriteLine("test3");
+
+
+                return json;
             }
+            
         }
+
+        
 
     }
 }
