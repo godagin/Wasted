@@ -50,6 +50,13 @@ export class Navigation extends Component{
                     </NavLink>
                 </Nav>
                 }
+                { localStorage.getItem('userID') != null &&
+                <Nav>
+                    <NavLink className="d-inline p-2 bg-dark text-white" to="/Chat">
+                        Chat
+                    </NavLink>
+                </Nav>
+                }
                 
                 </Navbar.Collapse>
                 

@@ -8,6 +8,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { Login } from './Account/Login';
 import { Logout } from './Account/Logout';
+import { Chat } from './Chat';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           { localStorage.getItem('userID') == null && <Route path='/register' component={Register}/>}
           { localStorage.getItem('userID') == null && <Route path='/login' component={Login}/>}
           <Route path='/logout' component={Logout}/>
+          {localStorage.getItem('userID') != null && <Route path='/chat' component={Chat}/>}
         </Switch>
       </Container>
     
