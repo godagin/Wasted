@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
 import { CreateOffer } from './CreateOffer';
+//import { Search } from './Search';
 
 export class Foods extends Component{
 
@@ -8,7 +9,9 @@ export class Foods extends Component{
         super(props);
         this.state={
             foods:[],
-            createOffer: false
+            createOffer: false,
+            filteredItems:[],
+            query: ''
         }
     }
 
@@ -56,11 +59,31 @@ export class Foods extends Component{
     onAddFood(){
         this.setState(() => {return{ createOffer: true}});
     }
+   
     /*
     handleFoodAdded(){
         this.setState(() => {return{ createOffer: false}});
     }
 */
+
+    onSearch(){
+        //let query = this.state.query;
+        //fetch(process.env.REACT_APP_API + '/api/search' + query)
+        /* fetch(process.env.REACT_APP_API + '/api/foods?search=${encodeURIComponent(query.search)}',{
+        method: "GET"}) */
+        fetch(process.env.REACT_APP_API + '/api/foods/search', {
+            method: 'GET'
+        })
+            .then(res => res.json())
+            .then((result) => {
+                this.setState(()=>{
+                    console.log(result); 
+                    return {filteredItems:result}
+                })
+            }
+        )
+    }
+
     componentDidMount(){
         this.refreshList();
     }
@@ -77,6 +100,17 @@ export class Foods extends Component{
                 <button onClick={()=>{this.onAddFood()}}> 
                     +
                 </button>
+                <form>
+                <input
+                    type="text"
+                    className="search-box"
+                    placeholder="Search for..."
+                    //onChange={this.onSearch()}
+                    onChange={event=>{this.onSearch(event.target.value)}}
+                    //onChange={this.onSearch.bind(this)}
+                />
+                
+            </form>
                 <Table className="table">
                     <thead>
                         <tr>
