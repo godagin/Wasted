@@ -46,21 +46,17 @@ namespace WebWasted.Controllers
             }
 
         }
-        [HttpGet("{search}")]
+        [HttpGet("{searchString}")]
         public IEnumerable<Food> Get(string searchString)
         {
-            //searchString = "el";
             lock (DatabaseHandler.Instance.dc)
             {
                 var query = from food in DatabaseHandler.Instance.dc.Foods select food;
                 if (!string.IsNullOrEmpty(searchString))
                 {
                     query = query.Where(offer => offer.Name.Contains(searchString) || offer.Description.Contains(searchString));
-                    //var searchedFoods = from food in context.Foods where food.Name.Contains(searchString) select food;
                 }
-                //return DatabaseHandler.Instance.dc.Foods.ToList();
                 return query.ToList();
-               
             }
 
         }
@@ -72,9 +68,9 @@ namespace WebWasted.Controllers
             {
                 var myOffers = from food in DatabaseHandler.Instance.dc.Foods where food.OwnerID.Equals(id) select food;
                 return myOffers.ToList();
-            }
-            
-        }*/
+            }  
+        }
+        */
 
         //1uzd paspaudziam checkout i console parasyt kad issicheckoutino per eventa controlleris iskviecia
         //hadleris zinute gali but skirtingu type kad butut generic
