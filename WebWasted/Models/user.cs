@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
-//added "add" methods that take food objects as parameters
-//renamed userName->Name to make the project code more consistent
+using WebWasted.Models;
 
 namespace WebWasted
 {
@@ -16,6 +14,7 @@ namespace WebWasted
 		public String Surname { get; set; }
 		public String ContactEmail { get; set; }
 		public String Password { get; set; }
+		public ICollection<Order> Orders { get; set; }
 		
 		
 		//it is bad to save password directly in the database, this is only temporary solution 

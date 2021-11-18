@@ -13,7 +13,6 @@ namespace WebWasted
         [Key]
         public int ID { get; set; }
         public int OwnerID { get; set; }
-        public int BuyerID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public double FullPrice { get; set; }

@@ -31,7 +31,7 @@ namespace WebWasted.Controllers
         {
             _configuration = configuration;
         }
-
+        /*
         [HttpGet("{id}")]
         public List<Food> Get(int id)
         {
@@ -40,11 +40,12 @@ namespace WebWasted.Controllers
             
             lock (DatabaseHandler.Instance.dc)
             {
+                /*
                 var userCart = from food in DatabaseHandler.Instance.dc.Foods
                                where food.BuyerID == id
                                select food;
                 return userCart.ToList();
-                /*
+                --
                 var userCart = DatabaseHandler.Instance.dc.Foods.Where(food => food.BuyerID == id);
                 List<FoodOwner> foodOwners = new();
                 foreach(var item in userCart)
@@ -59,11 +60,11 @@ namespace WebWasted.Controllers
                 }
                 
                 return foodOwners;
-                */
+                
             }
             
-        }
-
+        }*/
+        /*
         [HttpPost]
         public int Post([FromBody] CartArguments IDS)
         {
@@ -90,7 +91,7 @@ namespace WebWasted.Controllers
                 return findItem.BuyerID;
             }
             
-        }
+        }*/
 
     }
 }
