@@ -31,67 +31,62 @@ namespace WebWasted.Controllers
         {
             _configuration = configuration;
         }
-        /*
-        [HttpGet("{id}")]
-        public List<Food> Get(int id)
-        {
 
-            
-            
-            lock (DatabaseHandler.Instance.dc)
-            {
-                /*
-                var userCart = from food in DatabaseHandler.Instance.dc.Foods
-                               where food.BuyerID == id
-                               select food;
-                return userCart.ToList();
-                --
-                var userCart = DatabaseHandler.Instance.dc.Foods.Where(food => food.BuyerID == id);
-                List<FoodOwner> foodOwners = new();
-                foreach(var item in userCart)
-                {
-                    var user = DatabaseHandler.Instance.dc.Users.Find(item.OwnerID);
-                    foodOwners.Add(new FoodOwner { food = item, user = user });
-                }
-               
-                foreach(var item in foodOwners)
-                {
-                    Console.WriteLine(item.user.ContactEmail);
-                }
-                
-                return foodOwners;
-                
-            }
-            
-        }*/
-        /*
-        [HttpPost]
-        public int Post([FromBody] CartArguments IDS)
+
+        //gets the cart items of user specified by ID
+        [HttpGet("{id}")]
+        public List<Order> Get(int id)
         {
             lock (DatabaseHandler.Instance.dc)
             {
+                var userCart = from order in DatabaseHandler.Instance.dc.Orders
+                               where order.Buyer.ID == id
+                               select order;
+                return userCart.ToList();
+            }
+        }
+        
+       //prideti i krepseli
+        [HttpPost]
+        public IActionResult Post([FromBody] CartArguments IDS)
+        {
+            lock (DatabaseHandler.Instance.dc)
+            {
+                //finds item in database
                 Food findItem = DatabaseHandler.Instance.dc.Foods.ToList().Find(
                     delegate (Food item)
                     {
                         return item.ID == IDS.foodID;
                     }
                 );
+                User findUser = DatabaseHandler.Instance.dc.Users.ToList().Find(
+                   delegate (User user)
+                   {
+                       return user.ID == IDS.userID;
+                   }
+               );
 
+                //if item found, creates an order 
                 if (findItem != null)
                 {
-                    findItem.BuyerID = IDS.userID;
+                    Order order = new Order();
+                    order.FoodOrder = findItem;
+                    order.Buyer = findUser;
+                    order.Amount = 1;//pakeisti!!!! IR prideti patikrinima
+                    DatabaseHandler.Instance.dc.Orders.Add(order);
+
+                    findUser.Orders.Add(order);
                     DatabaseHandler.Instance.dc.SaveChanges();
                 }
                 else
                 {
-                    Console.WriteLine("not found");
-                    return -1;
+                   // Console.WriteLine("not found");
+                    return BadRequest();
                 }
 
-                return findItem.BuyerID;
+                return Ok();
             }
-            
-        }*/
+        }
 
     }
 }

@@ -12,5 +12,11 @@ namespace WebWasted.Models
         public int ID { get; set; }
         public Food FoodOrder { get; set; }
         public double Amount { get; set; }
+        public User Buyer { get; set; }
+
+        public Order()
+        {
+
+        }
     }
 }
