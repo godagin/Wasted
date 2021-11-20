@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
 using System.Data;
 using WebWasted.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace WebWasted.Controllers
 {
@@ -31,10 +30,12 @@ namespace WebWasted.Controllers
     public class FoodsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _env;
 
-        public FoodsController(IConfiguration configuration)
+        public FoodsController(IConfiguration configuration, IWebHostEnvironment env)
         {
             _configuration = configuration;
+            _env = env;
         }
 
         [HttpGet]
@@ -55,11 +56,37 @@ namespace WebWasted.Controllers
                 if (!string.IsNullOrEmpty(searchString))
                 {
                     query = query.Where(offer => offer.Name.Contains(searchString) || offer.Description.Contains(searchString));
+                    //query = query.Where(offer => offer.Name.StartsWith(searchString) || offer.Description.StartsWith(searchString));
+
                 }
                 return query.ToList();
             }
-
+            
         }
+
+        [Route("SaveFile")]
+        [HttpPost]
+        public JsonResult SaveFile()
+        {
+            try
+            {
+                var httpRequest = Request.Form;
+                var postedFile = httpRequest.Files[0];
+                string fileName = postedFile.FileName;
+                var physicalPath = _env.ContentRootPath + "/Photos/" + fileName;
+
+                using(var stream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+                return new JsonResult(fileName);
+            }
+            catch(Exception)
+            {
+                return new JsonResult("anonymous.jpg");
+            }
+        }
+
         /*
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)

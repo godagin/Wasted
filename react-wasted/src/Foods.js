@@ -8,6 +8,8 @@ export class Foods extends Component{
         super(props);
         this.state={
             foods:[],
+            PhotoFileName: "anonymous.jpg",
+            PhotoPath: process.env.REACT_APP_API + '/Photos/',
             createOffer: false,
             filteredItems:[],
             input:{
@@ -78,6 +80,11 @@ export class Foods extends Component{
     }
 
     render(){
+        const{
+            PhotoFileName,
+            PhotoPath
+        }=this.state;
+
         if(localStorage.getItem('userID') == null || localStorage.getItem('userID') == undefined){
             return (<div> </div>);
         }
@@ -101,6 +108,7 @@ export class Foods extends Component{
                 <Table className="table">
                     <thead>
                         <tr>
+                            <th scope="col">Photo</th>
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Price</th>
@@ -112,6 +120,12 @@ export class Foods extends Component{
                         {this.state.foods.map(food=>
                             
                             <tr>
+                                <div className="d-flex flex-row bd-highlight mb-3">
+                                <div className="p-2 w-50 bd-highlight">
+                                    <img alt="" width="200px" height="200px"
+                                    src={PhotoPath+PhotoFileName}/>
+                                </div>
+                                </div>
                                 <td>{food.Name}</td>
                                 <td>{food.Description}</td>
                                 <td >{food.FullPrice}</td>

@@ -19,6 +19,7 @@ namespace WebWasted
         public double FullPrice { get; set; }
         public Category Type { get; set; }
         public DateTime ExpDate { get; set; }
+        public string PhotoFileName { get; set; }
 
         protected Food()
         {
