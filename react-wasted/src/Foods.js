@@ -8,7 +8,7 @@ export class Foods extends Component{
         super(props);
         this.state={
             foods:[],
-            PhotoFileName: "anonymous.jpg",
+            //FileName: "anonymous.jpg",
             PhotoPath: process.env.REACT_APP_API + '/Photos/',
             createOffer: false,
             filteredItems:[],
@@ -80,10 +80,6 @@ export class Foods extends Component{
     }
 
     render(){
-        const{
-            PhotoFileName,
-            PhotoPath
-        }=this.state;
 
         if(localStorage.getItem('userID') == null || localStorage.getItem('userID') == undefined){
             return (<div> </div>);
@@ -120,18 +116,17 @@ export class Foods extends Component{
                         {this.state.foods.map(food=>
                             
                             <tr>
-                                <div className="d-flex flex-row bd-highlight mb-3">
-                                <div className="p-2 w-50 bd-highlight">
-                                    <img alt="" width="200px" height="200px"
-                                    src={PhotoPath+PhotoFileName}/>
-                                </div>
-                                </div>
-                                <td>{food.Name}</td>
-                                <td>{food.Description}</td>
-                                <td >{food.FullPrice}</td>
-                                <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
-                                <td >{food.ExpDate}</td>
-                                <div>
+                                <td>
+                                    <img alt="" width="150px" height="150px"
+                                    src={this.state.PhotoPath+food.PhotoFileName} />
+                                </td>
+                                <td class="align-middle">{food.Name}</td>
+                                <td class="align-middle">{food.Description}</td>
+                                <td class="align-middle">{food.FullPrice}</td>
+                                <td class="align-middle">{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
+                                <td class="align-middle">{food.ExpDate}</td>
+
+                                    <div class="vertical-center">
                                     {
                                         food.BuyerID == 0 && food.OwnerID != localStorage.userID &&
                                         <button onClick={() => this.addToCart(food.ID, food.BuyerID)}> 

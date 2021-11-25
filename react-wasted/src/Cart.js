@@ -6,6 +6,7 @@ export class Cart extends Component{
     constructor(props){
         super(props);
         this.state={
+            PhotoPath: process.env.REACT_APP_API + '/Photos/',
             cartItems:[],
             ownerCon: ''
         }
@@ -81,6 +82,7 @@ export class Cart extends Component{
                  <Table className="table">
                      <thead>
                          <tr>
+                             <th scope="col">Photo</th>
                              <th scope="col">Name</th>
                              <th scope="col">Description</th>
                              <th scope="col">Price</th>
@@ -93,12 +95,16 @@ export class Cart extends Component{
                      <tbody>
                          {this.state.cartItems.map(food=>
                              <tr>
-                                 <td>{food.Name}</td>
-                                 <td>{food.Description}</td>
-                                 <td >{food.FullPrice}</td>
-                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
-                                 <td >{food.BuyerID}</td>
-                                 <td > </td>
+                                <td>
+                                    <img alt="" width="150px" height="150px"
+                                    src={this.state.PhotoPath+food.PhotoFileName} />
+                                </td>
+                                 <td class="align-middle">{food.Name}</td>
+                                 <td class="align-middle">{food.Description}</td>
+                                 <td class="align-middle">{food.FullPrice}</td>
+                                 <td class="align-middle">{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
+                                 <td class="align-middle">{food.BuyerID}</td>
+                                 <td class="align-middle"> </td>
                                  <button onClick={() => this.onRemoveFromCart(food.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>
