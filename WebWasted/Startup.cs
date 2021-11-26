@@ -65,7 +65,7 @@ namespace WebWasted
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapHub<ChatHub>("/ChatHub");
             });
 
             var autoEvent = new AutoResetEvent(false);

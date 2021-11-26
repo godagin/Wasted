@@ -29,6 +29,14 @@ export class Navigation extends Component{
                         </NavLink>
                     </Nav>
                 }
+                {
+                    localStorage.getItem('userID') != null &&
+                    <Nav>
+                        <NavLink className="d-inline p-2 bg-dark text-white" to="/AddedOffers">
+                            Added Offers
+                        </NavLink>
+                    </Nav>
+                }
                 { localStorage.getItem('userID') == null &&
                 <Nav>
                     <NavLink className="d-inline p-2 bg-dark text-white" to="/Register">

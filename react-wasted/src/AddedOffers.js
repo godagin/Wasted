@@ -2,12 +2,12 @@ import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
 import { Chat } from './Chat';
 
-export class Cart extends Component{
+export class AddedOffers extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            cartItems:[],
+            addedItems:[],
             ownerCon: '',
             showChat: false
         }
@@ -16,13 +16,13 @@ export class Cart extends Component{
     
     refreshList(){
 
-        fetch(process.env.REACT_APP_API + '/api/cart/' + localStorage.getItem('userID'))
+        fetch(process.env.REACT_APP_API + '/api/addedoffers/' + localStorage.getItem('userID'))
         .then(response => {
             response.json().then(data => {
                 console.log(data);
                 this.setState(() => {
                     return{
-                        cartItems: data
+                        addedItems: data
                     }
                 })
             });
@@ -34,18 +34,18 @@ export class Cart extends Component{
     }
 
 
-    onRemoveFromCart = (ID) =>{
+    onRemoveOffer = (ID) =>{
 
         //console.log(ID);
         const requestOptions = {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                userID: 0,
+                userID: localStorage.getItem('userID'),
                 foodID: ID
              })
         };
-        fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+        fetch(process.env.REACT_APP_API + '/api/addedoffers', requestOptions) 
             .then((response) => response.json())
             .then(data => {
                 console.log(data);
@@ -53,9 +53,9 @@ export class Cart extends Component{
 
 
         this.setState(state => { //instead of rerendering we just remove item from this local list
-            const cartItems = state.cartItems.filter((item) => ID != item.ID);
+            const addedItems = state.addedItems.filter((item) => ID != item.ID);
             return{
-                cartItems,
+                addedItems,
             };
         });
     }
@@ -106,14 +106,13 @@ export class Cart extends Component{
                      </thead>
                      
                      <tbody>
-                         {this.state.cartItems.map(food=>
+                         {this.state.addedItems.map(food=>
                              <tr>
                                  <td>{food.Name}</td>
                                  <td>{food.Description}</td>
                                  <td >{food.FullPrice}</td>
                                  <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
-                                 <button onClick={() => this.getContacts(food.OwnerID)}>Contact owner</button>
-                                 <button onClick={() => this.onRemoveFromCart(food.ID)}>Remove from cart</button>
+                                 <button onClick={() => this.onRemoveOffer(food.ID)}>Remove offer</button>
                              </tr>)}
                      </tbody>
                  </Table>
