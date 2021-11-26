@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using WebWasted.Models;
 
 namespace WebWasted
 {
@@ -14,6 +15,8 @@ namespace WebWasted
         public DbSet<Food> Foods { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
 
     }
 }
