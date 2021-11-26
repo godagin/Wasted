@@ -87,18 +87,6 @@ namespace WebWasted.Controllers
             }
         }
 
-        /*
-        [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
-        public IEnumerable<Food> Get(int id)
-        {
-            lock (DatabaseHandler.Instance.dc)
-            {
-                var myOffers = from food in DatabaseHandler.Instance.dc.Foods where food.OwnerID.Equals(id) select food;
-                return myOffers.ToList();
-            }  
-        }
-        */
-
         //1uzd paspaudziam checkout i console parasyt kad issicheckoutino per eventa controlleris iskviecia
         //hadleris zinute gali but skirtingu type kad butut generic
         
