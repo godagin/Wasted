@@ -83,7 +83,7 @@ export class CreateOffer extends Component{
                 amount: this.state.input.amount,
                 foodType: this.state.input.foodType,
                 expTime: this.state.input.expiration,
-                photoFileName: this.state.PhotoFileName
+                fileName: this.state.PhotoFileName
              })
         };
         fetch(process.env.REACT_APP_API + '/api/foods', requestOptions) 
@@ -185,7 +185,7 @@ export class CreateOffer extends Component{
                     //patikrinti ar dienos nera skaicius su kableliu
                     this.setState(() => {return{ 
                         createOffer: false,
-                        FileName:PhotoFileName}});
+                        fileName:PhotoFileName}});
                     this.submitHandler();
                     }}>
                     Submit

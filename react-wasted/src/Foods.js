@@ -7,8 +7,7 @@ export class Foods extends Component{
     constructor(props){
         super(props);
         this.state={
-            foods:[],
-            //FileName: "anonymous.jpg",
+            //foods:[],
             PhotoPath: process.env.REACT_APP_API + '/Photos/',
             createOffer: false,
             filteredItems:[],
@@ -113,7 +112,7 @@ export class Foods extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.foods.map(food=>
+                        {this.state.filteredItems.map(food=>
                             
                             <tr>
                                 <td>
@@ -143,4 +142,3 @@ export class Foods extends Component{
         )
     }
 }
-
