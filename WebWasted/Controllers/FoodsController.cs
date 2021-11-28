@@ -22,6 +22,7 @@ namespace WebWasted.Controllers
         public double amount;
         public Category foodType;
         public int expTime = 3;
+        public string fileName;
     }
 
 
@@ -79,6 +80,7 @@ namespace WebWasted.Controllers
                 {
                     postedFile.CopyTo(stream);
                 }
+                
                 return new JsonResult(fileName);
             }
             catch(Exception)
@@ -96,12 +98,16 @@ namespace WebWasted.Controllers
         public IActionResult Post([FromBody] NewFoodArguments args)
         {
             Food food = null;
+            
+            
             switch (args.type)
             {
                 case 1: // food obj is weighed
                     try
                     {
                         food = new WeighedFood(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.amount, args.expTime);
+                     
+                        food.PhotoFileName=args.fileName;
                     }
                     catch(InvalidCastException)
                     {
@@ -113,6 +119,7 @@ namespace WebWasted.Controllers
                     try
                     {
                         food = new DiscreteFood(args.owner, args.name, args.description, args.fullPrice, args.foodType, (int)(args.amount), args.expTime);
+                        food.PhotoFileName = args.fileName;
                     }
                     catch (InvalidCastException)
                     {
@@ -121,10 +128,18 @@ namespace WebWasted.Controllers
                     break;
                 default:
                     food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
+                    food.PhotoFileName = args.fileName;
                     break;
             }
 
             return Ok();            
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] NewFoodArguments args)
+        {
+
+            return Ok();
         }
 
     }
