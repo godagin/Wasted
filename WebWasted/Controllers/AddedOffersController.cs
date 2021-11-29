@@ -32,11 +32,6 @@ namespace WebWasted.Controllers
 
             lock (DatabaseHandler.Instance.dc)
             {
-                /*var userOffers = from food in DatabaseHandler.Instance.dc.Foods
-                                 where food.OwnerID == id
-                                 select food;
-                return userOffers.ToList();*/
-
                 var userOffers = DatabaseHandler.Instance.dc.Foods.Where(food => food.OwnerID == id);
                                 
                 return userOffers.ToList();
@@ -45,33 +40,34 @@ namespace WebWasted.Controllers
         }
 
         [HttpPost]
-        public int Post([FromBody] AddedOfferArgs IDS)
+        public IActionResult Post([FromBody] AddedOfferArgs IDS)
         {
             lock (DatabaseHandler.Instance.dc)
             {
-/*
-                var findItem = (from food in DatabaseHandler.Instance.dc.Foods
-                                where food.OwnerID == IDS.userID
-                                select food).FirstOrDefault();*/
-
                 var findItem = (DatabaseHandler.Instance.dc.Foods.Where(food => food.OwnerID == IDS.userID)).FirstOrDefault();
                 
                 if (findItem != null)
                 {
                     DatabaseHandler.Instance.RemoveItemFromFoodTable(findItem);
+                    foreach(Order order in DatabaseHandler.Instance.dc.Orders)
+                    {
+                        if (order.FoodOrder.ID == IDS.foodID)
+                        {
+                            DatabaseHandler.Instance.dc.Orders.Remove(order);
+                            DatabaseHandler.Instance.dc.SaveChanges();
+                        }
+
+                    }
+
                 }
                 else
                 {
-                    Console.WriteLine("not found");
-                    return -1;
+                    return BadRequest();
                 }
 
-                return findItem.OwnerID;
+                return Ok();
 
             }
-
         }
-
-
     }
 }
