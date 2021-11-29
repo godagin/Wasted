@@ -6,8 +6,7 @@ export class Cart extends Component{
     constructor(props){
         super(props);
         this.state={
-            cartItems:[],
-            ownerCon: ''
+            cartItems:[]
         }
     }
 
@@ -34,16 +33,13 @@ export class Cart extends Component{
 
     onRemoveFromCart = (ID) =>{
 
-        //console.log(ID);
+        console.log(ID);
         const requestOptions = {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                userID: 0,
-                foodID: ID
-             })
+            method: 'DELETE', 
+            headers: { 'Content-Type': 'application/json' }
+            
         };
-        fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+        fetch(process.env.REACT_APP_API + '/api/cart/' + ID, requestOptions) 
             .then((response) => response.json())
             .then(data => {
                 console.log(data);
@@ -57,23 +53,7 @@ export class Cart extends Component{
             };
         });
     }
-/*
-     getContacts = (OwnerID) =>{
 
-        fetch(process.env.REACT_APP_API + '/api/cart/' + OwnerID)
-            .then(response => {
-                response.json().then(data => {
-                    this.setState(() => {
-                        return{
-                            ownerCon: data
-                        }
-                    })
-                    console.log(data);
-                });
-            });
-    }
-*/
-    
     render(){
         
         return(
@@ -89,13 +69,13 @@ export class Cart extends Component{
                      </thead>
                      
                      <tbody>
-                         {this.state.cartItems.map(food=>
+                         {this.state.cartItems.map(order=>
                              <tr>
-                                 <td>{food.Name}</td>
-                                 <td>{food.Description}</td>
-                                 <td >{food.FullPrice}</td>
-                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
-                                 <button onClick={() => this.onRemoveFromCart(food.ID)}>Remove from cart</button>
+                                 <td>{order.FoodOrder.Name}</td>
+                                 <td>{order.FoodOrder.Description}</td>
+                                 <td >{order.FoodOrder.FullPrice}</td>
+                                 <td >{order.FoodOrder.Weight != null ? order.FoodOrder.Weight + " kg" : order.FoodOrder.Quantity + " units"}</td>
+                                 <button onClick={() => this.onRemoveFromCart(order.ID)}>Remove from cart</button>
                              </tr>)}
                      </tbody>
                  </Table>

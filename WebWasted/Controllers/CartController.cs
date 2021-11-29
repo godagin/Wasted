@@ -42,6 +42,7 @@ namespace WebWasted.Controllers
                 var userCart = from order in DatabaseHandler.Instance.dc.Orders
                                where order.Buyer.ID == id
                                select order;
+
                 return userCart.ToList();
             }
         }
@@ -81,6 +82,28 @@ namespace WebWasted.Controllers
                 else
                 {
                    // Console.WriteLine("not found");
+                    return BadRequest();
+                }
+
+                return Ok();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            lock (DatabaseHandler.Instance.dc)
+            {
+ 
+                var findOrder = (DatabaseHandler.Instance.dc.Orders.Where(order => order.ID == id)).FirstOrDefault();
+
+                if (findOrder != null)
+                {
+                    DatabaseHandler.Instance.dc.Orders.Remove(findOrder);
+                    DatabaseHandler.Instance.dc.SaveChanges();
+                }
+                else
+                {
                     return BadRequest();
                 }
 
