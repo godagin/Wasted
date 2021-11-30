@@ -13,6 +13,7 @@ namespace WebWasted.Models
         public Food FoodOrder { get; set; }
         public double Amount { get; set; }
         public User Buyer { get; set; }
+        public Boolean Approved { get; set; }
 
         public Order()
         {
