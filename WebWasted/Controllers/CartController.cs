@@ -99,8 +99,7 @@ namespace WebWasted.Controllers
 
                 if (findOrder != null)
                 {
-                    DatabaseHandler.Instance.dc.Orders.Remove(findOrder);
-                    DatabaseHandler.Instance.dc.SaveChanges();
+                    DatabaseHandler.Instance.RemoveItemFromOrderTable(findOrder);
                 }
                 else
                 {

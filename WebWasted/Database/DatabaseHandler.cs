@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Threading;
+using WebWasted.Models;
 using WebWasted.Timers;
 
 namespace WebWasted
@@ -80,5 +81,16 @@ namespace WebWasted
             }
             
         }
+        public void RemoveItemFromOrderTable(Order item)
+        {
+            lock (dc)
+            {
+                dc.Orders.Remove(item);
+                dc.SaveChanges();
+            }
+
+        }
+
+
     }
 }

@@ -53,8 +53,7 @@ namespace WebWasted.Controllers
                     {
                         if (order.FoodOrder.ID == IDS.foodID)
                         {
-                            DatabaseHandler.Instance.dc.Orders.Remove(order);
-                            DatabaseHandler.Instance.dc.SaveChanges();
+                            DatabaseHandler.Instance.RemoveItemFromOrderTable(order);
                         }
 
                     }
