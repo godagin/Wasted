@@ -58,6 +58,15 @@ export class Navigation extends Component{
                     </NavLink>
                 </Nav>
                 }
+                { localStorage.getItem('userID') != null &&
+               <div className="ms-auto">
+                <Nav>
+                    <span className="d-inline p-2 bg-dark text-white">
+                       Signed in as {localStorage.getItem('userID')}
+                    </span>
+                </Nav>
+              </div>
+                }
                 
                 </Navbar.Collapse>
                 
