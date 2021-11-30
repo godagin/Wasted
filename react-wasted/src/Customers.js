@@ -1,25 +1,25 @@
 import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
 
-export class Cart extends Component{
+export class Customers extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            cartItems:[]
+            customerList:[]
         }
     }
 
     
     refreshList(){
 
-        fetch(process.env.REACT_APP_API + '/api/cart/' + localStorage.getItem('userID'))
+        fetch(process.env.REACT_APP_API + '/api/customers/' + localStorage.getItem('userID'))
         .then(response => {
             response.json().then(data => {
                 console.log(data);
                 this.setState(() => {
                     return{
-                        cartItems: data
+                        customerList: data
                     }
                 })
             });
@@ -30,28 +30,24 @@ export class Cart extends Component{
         this.refreshList();
     }
 
+    onApproveOrder = (ID, approved) =>{
 
-    onRemoveFromCart = (ID) =>{
-
-        console.log(ID);
         const requestOptions = {
-            method: 'DELETE', 
-            headers: { 'Content-Type': 'application/json' }
-            
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                orderID: ID,
+                isApproved: approved
+             })
         };
-        fetch(process.env.REACT_APP_API + '/api/cart/' + ID, requestOptions) 
+        fetch(process.env.REACT_APP_API + '/api/customers', requestOptions) 
             .then((response) => response.json())
             .then(data => {
                 console.log(data);
             })
 
-
-        this.setState(state => { //instead of rerendering we just remove item from this local list
-            const cartItems = state.cartItems.filter((item) => ID != item.ID);
-            return{
-                cartItems,
-            };
-        });
+        window.location.reload(false);
+        this.refreshList();
     }
 
     onContact = (ID) =>{
@@ -73,17 +69,19 @@ export class Cart extends Component{
                              <th scope="col">Description</th>
                              <th scope="col">Price</th>
                              <th scope="col">Amount</th> 
+                             <th scope="col">Buyer ID</th> 
                              <th scope="col">Status</th> 
                          </tr>
                      </thead>
                      
                      <tbody>
-                         {this.state.cartItems.map(order=>
+                     {this.state.customerList.map(order=>
                              <tr>
                                  <td>{order.FoodOrder.Name}</td>
                                  <td>{order.FoodOrder.Description}</td>
                                  <td >{order.FoodOrder.FullPrice}</td>
                                  <td >{order.FoodOrder.Weight != null ? order.FoodOrder.Weight + " kg" : order.FoodOrder.Quantity + " units"}</td>
+                                 <td >{order.Buyer.ID}</td>
                                     {
                                         order.Approved == true &&
                                         <td >Approved</td>
@@ -92,16 +90,26 @@ export class Cart extends Component{
                                         order.Approved == false &&
                                         <td >Not Approved</td>
                                     }
+
+                                    {
+                                        order.Approved == false &&
+                                         <button onClick={() => this.onApproveOrder(order.ID, true)}>Approve</button>
+                                    }
+                                    {
+                                        order.Approved == true &&
+                                         <button onClick={() => this.onApproveOrder(order.ID, false)}>Remove approval</button>
+                                    }
                                     {
                                         order.Approved == true &&
                                         <button onClick={() => this.onContact(order.ID)}>Contact</button>
                                     }
-                                 <button onClick={() => this.onRemoveFromCart(order.ID)}>Remove from cart</button>
+
                              </tr>)}
-                     </tbody>
+                    </tbody>
 
                      
-                 </Table>
+                </Table>
+                 
 
              </div>
 

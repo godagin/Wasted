@@ -3,6 +3,7 @@ import {Home} from './Home';
 import {Foods} from './Foods';
 import {Cart} from './Cart';
 import {AddedOffers} from './AddedOffers';
+import {Customers} from './Customers';
 import {Register} from './Account/Register';
 import {Navigation} from './Navigation';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -22,6 +23,7 @@ function App() {
           {localStorage.getItem('userID') != null && <Route path='/foods' component={Foods}/>}
           {localStorage.getItem('userID') != null && <Route path='/cart' component={Cart}/>}
           {localStorage.getItem('userID') != null && <Route path='/addedoffers' component={AddedOffers}/>}
+          {localStorage.getItem('userID') != null && <Route path='/customers' component={Customers}/>}
           { localStorage.getItem('userID') == null && <Route path='/register' component={Register}/>}
           { localStorage.getItem('userID') == null && <Route path='/login' component={Login}/>}
           <Route path='/logout' component={Logout}/>

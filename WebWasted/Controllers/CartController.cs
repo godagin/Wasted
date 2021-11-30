@@ -74,6 +74,7 @@ namespace WebWasted.Controllers
                     order.FoodOrder = findItem;
                     order.Buyer = findUser;
                     order.Amount = 1;//pakeisti!!!! IR prideti patikrinima
+                    order.Approved = false;
                     DatabaseHandler.Instance.dc.Orders.Add(order);
 
                     findUser.Orders.Add(order);

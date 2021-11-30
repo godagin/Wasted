@@ -21,6 +21,16 @@ export class Navigation extends Component{
                         </NavLink>
                     </Nav>
                 }
+                {
+                    localStorage.getItem('userID') != null &&
+                    
+                    <Nav>
+                        <NavLink className="d-inline p-2 bg-dark text-white" to="/Cart">
+                            Cart
+                        </NavLink>
+                    </Nav>
+                   
+                }
                 { localStorage.getItem('userID') != null &&
                 <NavDropdown
                         title={
@@ -29,10 +39,9 @@ export class Navigation extends Component{
                         id="nav-dropdown"
                         menuVariant="dark"
                         >
-                        <NavDropdown.Item href="/Cart">Cart</NavDropdown.Item>
-                        <NavDropdown.Item href="/AddedOffers"> My Added Offers</NavDropdown.Item>
+                        <NavDropdown.Item href="/AddedOffers">My Offers</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item >Completed orders</NavDropdown.Item>
+                        <NavDropdown.Item href="/Customers"> Customer List</NavDropdown.Item>
                 </NavDropdown>
                 }
                 { localStorage.getItem('userID') == null &&
@@ -56,7 +65,7 @@ export class Navigation extends Component{
                     </NavLink>
                 </Nav>
                 }
-                
+                 
                 { localStorage.getItem('userID') != null &&
                 <div className="ms-auto">
                 <Nav>
