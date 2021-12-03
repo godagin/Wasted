@@ -7,96 +7,52 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-using WebWasted.Models;
+using WebWasted.Models.DTOs;
+using WebWasted.Dummy;
+using WebWasted.Services;
 
 namespace WebWasted.Controllers
 {
-    public delegate void CreateFoodDelegate(Food food);
-
-    public class NewFoodArguments
-    {
-        public int type;
-        public int owner;
-        public string name;
-        public string description;
-        public double fullPrice;
-        public double amount;
-        public Category foodType;
-        public int expTime = 3;
-    }
-
+    //public delegate void CreateFoodDelegate(Food food);
 
     [ApiController]
     [Route("api/[controller]")]
     public class FoodsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-
-        public FoodsController(IConfiguration configuration)
+        private readonly IDataContext _dataContext;
+        public FoodsController(IConfiguration configuration, IDataContext dataContext)
         {
             _configuration = configuration;
+            _dataContext = dataContext;
         }
 
+        //gets the general available food list
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            lock (DatabaseHandler.Instance.dc)
-            {
-                return DatabaseHandler.Instance.dc.Foods.ToList();
-            }
-            
+            return _dataContext.Foods.ToList();
         }
         
+
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
-            lock (DatabaseHandler.Instance.dc)
-            {
-                var myOffers = from food in DatabaseHandler.Instance.dc.Foods where food.OwnerID.Equals(id) select food;
-                return myOffers.ToList();
-            }
+            ItemService itemService = new ItemService(_dataContext);
             
+            return itemService.GetUserOffers(id);
         }
 
-        //1uzd paspaudziam checkout i console parasyt kad issicheckoutino per eventa controlleris iskviecia
-        //hadleris zinute gali but skirtingu type kad butut generic
-        
-        //2uzd padaryt uzloginima i faila kad ivyko exception
-
+        //create food offer
         [HttpPost]
-        public IActionResult Post([FromBody] NewFoodArguments args)
+        public IActionResult Post([FromBody] GeneralFoodDto args)
         {
-            Food food = null;
-            switch (args.type)
+            ItemService itemService = new ItemService(_dataContext);
+            if(itemService.CreateFoodOffer(args) != 1)
             {
-                case 1: // food obj is weighed
-                    try
-                    {
-                        food = new WeighedFood(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.amount, args.expTime);
-                    }
-                    catch(InvalidCastException)
-                    {
-                        //right way butu i faila
-                        Console.WriteLine("The creation of a weighed food offer failed.");
-                    }
-                    break;
-                case 2: //food obj is discrete
-                    try
-                    {
-                        food = new DiscreteFood(args.owner, args.name, args.description, args.fullPrice, args.foodType, (int)(args.amount), args.expTime);
-                    }
-                    catch (InvalidCastException)
-                    {
-                        Console.WriteLine("The creation of a discrete food offer failed.");
-                    }
-                    break;
-                default:
-                    food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
-                    break;
+                return BadRequest();
             }
-
             return Ok();            
         }
-
     }
 }
