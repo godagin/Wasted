@@ -15,5 +15,6 @@ namespace WebWasted.Models.DTOs
         public double amount;
         public Category foodType;
         public int expTime = 3;
+        public string fileName;
     }
 }

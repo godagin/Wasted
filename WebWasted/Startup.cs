@@ -7,9 +7,11 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using WebWasted.Dummy;
+//using WebWasted.Dummy;
 using WebWasted.Timers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace WebWasted
 {
@@ -63,6 +65,13 @@ namespace WebWasted
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Photos")),
+                RequestPath = "/Photos"
             });
 
             var autoEvent = new AutoResetEvent(false);
