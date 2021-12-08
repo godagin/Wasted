@@ -1,17 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WebWasted.Dummy;
 using WebWasted.Timers;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebWasted
 {
@@ -43,6 +41,9 @@ namespace WebWasted
                 = new DefaultContractResolver());
 
             services.AddControllers();
+
+            services.AddSingleton<IDataContext, DataContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +66,7 @@ namespace WebWasted
             });
 
             var autoEvent = new AutoResetEvent(false);
-            var foodExpiryTimer = new FoodExpiryTimer();
+            var foodExpiryTimer = new FoodExpiryTimer(new DataContext());
             this.foodExpiryTimer = new Timer(foodExpiryTimer.RemoveExpiredFood,
                                        autoEvent, 15000, 20 * 1000);
         }

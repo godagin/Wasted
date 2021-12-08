@@ -7,16 +7,14 @@ namespace WebWasted.Timers
 {
     public class FoodExpiryTimer
     {
-        public FoodExpiryTimer()
+        IDataContext _dataContext;
+        public FoodExpiryTimer(IDataContext dataContext)
         {
-
+            _dataContext = dataContext;
         }
         public void RemoveExpiredFood(Object stateInfo)
         {
-            lock (DatabaseHandler.Instance.dc)
-            {
-                //Console.WriteLine("tick");
-                var foods = DatabaseHandler.Instance.dc.Foods.ToList();
+                var foods = _dataContext.Foods.ToList();
                 var expiredFoods = new List<Food>();
 
                 foreach(Food food in foods)
@@ -28,10 +26,9 @@ namespace WebWasted.Timers
                 }
                 if (expiredFoods != null)
                 {
-                    DatabaseHandler.Instance.dc.Foods.RemoveRange(expiredFoods);
-                    DatabaseHandler.Instance.dc.SaveChanges();
+                    _dataContext.Foods.RemoveRange(expiredFoods);
+                    _dataContext.Save();
                 }
-            }
             
             
         }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebWasted.Services;
 
 namespace WebWasted.Controllers
 {
@@ -11,25 +13,22 @@ namespace WebWasted.Controllers
     [ApiController]
     public class RegisterController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+        private readonly IDataContext _dataContext;
+
+        public RegisterController(IConfiguration configuration, IDataContext dataContext)
+        {
+            _configuration = configuration;
+            _dataContext = dataContext;
+        }
+
         [HttpPost]
         public int Post([FromBody] User user)
         {
-            //Console.WriteLine(user.UserName + " " + user.Name + " " + user.Surname + " " + user.ContactEmail + " " + user.Password);
-            lock(DatabaseHandler.Instance.dc){
+            UserService userService = new UserService(_dataContext);
 
-                if (DatabaseHandler.Instance.dc.Users.Any(u => u.UserName == user.UserName))
-                {
-
-                    return -1;
-                }
-
-                User newUser = new User(user.UserName, user.Name, user.Surname, user.ContactEmail, user.Password);
-                DatabaseHandler.Instance.dc.Users.Add(newUser);
-                DatabaseHandler.Instance.dc.SaveChanges();
-
-                return newUser.ID;
-            }
-                
+            //returns ID if everything is fine
+            return userService.RegisterUser(user); 
         }
     }
 }
