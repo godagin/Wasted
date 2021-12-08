@@ -5,6 +5,8 @@ export class CreateOffer extends Component{
     constructor(props){
         super(props);
         this.state = {
+            PhotoFileName: "anonymous.jpg",
+            PhotoPath: process.env.REACT_APP_API + '/Photos/',
             input:{
                 type: 1,
                 name: "",
@@ -44,6 +46,22 @@ export class CreateOffer extends Component{
         this.setState((state) => {return state;});
     }
 
+    imageUpload=(e)=>{
+        e.preventDefault();
+
+        const formData=new FormData();
+        formData.append("file", e.target.files[0], e.target.files[0].name);
+
+        fetch(process.env.REACT_APP_API + '/api/foods/SaveFile', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            this.setState({PhotoFileName:data});
+        })
+    }
+
     radioButtonHandler = (e) => {
         if(e.target.id == "weighedRadio" && e.target.checked){
             this.state.input.type = 1;
@@ -65,7 +83,8 @@ export class CreateOffer extends Component{
                 description: this.state.input.description,
                 amount: this.state.input.amount,
                 foodType: this.state.input.foodType,
-                expTime: this.state.input.expiration
+                expTime: this.state.input.expiration,
+                fileName: this.state.PhotoFileName
              })
         };
         fetch(process.env.REACT_APP_API + '/api/foods', requestOptions) 
@@ -78,9 +97,43 @@ export class CreateOffer extends Component{
             });
     }
 
+    /* updateClick(){
+        fetch(process.env.REACT_APP_API + '/api/foods',{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: this.state.input.type,
+                owner: localStorage.getItem('userID'),
+                name: this.state.input.name,
+                fullPrice: this.state.input.price, 
+                description: this.state.input.description,
+                amount: this.state.input.amount,
+                foodType: this.state.input.foodType,
+                expTime: this.state.input.expiration,
+                fileName: this.state.PhotoFileName
+            })
+        })
+        .then(response => {
+            if(response.status == 200){
+                window.location.reload(false);
+            } else{
+                console.log("ERRROR!!!!!!!!!!");
+            }
+            
+        })
+        
+    }
+*/
+
 
     render(){
-        
+        const{
+            PhotoFileName,
+            PhotoPath
+        }=this.state;
         return(
             <Form >
                 <Row className="mb-3">
@@ -154,11 +207,19 @@ export class CreateOffer extends Component{
                         />
                     </Col>
                 </Form.Group>
+
+                <div className="p-2 w-50 bd-highlight">
+                    <img alt="" width="200px" height="200px"
+                    src={PhotoPath+PhotoFileName}/>
+                    <input className="m-2" type="file" onChange={this.imageUpload}/>
+                </div>
     
                 <Button onClick={()=>{
                     //patikrinti ar dienos nera skaicius su kableliu
-                    this.setState(() => {return{ createOffer: false}});
+                    this.setState(() => {return{ createOffer: false,
+                    fileName:PhotoFileName}});
                     this.submitHandler();
+                    //this.updateClick();
                     }}>
                     Submit
                 </Button>

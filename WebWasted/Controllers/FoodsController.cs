@@ -38,7 +38,7 @@ namespace WebWasted.Controllers
         {
             return _dataContext.Foods.ToList();
         }
-
+        /*
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
@@ -46,6 +46,7 @@ namespace WebWasted.Controllers
 
             return itemService.GetUserOffers(id);
         }
+        */
 
         //create food offer
         [HttpPost]
