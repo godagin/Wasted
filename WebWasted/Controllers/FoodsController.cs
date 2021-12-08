@@ -12,8 +12,6 @@ using WebWasted.Models.DTOs;
 using WebWasted.Services;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using Xunit;
-using Moq;
 
 namespace WebWasted.Controllers
 {

@@ -27,5 +27,13 @@ namespace WebWasted
             ItemService itemService = new ItemService(_dataContext);
             return itemService.GetFirstOffers().ToList();
         }
+
+        
+        //[HttpGet]
+        //public IEnumerable<Food> GetCheapest()
+        //{
+        //    ItemService itemService = new ItemService(_dataContext);
+        //    return itemService.GetCheapestOffers().ToList();
+        //}
     }
 }
