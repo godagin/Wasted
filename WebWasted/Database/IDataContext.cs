@@ -1,9 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using WebWasted.Models;
 
 namespace WebWasted
 {
-    public interface IDataContext
+    public interface IDataContext : IDisposable
     {
         DbSet<Food> Foods { get; set; }
         DbSet<Order> Orders { get; set; }

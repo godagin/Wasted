@@ -24,8 +24,8 @@ function App() {
           {localStorage.getItem('userID') != null && <Route path='/cart' component={Cart}/>}
           {localStorage.getItem('userID') != null && <Route path='/addedoffers' component={AddedOffers}/>}
           {localStorage.getItem('userID') != null && <Route path='/customers' component={Customers}/>}
-          { localStorage.getItem('userID') == null && <Route path='/register' component={Register}/>}
-          { localStorage.getItem('userID') == null && <Route path='/login' component={Login}/>}
+          {localStorage.getItem('userID') == null && <Route path='/register' component={Register}/>}
+          {localStorage.getItem('userID') == null && <Route path='/login' component={Login}/>}
           <Route path='/logout' component={Logout}/>
         </Switch>
       </Container>

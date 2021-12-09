@@ -2,38 +2,50 @@ import React,{Component} from 'react';
 import { Table } from 'react-bootstrap';
 import { CreateOffer } from './CreateOffer';
 
+
 export class Foods extends Component{
 
     constructor(props){
         super(props);
         this.state={
             foods:[],
-            createOffer: false
+            createOffer: false,
         }
     }
+/*
+    updateInputValue = (event) => {
+        this.setState({
+            amounts: event.target.value
+        });
+    }
+    */
+    onChange = (index) => (event) => {
+        this.state.foods[index].inputValue = event.target.value;
+        //this.refreshList();
+        //let items = [...this.state.foods];
+        //items[index] = event.target.value;
+        //this.setState({
+        //    foods: items
+    //});
+    }
+        
+    addToCart = (ID, BuyerID, index) =>{
+        const requestOptions = {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                userID: BuyerID,
+                foodID: ID,
+                amount: this.state.foods[index].inputValue,
 
-    addToCart = (ID, BuyerID) =>{
-        /*if (BuyerID == localStorage.getItem('userID'))
-        {
-            console.log('already in cart');
-        }
-        else{*/
-            const requestOptions = {
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    userID: BuyerID,
-                    foodID: ID
-                    })
-                };
-            fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
-                .then((response) => response.json())
-                .then(data => {
-                    console.log(data);
                 })
-
-                console.log('added');
-        //}
+        };
+        console.log(requestOptions.body);
+        fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+            .then((response) => response.json())
+            .then(data => {
+                console.log(data);
+            })
         window.location.reload(false);
         this.refreshList();        
     }
@@ -44,7 +56,12 @@ export class Foods extends Component{
         .then(response => {
             response.json().then(data => {
                 this.setState(() => {
-                    console.log(data);
+                    
+                    for(let food of this.state.foods)
+                    {
+                        food.inputValue = 0; 
+                    }
+                    
                     return{
                         foods : data
                     }
@@ -66,7 +83,7 @@ export class Foods extends Component{
     }
 
     render(){
-        if(localStorage.getItem('userID') == null || localStorage.getItem('userID') == undefined){
+        if(localStorage.getItem('userID') === null || localStorage.getItem('userID') === undefined){
             return (<div> </div>);
         }
         return(
@@ -88,29 +105,38 @@ export class Foods extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.foods.map(food=>
-                            
-                            <tr>
+                        {this.state.foods.map((food, index)=>
+                            <tr key={food.ID}>
                                 <td>{food.Name}</td>
                                 <td>{food.Description}</td>
                                 <td >{food.FullPrice}</td>
                                 <td >{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
                                 <td >{food.ExpDate}</td>
-                                <div>
-                                    {
-                                        food.OwnerID != localStorage.userID &&
-                                        <button onClick={() => this.addToCart(food.ID, localStorage.getItem('userID'))}>
-                                            Add to cart
-                                        </button>
-                                    }
-                                </div>
                                 
+                                    {
+                                        food.OwnerID !== localStorage.userID &&
+                                        <>
+                                            <td>
+                                            {   
+                                                food.Weight != null 
+                                                ? <input type="number" value={this.state.foods[index].inputValue}
+                                                step="0.01" placeholder="0.00" min="0.01" max={food.Weight} onChange={this.onChange(index)}/>
+                                                : <input type="number" value={this.state.foods[index].inputValue}
+                                                step="1" placeholder="0" min="1" max={food.Quantity} onChange={this.onChange(index)}/>
+                                            }
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.addToCart(food.ID, localStorage.getItem('userID'), index)}>
+                                                    Add to cart
+                                                </button>
+                                            </td>
+                                        </>
+                                    }
+                                  
                             </tr>)}
                     </tbody>
                 </Table>
             </div>
-           // </div>
         )
     }
 }
-
