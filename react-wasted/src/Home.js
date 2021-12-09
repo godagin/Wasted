@@ -1,40 +1,56 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 
 
-export class Home extends Component{
-    constructor(props){
+export class Home extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            foods : [],
+            foods: [],
+            cheap: [],
             PhotoPath: process.env.REACT_APP_API + '/Photos/'
         }
     }
 
-    refreshList(){
+    refreshExp() {
         fetch(process.env.REACT_APP_API + '/api/home')
-        .then(response => {
-            response.json().then(data => {
-                this.setState(() => {
-                    console.log(data);
-                    return{
-                        foods: data
-                    }
-                })
+            .then(response => {
+                response.json().then(data => {
+                    this.setState(() => {
+                        console.log(data);
+                        return {
+                            foods: data
+                        }
+                    })
+                });
             });
-        });
     }
 
-    componentDidMount(){
-        this.refreshList();
+    refreshCheap() {
+        fetch(process.env.REACT_APP_API + '/api/home/cheapest')
+            .then(response => {
+                response.json().then(data => {
+                    this.setState(() => {
+                        console.log(data);
+                        return {
+                            cheap: data
+                        }
+                    })
+                });
+            });
     }
 
-    render(){
-        
-        return(
+    componentDidMount() {
+        this.refreshExp();
+        this.refreshCheap();
+    }
+
+    render() {
+
+        return (
             <div >
-            
-            <h4>Offers that expire</h4>
+
+                <h4>Offers that expire</h4>
                 <Table className="table">
                     <thead>
                         <tr>
@@ -44,29 +60,56 @@ export class Home extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.foods.map(food=>
-                            
+                        {this.state.foods.map(food =>
+
                             <tr>
                                 <td>
                                     <img alt="" width="150px" height="150px"
-                                    src={this.state.PhotoPath+food.PhotoFileName} />
+                                        src={this.state.PhotoPath + food.PhotoFileName} />
                                 </td>
                                 <td class="align-middle">{food.Name}</td>
                                 <td class="align-middle">{food.ExpDate}</td>
                                 <td>
 
-                                   
+
                                 </td>
 
-                                    
-                                
+
+
                             </tr>)}
                     </tbody>
                 </Table>
 
 
 
-        </div>
+                <h4>Cheapest offers</h4>
+                <Table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.cheap.map(food =>
+
+                            <tr>
+                                <td>
+                                    <img alt="" width="150px" height="150px"
+                                        src={this.state.PhotoPath + food.PhotoFileName} />
+                                </td>
+                                <td class="align-middle">{food.Name}</td>
+                                <td class="align-middle">{food.FullPrice}</td>
+                                <td>
+                                </td>
+                            </tr>)}
+                    </tbody>
+                </Table>
+
+
+
+            </div>
 
         )
     }
