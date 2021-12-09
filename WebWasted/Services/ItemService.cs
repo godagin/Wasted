@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWasted.Controllers;
-using WebWasted.Dummy;
+//using WebWasted.Dummy;
 using WebWasted.Models;
 using WebWasted.Models.DTOs;
 
@@ -23,6 +23,12 @@ namespace WebWasted.Services
         public Food FindItemByID(int ID)
         {
             Food item = _dataContext.Foods.ToList().Find(item => item.ID == ID);
+            return item;
+        }
+
+        public Order FindOrderByID(int ID)
+        {
+            Order item = _dataContext.Orders.ToList().Find(item => item.ID == ID);
             return item;
         }
 
@@ -51,10 +57,10 @@ namespace WebWasted.Services
                         // food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
                 }
             }
-            catch (Exception e)
+            catch //(Exception e)
             {
                 //Console.WriteLine("The creation of a food offer failed.");
-                Logger.Instance.Log(e);
+               // Logger.Instance.Log(e);
                 return -1;
             }
             _dataContext.Foods.Add(food);
@@ -87,6 +93,7 @@ namespace WebWasted.Services
                 
                 order.FoodOrder = food;
                 order.Buyer = user;
+                order.Approved = false;
                 _dataContext.Orders.Add(order);
                 user.Orders.Add(order);
                 _dataContext.Save();
@@ -98,5 +105,42 @@ namespace WebWasted.Services
 
             return 1;
         }
+
+        public int DeleteOrder(int orderID)
+        {
+            try
+            {
+                Order order = FindOrderByID(orderID);
+                _dataContext.Orders.Remove(order);
+                _dataContext.Save();
+            }
+            //catch(Exception e)
+            catch
+            {
+                //Logger.Instance.Log(e);
+                return -1;
+            }
+
+            return 1;
+        }
+
+        public int ApproveOrder(int orderID, Boolean isApproved)
+        {
+            try
+            {
+                Order order = FindOrderByID(orderID);
+                order.Approved = isApproved;
+                _dataContext.Save();
+            }
+            //catch(Exception e)
+            catch
+            {
+                //Logger.Instance.Log(e);
+                return -1;
+            }
+
+            return 1;
+        }
+
     }
 }

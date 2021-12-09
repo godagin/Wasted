@@ -13,16 +13,16 @@ export class Foods extends Component{
     }
 
     addToCart = (ID, BuyerID) =>{
-        if (BuyerID == localStorage.getItem('userID'))
+        /*if (BuyerID == localStorage.getItem('userID'))
         {
             console.log('already in cart');
         }
-        else{
+        else{*/
             const requestOptions = {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    userID: localStorage.getItem('userID'),
+                    userID: BuyerID,
                     foodID: ID
                     })
                 };
@@ -33,7 +33,7 @@ export class Foods extends Component{
                 })
 
                 console.log('added');
-        }
+        //}
         window.location.reload(false);
         this.refreshList();        
     }
@@ -98,8 +98,8 @@ export class Foods extends Component{
                                 <td >{food.ExpDate}</td>
                                 <div>
                                     {
-                                        food.BuyerID == 0 && food.OwnerID != localStorage.userID &&
-                                        <button onClick={() => this.addToCart(food.ID, food.BuyerID)}> 
+                                        food.OwnerID != localStorage.userID &&
+                                        <button onClick={() => this.addToCart(food.ID, localStorage.getItem('userID'))}>
                                             Add to cart
                                         </button>
                                     }

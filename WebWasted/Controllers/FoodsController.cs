@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using WebWasted.Models.DTOs;
-using WebWasted.Dummy;
+//using WebWasted.Dummy;
 using WebWasted.Services;
 
 namespace WebWasted.Controllers

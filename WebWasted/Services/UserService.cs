@@ -33,6 +33,16 @@ namespace WebWasted.Services
             return ordersList.ToList(); 
         }
 
+        public List<Order> GetCustomerList(int userID)
+        {
+            _dataContext.LoadUser(FindUserByID(userID));
+
+            var ordersList = from order in _dataContext.Orders
+                             where order.FoodOrder.OwnerID == userID
+                             select order;
+            return ordersList.ToList();
+        }
+
         public int LoginUser(LoginUserDto args)
         {
             User loggedUser = (from user in _dataContext.Users 

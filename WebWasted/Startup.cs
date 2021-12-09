@@ -7,9 +7,11 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using WebWasted.Dummy;
+//using WebWasted.Dummy;
+
 using WebWasted.Timers;
 using Microsoft.EntityFrameworkCore;
+using WebWasted.Hubs;
 
 namespace WebWasted
 {
@@ -42,6 +44,8 @@ namespace WebWasted
 
             services.AddControllers();
 
+            services.AddSignalR();
+
             services.AddSingleton<IDataContext, DataContext>();
 
         }
@@ -63,6 +67,7 @@ namespace WebWasted
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/ChatHub");
             });
 
             var autoEvent = new AutoResetEvent(false);
