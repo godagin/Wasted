@@ -80,7 +80,7 @@ export class Customers extends Component{
                                  <td>{order.FoodOrder.Name}</td>
                                  <td>{order.FoodOrder.Description}</td>
                                  <td >{order.FoodOrder.FullPrice}</td>
-                                 <td >{order.FoodOrder.Weight != null ? order.FoodOrder.Weight + " kg" : order.FoodOrder.Quantity + " units"}</td>
+                                 <td >{order.FoodOrder.Weight != null ? order.Amount + " kg" : order.Amount + " units"}</td>
                                  <td >{order.Buyer.ID}</td>
                                     {
                                         order.Approved == true &&
