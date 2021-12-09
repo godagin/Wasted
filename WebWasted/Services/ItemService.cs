@@ -27,6 +27,12 @@ namespace WebWasted.Services
             return item;
         }
 
+        public Order FindOrderByID(int ID)
+        {
+            Order item = _dataContext.Orders.ToList().Find(item => item.ID == ID);
+            return item;
+        }
+
         public List<Food> GetUserOffers(int userID)
         {
             var myOffers = from food in _dataContext.Foods where food.OwnerID.Equals(userID) select food;
@@ -76,11 +82,10 @@ namespace WebWasted.Services
                         // food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
                 }
             }
-            //catch (Exception e)
-            catch
+            catch //(Exception e)
             {
                 //Console.WriteLine("The creation of a food offer failed.");
-                //Logger.Instance.Log(e);
+               // Logger.Instance.Log(e);
                 return -1;
             }
             _dataContext.Foods.Add(food);
@@ -113,6 +118,7 @@ namespace WebWasted.Services
 
                 order.FoodOrder = food;
                 order.Buyer = user;
+                order.Approved = false;
                 _dataContext.Orders.Add(order);
                 user.Orders.Add(order);
                 _dataContext.Save();
@@ -124,8 +130,8 @@ namespace WebWasted.Services
 
             return 1;
         }
-
-        public int DeleteOffer(int foodID)
+      
+      public int DeleteOffer(int foodID)
         {
             try
             {
@@ -142,7 +148,7 @@ namespace WebWasted.Services
 
             return 1;
         }
-
+  
         public int EditOffer(int foodID, GeneralFoodDto args)
         {
             Food food = FindItemByID(foodID);
@@ -165,5 +171,6 @@ namespace WebWasted.Services
 
             return 1;
         }
+
     }
 }

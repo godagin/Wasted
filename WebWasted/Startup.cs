@@ -12,6 +12,8 @@ using WebWasted.Timers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using WebWasted.Hubs;
+
 
 namespace WebWasted
 {
@@ -44,6 +46,8 @@ namespace WebWasted
 
             services.AddControllers();
 
+            services.AddSignalR();
+
             services.AddSingleton<IDataContext, DataContext>();
 
         }
@@ -65,6 +69,7 @@ namespace WebWasted
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapHub<ChatHub>("/ChatHub");
             });
 
             app.UseStaticFiles(new StaticFileOptions
