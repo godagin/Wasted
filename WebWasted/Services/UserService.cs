@@ -61,17 +61,18 @@ namespace WebWasted.Services
             return loggedUser.ID;
         } 
 
-        public int RegisterUser(User user, IDataContext dataContext)
+        public User RegisterUser(User user, IDataContext dataContext)
         {
+            Console.WriteLine("atejo");
             if (dataContext.Users.Any(u => u.UserName == user.UserName))
             {
-                return -1;
+                return null;
             }
 
-            User newUser = new User(user.UserName, user.Name, user.Surname, user.ContactEmail, user.Password);
+            User newUser = user;
             dataContext.Users.Add(newUser);
             dataContext.Save();
-            return 1;
+            return newUser;
         }  
     }
 }
