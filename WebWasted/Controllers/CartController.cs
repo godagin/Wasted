@@ -78,5 +78,16 @@ namespace WebWasted.Controllers
             }
                 
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            ItemService itemService = new ItemService(_dataContext);
+            if (itemService.DeleteOrder(id) != 1)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
     }
 }

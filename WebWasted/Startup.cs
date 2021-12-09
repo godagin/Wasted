@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using WebWasted.Hubs;
 using WebWasted.Services;
 
+
 namespace WebWasted
 {
     public class Startup

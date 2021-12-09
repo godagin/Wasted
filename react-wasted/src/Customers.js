@@ -104,6 +104,7 @@ export class Customers extends Component{
                                         <button onClick={() => this.onContact(order.ID, localStorage.getItem('userID'))}>Contact</button>
                                     }
 
+
                              </tr>)}
                     </tbody>   
                     </Table>
