@@ -33,10 +33,14 @@ namespace WebWasted.Services
         public List<Food> GetUserOffers(int userID, IDataContext dataContext)
         {
             var myOffers = from food in dataContext.Foods where food.OwnerID.Equals(userID) select food;
+            if(myOffers == null)
+            {
+                return new List<Food>();
+            }
             return myOffers.ToList();
         }
 
-        public int CreateFoodOffer(GeneralFoodDto args, IDataContext dataContext)
+        public Food CreateFoodOffer(GeneralFoodDto args, IDataContext dataContext)
         {
             Food food = null;
             try
@@ -55,15 +59,15 @@ namespace WebWasted.Services
                         // food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
                 }
             }
-            catch //(Exception e)
+            catch (Exception e)
             {
                 //Console.WriteLine("The creation of a food offer failed.");
                // Logger.Instance.Log(e);
-                return -1;
+                return null;
             }
             dataContext.Foods.Add(food);
             dataContext.Save();
-            return 1;
+            return food;
         }
 
         public int PlaceOrder(User user, int foodID, double amount, IDataContext dataContext)
@@ -71,9 +75,9 @@ namespace WebWasted.Services
             Console.WriteLine("pirmas");
             Food food = FindItemByID(foodID, dataContext);
 
-            if (user != null && food != null)
+            if (user != null && food != null && user.ID != food.OwnerID)
             {
-                Console.WriteLine("antras");
+                Console.WriteLine(food.GetType().ToString() + " ");
                 Order order = new Order();
                 if (food.GetType() == typeof(WeighedFood) && ((WeighedFood)food).Weight >= amount)
                 {
@@ -90,6 +94,7 @@ namespace WebWasted.Services
                 }
                 else
                 {
+                    Console.WriteLine("pirmas ne");
                     return -1;
                 }
                 
@@ -102,6 +107,7 @@ namespace WebWasted.Services
             }
             else
             {
+                Console.WriteLine("kazkoks ne");
                 return -1;
             }
 

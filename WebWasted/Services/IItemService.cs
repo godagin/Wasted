@@ -15,7 +15,7 @@ namespace WebWasted.Services
         
         List<Food> GetUserOffers(int userID, IDataContext dataContext);
 
-        int CreateFoodOffer(GeneralFoodDto args, IDataContext dataContext);
+        Food CreateFoodOffer(GeneralFoodDto args, IDataContext dataContext);
         
         int PlaceOrder(User user, int foodID, double amount, IDataContext dataContext);      
 
