@@ -13,6 +13,7 @@ using WebWasted.Timers;
 using Microsoft.EntityFrameworkCore;
 using WebWasted.Hubs;
 using WebWasted.Services;
+using WebWasted.Middleware;
 
 namespace WebWasted
 {
@@ -62,6 +63,8 @@ namespace WebWasted
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<LoggingMiddleware>();
 
             app.UseRouting();
 
