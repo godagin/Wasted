@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using WebWasted.Timers;
 using Microsoft.EntityFrameworkCore;
 using WebWasted.Hubs;
+using WebWasted.Services;
 
 namespace WebWasted
 {
@@ -44,9 +45,11 @@ namespace WebWasted
 
             services.AddControllers();
 
-            services.AddSignalR();
+            services.AddSingleton<IItemService, ItemService>();
+            
+            services.AddSingleton<IUserService, UserService>();
 
-            services.AddSingleton<IDataContext, DataContext>();
+            services.AddSignalR();
 
         }
 

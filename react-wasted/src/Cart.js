@@ -60,7 +60,7 @@ export class Cart extends Component{
     }
     
     render(){
-        
+        console.log(this.state.cartItems);
         return(
             <div>
                 <div>
@@ -80,7 +80,7 @@ export class Cart extends Component{
                                  <td>{order.FoodOrder.Name}</td>
                                  <td>{order.FoodOrder.Description}</td>
                                  <td >{order.FoodOrder.FullPrice}</td>
-                                 <td >{order.FoodOrder.Weight != null ? order.FoodOrder.Weight + " kg" : order.FoodOrder.Quantity + " units"}</td>
+                                 <td >{order.FoodOrder.Weight != null ? order.Amount + " kg" : order.Amount + " units"}</td>
                                     {
                                         order.Approved == true &&
                                         <td >Approved</td>

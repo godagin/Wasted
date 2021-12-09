@@ -9,43 +9,49 @@ using WebWasted.Models.DTOs;
 namespace WebWasted.Services
 {
     //user service deals with users
-    public class UserService
+    public class UserService : IUserService
     {
-        IDataContext _dataContext;
-        public UserService(IDataContext dataContext)
+        public UserService()
         {
-            _dataContext = dataContext;
         }
 
-        public User FindUserByID(int ID)
+        public User FindUserByID(int ID, IDataContext dataContext)
         {
-            User user = _dataContext.Users.ToList().Find(user => user.ID == ID);
+            User user = dataContext.Users.Where(user => user.ID == ID).FirstOrDefault();
             return user;
         }
 
-        public List<Order> GetOrderList(int userID)
+        public List<Order> GetOrderList(int userID, IDataContext dataContext)
         {
-            _dataContext.LoadUser(FindUserByID(userID));
-
-            var ordersList = from order in _dataContext.Orders
+            dataContext.LoadUser(FindUserByID(userID, dataContext));
+            Console.WriteLine(userID);
+            var orderList = dataContext.Orders.Include("FoodOrder").Where(order => order.Buyer.ID == userID);
+           /* var orderList = from order in dataContext.Orders
                            where order.Buyer.ID == userID
                            select order;
-            return ordersList.ToList(); 
+          */
+            foreach(var order in orderList)
+            {
+                Console.WriteLine(order.FoodOrder);
+            }
+           
+            
+            return orderList.ToList(); 
         }
 
-        public List<Order> GetCustomerList(int userID)
+        public List<Order> GetCustomerList(int userID, IDataContext dataContext)
         {
-            _dataContext.LoadUser(FindUserByID(userID));
+            dataContext.LoadUser(FindUserByID(userID, dataContext));
 
-            var ordersList = from order in _dataContext.Orders
+            var ordersList = from order in dataContext.Orders
                              where order.FoodOrder.OwnerID == userID
                              select order;
             return ordersList.ToList();
         }
 
-        public int LoginUser(LoginUserDto args)
+        public int LoginUser(LoginUserDto args, IDataContext dataContext)
         {
-            User loggedUser = (from user in _dataContext.Users 
+            User loggedUser = (from user in dataContext.Users 
                          where user.UserName == args.UserName && user.Password == args.Password 
                          select user).FirstOrDefault();
             if (loggedUser == null)
@@ -55,16 +61,16 @@ namespace WebWasted.Services
             return loggedUser.ID;
         } 
 
-        public int RegisterUser(User user)
+        public int RegisterUser(User user, IDataContext dataContext)
         {
-            if (_dataContext.Users.Any(u => u.UserName == user.UserName))
+            if (dataContext.Users.Any(u => u.UserName == user.UserName))
             {
                 return -1;
             }
 
             User newUser = new User(user.UserName, user.Name, user.Surname, user.ContactEmail, user.Password);
-            _dataContext.Users.Add(newUser);
-            _dataContext.Save();
+            dataContext.Users.Add(newUser);
+            dataContext.Save();
             return 1;
         }  
     }

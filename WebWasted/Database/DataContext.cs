@@ -31,5 +31,6 @@ namespace WebWasted
         {
             this.Entry(user).Collection(o => o.Orders).Load();
         }
+        
     }
 }

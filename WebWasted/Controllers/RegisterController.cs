@@ -14,21 +14,26 @@ namespace WebWasted.Controllers
     public class RegisterController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IDataContext _dataContext;
+        //private readonly IDataContext _dataContext;
+        private readonly IUserService _userService;
 
-        public RegisterController(IConfiguration configuration, IDataContext dataContext)
+        public RegisterController(IConfiguration configuration, IUserService userService)
         {
             _configuration = configuration;
-            _dataContext = dataContext;
+           
+            _userService = userService;
         }
 
         [HttpPost]
         public int Post([FromBody] User user)
         {
-            UserService userService = new UserService(_dataContext);
-
+            using (IDataContext dataContext = new DataContext())
+            {
+                return _userService.RegisterUser(user, dataContext);
+            }
+           
             //returns ID if everything is fine
-            return userService.RegisterUser(user); 
+            
         }
     }
 }
