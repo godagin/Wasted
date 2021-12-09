@@ -26,7 +26,7 @@ namespace WebWasted.Services
 
         public Order FindOrderByID(int ID, IDataContext dataContext)
         {
-            Order item = dataContext.Orders.Where(item => item.ID == ID).FirstOrDefault();
+            Order item = dataContext.Orders.Include("FoodOrder").Where(item => item.ID == ID).FirstOrDefault();
             return item;
         }
 
@@ -114,11 +114,27 @@ namespace WebWasted.Services
             return 1;
         }
 
+
         public int DeleteOrder(int orderID, IDataContext dataContext)
-        {
+        {   
             try
             {
                 Order order = FindOrderByID(orderID, dataContext);
+                Food food = FindItemByID(order.FoodOrder.ID, dataContext);
+
+                if (food.GetType() == typeof(WeighedFood))
+                {
+                    ((WeighedFood)food).Weight += order.Amount;
+                }
+                else if (food.GetType() == typeof(DiscreteFood))
+                {
+                    ((DiscreteFood)food).Quantity += (int)order.Amount;
+                }
+                else
+                {
+                    return -1;
+                }
+
                 dataContext.Orders.Remove(order);
                 dataContext.Save();
             }

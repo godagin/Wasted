@@ -29,7 +29,6 @@ export class Foods extends Component{
     //});
     }
         
-
     addToCart = (ID, BuyerID, index) =>{
         const requestOptions = {
             method: 'POST', 
@@ -38,6 +37,7 @@ export class Foods extends Component{
                 userID: BuyerID,
                 foodID: ID,
                 amount: this.state.foods[index].inputValue,
+
                 })
         };
         console.log(requestOptions.body);
@@ -46,8 +46,6 @@ export class Foods extends Component{
             .then(data => {
                 console.log(data);
             })
-
-        
         window.location.reload(false);
         this.refreshList();        
     }

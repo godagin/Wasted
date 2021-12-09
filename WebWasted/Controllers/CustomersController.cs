@@ -17,14 +17,14 @@ namespace WebWasted.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IDataContext _dataContext;
+        //private readonly IDataContext _dataContext;
         private readonly IItemService _itemService;
         private readonly IUserService _userService;
-        public CustomersController(IConfiguration configuration, IDataContext dataContext, 
+        public CustomersController(IConfiguration configuration, 
             IItemService itemService, IUserService userService)
         {
             _configuration = configuration;
-            _dataContext = dataContext;
+            //_dataContext = dataContext;
             _itemService = itemService;
             _userService = userService;
         }
@@ -34,7 +34,7 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                return _userService.GetCustomerList(id, _dataContext);
+                return _userService.GetCustomerList(id, dataContext);
             }
         }
 
@@ -43,7 +43,7 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                if (_itemService.ApproveOrder(args.orderID, args.isApproved, _dataContext) != 1)
+                if (_itemService.ApproveOrder(args.orderID, args.isApproved, dataContext) != 1)
                 {
                     return BadRequest();
                 }
