@@ -53,7 +53,16 @@ export class Customers extends Component{
     }
 
     onContact = (orderID) =>{
+
         this.setState({showChat: true, roomID: orderID});
+
+    }
+
+    onLeaveChat = () =>{
+
+        window.location.reload(false);
+        this.refreshList();
+     
     }
 
     render(){
@@ -100,8 +109,12 @@ export class Customers extends Component{
                                          <button onClick={() => this.onApproveOrder(order.ID, false)}>Remove approval</button>
                                     }
                                     {
-                                        order.Approved == true &&
+                                        order.Approved == true && this.state.showChat == false &&
                                         <button onClick={() => this.onContact(order.ID, localStorage.getItem('userID'))}>Contact</button>
+                                    }
+                                    {
+                                        order.Approved == true && this.state.showChat == true && order.ID == this.state.roomID &&
+                                        <button onClick={() => this.onLeaveChat()}>Leave Chat</button>
                                     }
 
                              </tr>)}
