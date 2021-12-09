@@ -43,9 +43,17 @@ namespace WebWasted.Services
         {
             dataContext.LoadUser(FindUserByID(userID, dataContext));
 
+            var ordersList = dataContext.Orders.Include("FoodOrder").Include("Buyer").Where(order => order.FoodOrder.OwnerID == userID);
+
+            foreach (var order in ordersList)
+            {
+                Console.WriteLine(order.FoodOrder);
+            }
+            /*
             var ordersList = from order in dataContext.Orders
                              where order.FoodOrder.OwnerID == userID
                              select order;
+            */
             return ordersList.ToList();
         }
 
@@ -61,17 +69,18 @@ namespace WebWasted.Services
             return loggedUser.ID;
         } 
 
-        public int RegisterUser(User user, IDataContext dataContext)
+        public User RegisterUser(User user, IDataContext dataContext)
         {
+            Console.WriteLine("atejo");
             if (dataContext.Users.Any(u => u.UserName == user.UserName))
             {
-                return -1;
+                return null;
             }
 
-            User newUser = new User(user.UserName, user.Name, user.Surname, user.ContactEmail, user.Password);
+            User newUser = user;
             dataContext.Users.Add(newUser);
             dataContext.Save();
-            return 1;
+            return newUser;
         }  
     }
 }

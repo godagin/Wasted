@@ -29,7 +29,11 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                return _userService.RegisterUser(user, dataContext);
+                if(_userService.RegisterUser(user, dataContext) != null)
+                {
+                    return 1;
+                }
+                return -1;
             }
            
             //returns ID if everything is fine
