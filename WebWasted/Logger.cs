@@ -19,6 +19,7 @@ namespace WebWasted
 
         private Logger()
         {
+            Directory.CreateDirectory(@".\Logs\");
             streamWriter = File.AppendText(@".\Logs\Log.txt");
         }
         public void Log<T>(T logObject)

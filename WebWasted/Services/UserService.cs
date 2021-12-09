@@ -42,10 +42,15 @@ namespace WebWasted.Services
         public List<Order> GetCustomerList(int userID, IDataContext dataContext)
         {
             dataContext.LoadUser(FindUserByID(userID, dataContext));
-
+            
             var ordersList = from order in dataContext.Orders
                              where order.FoodOrder.OwnerID == userID
                              select order;
+            if (ordersList == null)
+            {
+                return new List<Order>();
+            }
+            
             return ordersList.ToList();
         }
 
