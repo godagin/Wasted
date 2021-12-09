@@ -49,6 +49,12 @@ namespace WebWasted.Services
             return queryFirst.ToList();
         }
 
+        public List<Food> GetCheapestOffers()
+        {
+            int length = _dataContext.Foods.Count();
+            var query = (from food in _dataContext.Foods orderby food.FullPrice descending select food).Skip(length/2);
+            return query.ToList();
+        }
         public int CreateFoodOffer(GeneralFoodDto args)
         {
             Food food = null;
