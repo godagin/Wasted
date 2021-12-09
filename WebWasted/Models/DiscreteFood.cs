@@ -14,7 +14,7 @@ namespace WebWasted
         {
             Quantity = quantity;
         }
-       
+       /*
         public int TakeFood(int take)
         {
             if (Quantity <= take)
@@ -33,5 +33,6 @@ namespace WebWasted
             }
             
         }
+       */
     }
 }

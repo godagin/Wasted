@@ -15,7 +15,6 @@ using WebWasted.Hubs;
 using WebWasted.Services;
 using WebWasted.Middleware;
 
-
 namespace WebWasted
 {
     public class Startup
