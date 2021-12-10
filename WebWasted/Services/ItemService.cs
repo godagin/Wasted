@@ -181,7 +181,7 @@ namespace WebWasted.Services
                 dataContext.Orders.Remove(order);
                 dataContext.Save();
             }
-            catch
+            catch (Exception e)
             {
                 Logger.Instance.Log(e);
                 return -1;
