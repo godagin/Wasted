@@ -8,12 +8,14 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 //using WebWasted.Dummy;
-
 using WebWasted.Timers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 using WebWasted.Hubs;
 using WebWasted.Services;
 using WebWasted.Middleware;
+
 
 namespace WebWasted
 {
@@ -36,7 +38,7 @@ namespace WebWasted
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
-          
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
@@ -64,7 +66,7 @@ namespace WebWasted
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseMiddleware<LoggingMiddleware>();
+            app.UseMiddleware<LoggingMiddleware>();
 
             app.UseRouting();
 
@@ -74,6 +76,13 @@ namespace WebWasted
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<ChatHub>("/ChatHub");
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Photos")),
+                RequestPath = "/Photos"
             });
 
             var autoEvent = new AutoResetEvent(false);
