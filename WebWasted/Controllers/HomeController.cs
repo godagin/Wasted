@@ -11,12 +11,12 @@ namespace WebWasted
 {
     [Route("api/home")]
     [ApiController]
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly ItemService _itemService;
+        private readonly IItemService _itemService;
         //private readonly IDataContext _dataContext;
-        public HomeController(IConfiguration configuration, ItemService itemService)
+        public HomeController(IConfiguration configuration, IItemService itemService)
         {
             _configuration = configuration;
             _itemService = itemService;
@@ -27,7 +27,7 @@ namespace WebWasted
         {
             using(IDataContext dataContext = new DataContext())
             {
-                return _itemService.GetFirstOffers(dataContext).ToList();
+                return _itemService.GetFirstOffers(dataContext);
             }
         }
 
@@ -38,7 +38,7 @@ namespace WebWasted
         {
             using(IDataContext dataContext = new DataContext())
             {
-                return _itemService.GetCheapestOffers(dataContext).ToList();
+                return _itemService.GetCheapestOffers(dataContext);
             }
         }
     }

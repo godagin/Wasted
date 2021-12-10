@@ -60,7 +60,9 @@ namespace WebWasted.Services
         public List<Food> GetCheapestOffers(IDataContext dataContext)
         {
             int length = dataContext.Foods.Count();
-            var query = (from food in dataContext.Foods orderby food.FullPrice descending select food).Skip(length / 2);
+
+            var query = (from food in dataContext.Foods orderby food.FullPrice descending select food).Skip(length/2);
+
             return query.ToList();
         }
 
@@ -148,10 +150,9 @@ namespace WebWasted.Services
                 dataContext.Foods.Remove(food);
                 dataContext.Save();
             }
-            //catch(Exception e)
-            catch
+            catch(Exception e)
             {
-                //Logger.Instance.Log(e);
+                Logger.Instance.Log(e);
                 return -1;
             }
             return 1;
@@ -159,26 +160,32 @@ namespace WebWasted.Services
 
         public int DeleteOrder(int orderID, IDataContext dataContext)
         {
-            
-            Order order = FindOrderByID(orderID, dataContext);
-            Food food = FindItemByID(order.FoodOrder.ID, dataContext);
+            try
+            {
+                Order order = FindOrderByID(orderID, dataContext);
+                Food food = FindItemByID(order.FoodOrder.ID, dataContext);
+                if (food.GetType() == typeof(WeighedFood))
+                {
+                    ((WeighedFood)food).Weight += order.Amount;
+                }
+                else if (food.GetType() == typeof(DiscreteFood))
+                {
+                    ((DiscreteFood)food).Quantity += (int)order.Amount;
+                }
+                else
+                {
+                    return -1;
+                }
 
-            if (food.GetType() == typeof(WeighedFood))
-            {
-                ((WeighedFood)food).Weight += order.Amount;
+
+                dataContext.Orders.Remove(order);
+                dataContext.Save();
             }
-            else if (food.GetType() == typeof(DiscreteFood))
+            catch
             {
-                ((DiscreteFood)food).Quantity += (int)order.Amount;
-            }
-            else
-            {
+                Logger.Instance.Log(e);
                 return -1;
             }
-
-            dataContext.Orders.Remove(order);
-            dataContext.Save();
-
             return 1;
             
         }
