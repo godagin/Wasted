@@ -145,11 +145,11 @@ export class Foods extends Component{
                                     <img alt="" width="150px" height="150px"
                                         src={this.state.PhotoPath + food.PhotoFileName} />
                                 </td>
-                                <td class="align-middle">{food.Name}</td>
-                                <td class="align-middle">{food.Description}</td>
-                                <td class="align-middle">{food.FullPrice}</td>
-                                <td class="align-middle">{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
-                                <td class="align-middle">{food.ExpDate}</td>
+                                <td className="align-middle">{food.Name}</td>
+                                <td className="align-middle">{food.Description}</td>
+                                <td className="align-middle">{food.FullPrice}</td>
+                                <td className="align-middle">{food.Weight != null ? food.Weight + " kg" : food.Quantity + " units"}</td>
+                                <td className="align-middle">{food.ExpDate}</td>
                                 <td>
 
                                     {food.OwnerID == localStorage.getItem('userID') ?
