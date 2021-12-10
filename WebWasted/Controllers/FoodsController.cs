@@ -14,7 +14,7 @@ using System.IO;
 
 namespace WebWasted.Controllers
 {
-    
+
 
     [ApiController]
     [Route("api/[controller]")]
@@ -60,11 +60,13 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                if (_itemService.CreateFoodOffer(args, dataContext) != 1)
+                if (_itemService.CreateFoodOffer(args, dataContext) != null)
                 {
-                    return BadRequest();
+                    return Ok();
+
                 }
-                return Ok();
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]
@@ -87,7 +89,7 @@ namespace WebWasted.Controllers
             {
                 if (_itemService.EditOffer(id, args, dataContext) != 1)
                 {
-                   return BadRequest();
+                    return BadRequest();
                 }
                 return Ok();
             }
@@ -131,5 +133,5 @@ namespace WebWasted.Controllers
 
         }
     }
-
 }
+
