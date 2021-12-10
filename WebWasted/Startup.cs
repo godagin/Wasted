@@ -66,7 +66,7 @@ namespace WebWasted
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseMiddleware<LoggingMiddleware>();
+            app.UseMiddleware<LoggingMiddleware>();
 
             app.UseRouting();
 

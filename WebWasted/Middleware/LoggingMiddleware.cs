@@ -29,15 +29,16 @@ namespace WebWasted.Middleware
 
             }
             Logger.Instance.Log("Incoming " + httpContext.Request.Method + " request to: " + httpContext.Request.Path.Value);
-            httpContext.Request.EnableBuffering();
+            /*httpContext.Request.EnableBuffering();
             httpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-
+            
             using (var reader = new StreamReader(httpContext.Request.Body))
             {
                 var body = await reader.ReadToEndAsync();
-                Logger.Instance.Log("Incoming body data: " + JsonConvert.SerializeObject(body));
+               //Logger.Instance.Log("Incoming body data: " + JsonConvert.SerializeObject(body));
                 httpContext.Request.Body.Seek(0, SeekOrigin.Begin);
             }
+            */
             await _next(httpContext);
             //Logger.Instance.Log("Response data: " + JsonConvert.SerializeObject(httpContext.Response));
            /*
