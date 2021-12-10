@@ -14,18 +14,21 @@ namespace WebWasted
     public class HomeController : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly IDataContext _dataContext;
-        public HomeController(IConfiguration configuration, IDataContext dataContext)
+        private readonly ItemService _itemService;
+        //private readonly IDataContext _dataContext;
+        public HomeController(IConfiguration configuration, ItemService itemService)
         {
             _configuration = configuration;
-            _dataContext = dataContext;
+            _itemService = itemService;
         }
 
         [HttpGet]
         public IEnumerable<Food> GetFirst()
         {
-            ItemService itemService = new ItemService(_dataContext);
-            return itemService.GetFirstOffers().ToList();
+            using(IDataContext dataContext = new DataContext())
+            {
+                return _itemService.GetFirstOffers(dataContext).ToList();
+            }
         }
 
 
@@ -33,8 +36,10 @@ namespace WebWasted
         [Route("cheapest")]
         public IEnumerable<Food> GetCheapest()
         {
-            ItemService itemService = new ItemService(_dataContext);
-            return itemService.GetCheapestOffers().ToList();
+            using(IDataContext dataContext = new DataContext())
+            {
+                return _itemService.GetCheapestOffers(dataContext).ToList();
+            }
         }
     }
 }
