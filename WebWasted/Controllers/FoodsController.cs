@@ -36,12 +36,9 @@ namespace WebWasted.Controllers
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            using (IDataContext dataContext = new DataContext())
-            {
-                return dataContext.Foods.ToList();
-            }
-
+            return _itemService.GetAllOffers();
         }
+
         /*
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
@@ -58,50 +55,37 @@ namespace WebWasted.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] GeneralFoodDto args)
         {
-            using (IDataContext dataContext = new DataContext())
+            if (_itemService.CreateFoodOffer(args) != null)
             {
-                if (_itemService.CreateFoodOffer(args, dataContext) != null)
-                {
-                    return Ok();
-
-                }
-                return BadRequest();
+                return Ok();
             }
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            using (IDataContext dataContext = new DataContext())
+            if (_itemService.DeleteOffer(id) != 1)
             {
-                if (_itemService.DeleteOffer(id, dataContext) != 1)
-                {
-                    return BadRequest();
-                }
-                return Ok();
+                return BadRequest();
             }
+            return Ok();
         }
 
         [HttpPut("{id}")]
         public IActionResult Edit(int id, [FromBody] GeneralFoodDto args)
         {
-            using (IDataContext dataContext = new DataContext())
+            if (_itemService.EditOffer(id, args) != 1)
             {
-                if (_itemService.EditOffer(id, args, dataContext) != 1)
-                {
-                    return BadRequest();
-                }
-                return Ok();
+                return BadRequest();
             }
+            return Ok();
         }
 
         [HttpGet("{searchString}")]
         public IEnumerable<Food> Get(string searchString)
         {
-            using (IDataContext dataContext = new DataContext())
-            {
-                return _itemService.GetSearchedOffers(searchString, dataContext);
-            }
+            return _itemService.GetSearchedOffers(searchString);
         }
 
 

@@ -25,10 +25,7 @@ namespace WebWasted
         [HttpGet]
         public IEnumerable<Food> GetFirst()
         {
-            using(IDataContext dataContext = new DataContext())
-            {
-                return _itemService.GetFirstOffers(dataContext);
-            }
+            return _itemService.GetFirstOffers();
         }
 
 
@@ -36,10 +33,7 @@ namespace WebWasted
         [Route("cheapest")]
         public IEnumerable<Food> GetCheapest()
         {
-            using(IDataContext dataContext = new DataContext())
-            {
-                return _itemService.GetCheapestOffers(dataContext);
-            }
+                return _itemService.GetCheapestOffers();
         }
     }
 }

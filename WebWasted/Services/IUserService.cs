@@ -9,15 +9,15 @@ namespace WebWasted.Services
 {
     public interface IUserService
     {
-        User FindUserByID(int ID, IDataContext dataContext);
+        User FindUserByID(int ID);
 
-        List<Order> GetOrderList(int userID, IDataContext dataContext);
+        List<Order> GetOrderList(int userID);
 
-        List<Order> GetCustomerList(int userID, IDataContext dataContext);
+        List<Order> GetCustomerList(int userID);
 
-        int LoginUser(LoginUserDto args, IDataContext dataContext);
+        int LoginUser(LoginUserDto args);
 
-        User RegisterUser(User user, IDataContext dataContext);
+        User RegisterUser(User user);
 
     }
 }
