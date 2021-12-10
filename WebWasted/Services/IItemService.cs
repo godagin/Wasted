@@ -9,26 +9,24 @@ namespace WebWasted.Services
 {
     public interface IItemService
     {
-        Food FindItemByID(int ID, IDataContext dataContext);
+        Food FindItemByID(int ID);
         
-        Order FindOrderByID(int ID, IDataContext dataContext);
+        Order FindOrderByID(int ID);
         
-        List<Food> GetUserOffers(int userID, IDataContext dataContext);
-        List<Food> GetSearchedOffers(string searchString, IDataContext dataContext);
-        List<Food> GetFirstOffers(IDataContext dataContext);
-        List<Food> GetCheapestOffers(IDataContext dataContext);
+        List<Food> GetUserOffers(int userID);
+        List<Food> GetSearchedOffers(string searchString);
+        List<Food> GetFirstOffers();
+        List<Food> GetCheapestOffers();
 
-        Food CreateFoodOffer(GeneralFoodDto args, IDataContext dataContext);
+        Food CreateFoodOffer(GeneralFoodDto args);
         
-        int PlaceOrder(User user, int foodID, double amount, IDataContext dataContext);      
+        int PlaceOrder(User user, int foodID, double amount);      
 
-        int DeleteOrder(int orderID, IDataContext dataContext);
+        int DeleteOrder(int orderID);
 
-        int DeleteOffer(int foodID, IDataContext dataContext);
+        int DeleteOffer(int foodID);
 
-        int EditOffer(int foodID, GeneralFoodDto args, IDataContext dataContext);
-
-        int ApproveOrder(int orderID, Boolean isApproved, IDataContext dataContext);
+        int ApproveOrder(int orderID, Boolean isApproved);
     }
 }
 

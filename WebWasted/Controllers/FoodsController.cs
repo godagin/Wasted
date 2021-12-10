@@ -60,7 +60,7 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                if (_itemService.CreateFoodOffer(args, dataContext) != null)
+                if (_itemService.CreateFoodOffer(args) != null)
                 {
                     return Ok();
 
@@ -74,14 +74,14 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                if (_itemService.DeleteOffer(id, dataContext) != 1)
+                if (_itemService.DeleteOffer(id) != 1)
                 {
                     return BadRequest();
                 }
                 return Ok();
             }
         }
-
+        /*
         [HttpPut("{id}")]
         public IActionResult Edit(int id, [FromBody] GeneralFoodDto args)
         {
@@ -93,19 +93,16 @@ namespace WebWasted.Controllers
                 }
                 return BadRequest();
             }
-        }
+        }*/
 
         [HttpGet("{searchString}")]
         public IEnumerable<Food> Get(string searchString)
         {
             using (IDataContext dataContext = new DataContext())
             {
-                return _itemService.GetSearchedOffers(searchString, dataContext);
+                return _itemService.GetSearchedOffers(searchString);
             }
         }
-
-
-
 
         //save food offer photo
         [Route("SaveFile")]

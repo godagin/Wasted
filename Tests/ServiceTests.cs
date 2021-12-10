@@ -19,7 +19,7 @@ namespace Tests
         public void Setup()
         {
             _dataContext = new DataContext();
-            _itemService = new ItemService();
+            _itemService = new ItemService(_dataContext);
             _userService = new UserService();
             testUser = new User("abcd147896523test", "vardenis", "pavardenis", "vardenis.pavardenis@gmail.com", "password");
             testUser2 = new User("qwerty999test", "vardenis", "pavardenis", "vardenis.pavardenis@gmail.com", "password");
@@ -49,8 +49,8 @@ namespace Tests
             testDto.foodType= Category.Fruits;
             testDto.expTime = 3;
 
-            var tempItem = _itemService.CreateFoodOffer(testDto, _dataContext);
-            var found = _itemService.FindItemByID(tempItem.ID, _dataContext);
+            var tempItem = _itemService.CreateFoodOffer(testDto);
+            var found = _itemService.FindItemByID(tempItem.ID);
             Assert.IsNotNull(found);
         }
 
@@ -68,8 +68,8 @@ namespace Tests
             testDto.foodType = Category.Fruits;
             testDto.expTime = 3;
 
-            var tempItem = _itemService.CreateFoodOffer(testDto, _dataContext);
-            var found = _itemService.FindItemByID(tempItem.ID, _dataContext);
+            var tempItem = _itemService.CreateFoodOffer(testDto);
+            var found = _itemService.FindItemByID(tempItem.ID);
             Assert.IsNotNull(found);
         }
         
@@ -78,7 +78,7 @@ namespace Tests
         {
             var tempUser = _dataContext.Users.Where(u => u.UserName == testUser.UserName).FirstOrDefault();
             
-            var offers = _itemService.GetUserOffers(tempUser.ID, _dataContext);
+            var offers = _itemService.GetUserOffers(tempUser.ID);
             
             Assert.IsNotNull(offers);
         }
@@ -88,7 +88,7 @@ namespace Tests
         {
             var user = _dataContext.Users.Where(u => u.UserName == testUser.UserName).FirstOrDefault();
             var newUser = _userService.RegisterUser(testUser2, _dataContext);
-            var offer = _itemService.GetUserOffers(user.ID, _dataContext).FirstOrDefault();
+            var offer = _itemService.GetUserOffers(user.ID).FirstOrDefault();
 
             GeneralFoodDto testDto = new GeneralFoodDto();
             testDto.type = 2;
@@ -100,17 +100,58 @@ namespace Tests
             testDto.foodType = Category.Vegetables;
             testDto.expTime = 7;
 
-            var tempOffer = _itemService.CreateFoodOffer(testDto, _dataContext);
-            _itemService.PlaceOrder(user, tempOffer.ID, 1, _dataContext);
+            var tempOffer = _itemService.CreateFoodOffer(testDto);
+            _itemService.PlaceOrder(user, tempOffer.ID, 1);
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(1, _itemService.PlaceOrder(newUser, offer.ID, 1, _dataContext));
-                Assert.AreEqual(-1, _itemService.PlaceOrder(user, offer.ID, 1, _dataContext));
-                Assert.AreEqual(-1, _itemService.PlaceOrder(newUser, offer.ID, 100000, _dataContext));
+                Assert.AreEqual(1, _itemService.PlaceOrder(newUser, offer.ID, 1));
+                Assert.AreEqual(-1, _itemService.PlaceOrder(user, offer.ID, 1));
+                Assert.AreEqual(-1, _itemService.PlaceOrder(newUser, offer.ID, 100000));
             });
         }
+
         [Test, Order(6)]
+        public void Delete_Offer_Test()
+        {
+            GeneralFoodDto testDto = new GeneralFoodDto();
+            testDto.type = 2;
+            var user = _dataContext.Users.Where(u => u.UserName == testUser.UserName).FirstOrDefault();
+            testDto.owner = user.ID;
+            testDto.name = "arbuzai";
+            testDto.description = "prinoke";
+            testDto.fullPrice = 1.5;
+            testDto.amount = 66666;
+            testDto.foodType = Category.Fruits;
+            testDto.expTime = 3;
+
+            var tempItem = _itemService.CreateFoodOffer(testDto);
+            Assert.AreEqual(1, _itemService.DeleteOffer(tempItem.ID));
+        }
+
+        [Test, Order(7)]
+        public void Delete_Order_Test()
+        {
+            var user2 = _dataContext.Users.Where(u => u.UserName == testUser2.UserName).FirstOrDefault();
+            GeneralFoodDto testDto = new GeneralFoodDto();
+            testDto.type = 2;
+            var user = _dataContext.Users.Where(u => u.UserName == testUser.UserName).FirstOrDefault();
+            testDto.owner = user.ID;
+            testDto.name = "arbuzai";
+            testDto.description = "prinoke";
+            testDto.fullPrice = 1.5;
+            testDto.amount = 66666;
+            testDto.foodType = Category.Fruits;
+            testDto.expTime = 3;
+
+            var tempItem = _itemService.CreateFoodOffer(testDto);
+            _itemService.PlaceOrder(user2, tempItem.ID, 66);
+            var orderID = _userService.GetOrderList(user2.ID, _dataContext).FirstOrDefault().ID;
+            _itemService.ApproveOrder(orderID, true);
+            Assert.AreEqual(1, _itemService.DeleteOrder(orderID));
+        }
+
+        [Test, Order(8)]
         public void Order_Test()
         {
             var user = _dataContext.Users.Where(u => u.UserName == testUser.UserName).FirstOrDefault();
@@ -121,7 +162,7 @@ namespace Tests
             });    
         }
 
-        [Test, Order(7)]
+        [Test, Order(8)]
         public void Login_Test()
         {
             var user = _dataContext.Users.Where(u => u.UserName == testUser.UserName).FirstOrDefault();
@@ -144,7 +185,7 @@ namespace Tests
                 _dataContext.Orders.Remove(item);
             }
 
-            foreach(var item in _itemService.GetUserOffers(user.ID, _dataContext))
+            foreach(var item in _itemService.GetUserOffers(user.ID))
             {
                 _dataContext.Foods.Remove(item);
             }
@@ -158,7 +199,7 @@ namespace Tests
                 _dataContext.Orders.Remove(item);
             }
 
-            foreach (var item in _itemService.GetUserOffers(user2.ID, _dataContext))
+            foreach (var item in _itemService.GetUserOffers(user2.ID))
             {
                 _dataContext.Foods.Remove(item);
             }

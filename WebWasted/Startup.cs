@@ -48,6 +48,10 @@ namespace WebWasted
 
             services.AddControllers();
 
+            //services.AddDbContext<DataContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+            
+            services.AddSingleton<IDataContext, DataContext>();
+
             services.AddSingleton<IItemService, ItemService>();
             
             services.AddSingleton<IUserService, UserService>();
