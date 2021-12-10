@@ -14,7 +14,7 @@ using System.IO;
 
 namespace WebWasted.Controllers
 {
-    
+
 
     [ApiController]
     [Route("api/[controller]")]
@@ -89,7 +89,7 @@ namespace WebWasted.Controllers
             {
                 if (_itemService.EditOffer(id, args, dataContext) != 1)
                 {
-                   return BadRequest();
+                    return BadRequest();
                 }
                 return Ok();
             }
@@ -133,5 +133,5 @@ namespace WebWasted.Controllers
 
         }
     }
-
 }
+

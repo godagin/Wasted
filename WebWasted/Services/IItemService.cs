@@ -18,6 +18,8 @@ namespace WebWasted.Services
         List<Food> GetFirstOffers(IDataContext dataContext);
         List<Food> GetCheapestOffers(IDataContext dataContext);
 
+        List<Food> GetSearchedOffers(string searchString, IDataContext dataContext);
+
         Food CreateFoodOffer(GeneralFoodDto args, IDataContext dataContext);
         
         int PlaceOrder(User user, int foodID, double amount, IDataContext dataContext);      
@@ -25,8 +27,11 @@ namespace WebWasted.Services
         int DeleteOrder(int orderID, IDataContext dataContext);
         int DeleteOffer(int ID, IDataContext dataContext);
 
+        int DeleteOffer(int foodID, IDataContext dataContext);
+
+        int EditOffer(int foodID, GeneralFoodDto args, IDataContext dataContext);
+
         int ApproveOrder(int orderID, Boolean isApproved, IDataContext dataContext);
-        int EditOffer(int ID, GeneralFoodDto args, IDataContext dataContext);
     }
 }
 

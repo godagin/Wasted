@@ -174,25 +174,25 @@ export class Foods extends Component{
                                 </td>
 
                                 {
-                                        food.OwnerID !== localStorage.userID &&
-                                        <>
-                                            <td>
-                                            {   
-                                                food.Weight != null 
-                                                ? <input type="number" value={this.state.foods[index].inputValue}
-                                                step="0.01" placeholder="0.00" min="0.01" max={food.Weight} onChange={this.onChange(index)}/>
-                                                : <input type="number" value={this.state.foods[index].inputValue}
-                                                step="1" placeholder="0" min="1" max={food.Quantity} onChange={this.onChange(index)}/>
-                                            }
-                                            </td>
-                                            <td>
-                                                <button onClick={() => this.addToCart(food.ID, localStorage.getItem('userID'), index)}>
-                                                    Add to cart
-                                                </button>
-                                            </td>
-                                        </>
-                                    }
-                                </div>
+                                    food.OwnerID !== localStorage.userID &&
+                                    <>
+                                        <td>
+                                        {   
+                                            food.Weight != null 
+                                            ? <input type="number" value={this.state.foods[index].inputValue}
+                                            step="0.01" placeholder="0.00" min="0.01" max={food.Weight} onChange={this.onChange(index)}/>
+                                            : <input type="number" value={this.state.foods[index].inputValue}
+                                            step="1" placeholder="0" min="1" max={food.Quantity} onChange={this.onChange(index)}/>
+                                        }
+                                        </td>
+                                        <td>
+                                            <button onClick={() => this.addToCart(food.ID, localStorage.getItem('userID'), index)}>
+                                                Add to cart
+                                            </button>
+                                        </td>
+                                    </>
+                                }
+                            
 
                             </tr>)}
                     </tbody>
