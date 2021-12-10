@@ -47,15 +47,11 @@ namespace WebWasted.Services
 
             var ordersList = _dataContext.Orders.Include("FoodOrder").Include("Buyer").Where(order => order.FoodOrder.OwnerID == userID);
 
-            foreach (var order in ordersList)
+            if (ordersList == null)
             {
-                Console.WriteLine(order.FoodOrder);
+                return new List<Order>();
             }
-            /*
-            var ordersList = from order in dataContext.Orders
-                             where order.FoodOrder.OwnerID == userID
-                             select order;
-            */
+           
             return ordersList.ToList();
         }
 
