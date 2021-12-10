@@ -24,12 +24,12 @@ namespace WebWasted
 
         public void Save()
         {
-            this.SaveChanges();
+            SaveChanges();
         }
         
         public void LoadUser(User user)
         {
-            this.Entry(user).Collection(o => o.Orders).Load();
+            Entry(user).Collection(o => o.Orders).Load();
         }
         
     }
