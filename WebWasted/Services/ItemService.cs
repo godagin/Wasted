@@ -13,35 +13,37 @@ using WebWasted.Models.DTOs;
 namespace WebWasted.Services
 {
     //item service deals with items and orders of these items
-    public class ItemService
-    {
-        IDataContext _dataContext;
-        public ItemService(IDataContext dataContext)
+    public class ItemService : IItemService
+    { 
+        public ItemService()
         {
-            _dataContext = dataContext;
         }
 
-        public Food FindItemByID(int ID)
+        public Food FindItemByID(int ID, IDataContext dataContext)
         {
-            Food item = _dataContext.Foods.ToList().Find(item => item.ID == ID);
+            Food item = dataContext.Foods.Where(item => item.ID == ID).FirstOrDefault();
             return item;
         }
 
-        public Order FindOrderByID(int ID)
+        public Order FindOrderByID(int ID, IDataContext dataContext)
         {
-            Order item = _dataContext.Orders.ToList().Find(item => item.ID == ID);
+            Order item = dataContext.Orders.Include("FoodOrder").Where(item => item.ID == ID).FirstOrDefault();
             return item;
         }
 
-        public List<Food> GetUserOffers(int userID)
+        public List<Food> GetUserOffers(int userID, IDataContext dataContext)
         {
-            var myOffers = from food in _dataContext.Foods where food.OwnerID.Equals(userID) select food;
+            var myOffers = from food in dataContext.Foods where food.OwnerID.Equals(userID) select food;
+            if(myOffers == null)
+            {
+                return new List<Food>();
+            }
             return myOffers.ToList();
         }
 
-        public List<Food> GetSearchedOffers(string searchString)
+        public List<Food> GetSearchedOffers(string searchString, IDataContext dataContext)
         {
-            var query = from food in _dataContext.Foods select food;
+            var query = from food in dataContext.Foods select food;
             if (!string.IsNullOrEmpty(searchString))
             {
                 query = query.Where(offer => offer.Name.Contains(searchString) || offer.Description.Contains(searchString));
@@ -49,19 +51,19 @@ namespace WebWasted.Services
             return query.ToList();
         }
 
-        public List<Food> GetFirstOffers()
+        public List<Food> GetFirstOffers(IDataContext dataContext)
         {
-            var queryFirst = (from food in _dataContext.Foods orderby food.ExpDate ascending select food).Take(6);
+            var queryFirst = (from food in dataContext.Foods orderby food.ExpDate ascending select food).Take(6);
             return queryFirst.ToList();
         }
 
-        public List<Food> GetCheapestOffers()
+        public List<Food> GetCheapestOffers(IDataContext dataContext)
         {
             int length = _dataContext.Foods.Count();
-            var query = (from food in _dataContext.Foods orderby food.FullPrice descending select food).Skip(length/2);
+            var query = (from food in dataContext.Foods orderby food.FullPrice descending select food).Skip(length/2);
             return query.ToList();
         }
-        public int CreateFoodOffer(GeneralFoodDto args)
+        public Food CreateFoodOffer(GeneralFoodDto args, IDataContext dataContext)
         {
             Food food = null;
             try
@@ -82,63 +84,69 @@ namespace WebWasted.Services
                         // food = new Food(args.owner, args.name, args.description, args.fullPrice, args.foodType, args.expTime);
                 }
             }
-            catch //(Exception e)
+            catch (Exception e)
             {
                 //Console.WriteLine("The creation of a food offer failed.");
                // Logger.Instance.Log(e);
-                return -1;
+                return null;
             }
-            _dataContext.Foods.Add(food);
-            _dataContext.Save();
-            return 1;
+            dataContext.Foods.Add(food);
+            dataContext.Save();
+            return food;
         }
 
-        public int PlaceOrder(User user, int foodID, double amount)
+        public int PlaceOrder(User user, int foodID, double amount, IDataContext dataContext)
         {
-            Food food = FindItemByID(foodID);
+            Console.WriteLine("pirmas");
+            Food food = FindItemByID(foodID, dataContext);
 
-            if (user != null && food != null)
+            if (user != null && food != null && user.ID != food.OwnerID)
             {
+                Console.WriteLine(food.GetType().ToString() + " ");
                 Order order = new Order();
                 if (food.GetType() == typeof(WeighedFood) && ((WeighedFood)food).Weight >= amount)
                 {
+                    Console.WriteLine("trecias");
                     order.Amount = amount;
                     ((WeighedFood)food).Weight -= amount;
 
                 }
                 else if (food.GetType() == typeof(DiscreteFood) && ((DiscreteFood)food).Quantity >= amount)
                 {
+                    Console.WriteLine("ketvirtas");
                     order.Amount = amount;
                     ((DiscreteFood)food).Quantity -= (int)amount;
                 }
                 else
                 {
+                    Console.WriteLine("pirmas ne");
                     return -1;
                 }
 
                 order.FoodOrder = food;
                 order.Buyer = user;
                 order.Approved = false;
-                _dataContext.Orders.Add(order);
+                dataContext.Orders.Add(order);
                 user.Orders.Add(order);
-                _dataContext.Save();
+                dataContext.Save();
             }
             else
             {
+                Console.WriteLine("kazkoks ne");
                 return -1;
             }
 
             return 1;
         }
       
-      public int DeleteOffer(int foodID)
+      public int DeleteOffer(int foodID, IDataContext dataContext)
         {
             try
             {
-                Food food = FindItemByID(foodID);
-                _dataContext.Foods.Remove(food);
-                _dataContext.Save();
-            }
+                Food food = FindItemByID(foodID, dataContext);
+                dataContext.Foods.Remove(food);
+                dataContext.Save();
+             }
             //catch(Exception e)
             catch
             {
@@ -146,10 +154,33 @@ namespace WebWasted.Services
                 return -1;
             }
 
+        public int DeleteOrder(int orderID, IDataContext dataContext)
+        {   
+            try
+            {
+                Order order = FindOrderByID(orderID, dataContext);
+                Food food = FindItemByID(order.FoodOrder.ID, dataContext);
+
+                if (food.GetType() == typeof(WeighedFood))
+                {
+                    ((WeighedFood)food).Weight += order.Amount;
+                }
+                else if (food.GetType() == typeof(DiscreteFood))
+                {
+                    ((DiscreteFood)food).Quantity += (int)order.Amount;
+                }
+                else
+                {
+                    return -1;
+                }
+
+                dataContext.Orders.Remove(order);
+                dataContext.Save();
+
             return 1;
         }
   
-        public int EditOffer(int foodID, GeneralFoodDto args)
+        public int EditOffer(int foodID, GeneralFoodDto args, IDataContext dataContext)
         {
             Food food = FindItemByID(foodID);
 
@@ -168,9 +199,24 @@ namespace WebWasted.Services
             {
                 ((DiscreteFood)food).Quantity = (int)args.amount;
             }
-
+            dataContext.Save();
             return 1;
         }
+
+        public int ApproveOrder(int orderID, Boolean isApproved, IDataContext dataContext)
+        {
+            try{
+                Order order = FindOrderByID(orderID, dataContext);
+                order.Approved = isApproved;
+                dataContext.Save();
+            }
+            catch
+            {
+                return -1;
+            }
+            return 1;
+         }
+
 
     }
 }

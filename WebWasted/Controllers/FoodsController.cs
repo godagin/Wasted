@@ -8,27 +8,27 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using WebWasted.Models.DTOs;
-//using WebWasted.Dummy;
 using WebWasted.Services;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 
 namespace WebWasted.Controllers
 {
-    //public delegate void CreateFoodDelegate(Food food);
+    
 
     [ApiController]
     [Route("api/[controller]")]
     public class FoodsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IDataContext _dataContext;
+        private readonly IItemService _itemService;
+        //private readonly IDataContext _dataContext;
         private readonly IWebHostEnvironment _env;
-        public FoodsController(IConfiguration configuration, IDataContext dataContext, IWebHostEnvironment env)
+        public FoodsController(IConfiguration configuration, IWebHostEnvironment env, IItemService itemService)
         {
             _configuration = configuration;
-            _dataContext = dataContext;
             _env = env;
+            _itemService = itemService;
         }
 
 
@@ -36,15 +36,21 @@ namespace WebWasted.Controllers
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            return _dataContext.Foods.ToList();
+            using (IDataContext dataContext = new DataContext())
+            {
+                return dataContext.Foods.ToList();
+            }
+
         }
         /*
         [HttpGet("{id}")]      //e.g. https://localhost:5000/api/foods/3
         public IEnumerable<Food> Get(int id)
         {
-            ItemService itemService = new ItemService(_dataContext);
+            using (IDataContext dataContext = new DataContext())
+            {
+                return _itemService.GetUserOffers(id, dataContext);
+            }
 
-            return itemService.GetUserOffers(id);
         }
         */
 
@@ -52,43 +58,48 @@ namespace WebWasted.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] GeneralFoodDto args)
         {
-            ItemService itemService = new ItemService(_dataContext);
-            if (itemService.CreateFoodOffer(args) != 1)
+            using (IDataContext dataContext = new DataContext())
             {
-                return BadRequest();
-            }
-            return Ok();
+                if (_itemService.CreateFoodOffer(args, dataContext) != 1)
+                {
+                    return BadRequest();
+                }
+                return Ok();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            ItemService itemService = new ItemService(_dataContext);
-            if (itemService.DeleteOffer(id) != 1)
+            using (IDataContext dataContext = new DataContext())
             {
-                return BadRequest();
+                if (_itemService.DeleteOffer(id, dataContext) != 1)
+                {
+                    return BadRequest();
+                }
+                return Ok();
             }
-            return Ok();
         }
 
         [HttpPut("{id}")]
         public IActionResult Edit(int id, [FromBody] GeneralFoodDto args)
         {
-            ItemService itemService = new ItemService(_dataContext);
-
-            if (itemService.EditOffer(id, args) != 1)
+            using (IDataContext dataContext = new DataContext())
             {
-                return BadRequest();
+                if (_itemService.EditOffer(id, args, dataContext) != 1)
+                {
+                   return BadRequest();
+                }
+                return Ok();
             }
-
-            return Ok();
         }
 
         [HttpGet("{searchString}")]
         public IEnumerable<Food> Get(string searchString)
         {
-            ItemService itemService = new ItemService(_dataContext);
-            return itemService.GetSearchedOffers(searchString);
+            using (IDataContext dataContext = new DataContext())
+            {
+                return _itemService.GetSearchedOffers(searchString, dataContext);
+            }
         }
 
 
@@ -117,6 +128,7 @@ namespace WebWasted.Controllers
             {
                 return new JsonResult("anonymous.jpg");
             }
+
         }
     }
 

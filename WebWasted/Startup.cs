@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using WebWasted.Hubs;
+using WebWasted.Services;
+using WebWasted.Middleware;
 
 
 namespace WebWasted
@@ -46,9 +48,11 @@ namespace WebWasted
 
             services.AddControllers();
 
-            services.AddSignalR();
+            services.AddSingleton<IItemService, ItemService>();
+            
+            services.AddSingleton<IUserService, UserService>();
 
-            services.AddSingleton<IDataContext, DataContext>();
+            services.AddSignalR();
 
         }
 
@@ -61,6 +65,8 @@ namespace WebWasted
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseMiddleware<LoggingMiddleware>();
 
             app.UseRouting();
 

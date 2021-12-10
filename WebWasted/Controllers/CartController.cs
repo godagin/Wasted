@@ -26,45 +26,57 @@ namespace WebWasted.Controllers
     {
 
         private readonly IConfiguration _configuration;
-        private readonly IDataContext _dataContext;
-        public CartController(IConfiguration configuration, IDataContext dataContext)
+        //private readonly IDataContext _dataContext;
+        private readonly IItemService _itemService;
+        private readonly IUserService _userService;
+        public CartController(IConfiguration configuration,
+            IItemService itemService, IUserService userService)
         {
             _configuration = configuration;
-            _dataContext = dataContext;
+            _itemService = itemService;
+            _userService = userService;
         }
 
         //gets the cart items of user specified by ID
         [HttpGet("{id}")]
         public List<Order> Get(int id)
         {
-            UserService userService = new UserService(_dataContext);
-            return userService.GetOrderList(id);
+            using (IDataContext dataContext = new DataContext())
+            {
+                return _userService.GetOrderList(id, dataContext);
+            }
         }
+                
 
         //adds to cart
         [HttpPost]
         public IActionResult Post([FromBody] AddToCartDto args)
         {
-            UserService userService = new UserService(_dataContext);
-            ItemService itemService = new ItemService(_dataContext);
-
-            if( itemService.PlaceOrder(userService.FindUserByID(args.userID), args.foodID, args.amount) != 1)
+            using (IDataContext dataContext = new DataContext())
             {
-                return BadRequest();
-            }
+                Console.WriteLine(args.amount);
+                if ( _itemService.PlaceOrder(_userService.FindUserByID(args.userID, dataContext), args.foodID, args.amount, dataContext) != 1)
+                {
+                    return BadRequest();
+                }
 
-            return Ok();
+                return Ok();
+            }
+                
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            ItemService itemService = new ItemService(_dataContext);
-            if (itemService.DeleteOrder(id) != 1)
+            using (IDataContext dataContext = new DataContext())
             {
-                return BadRequest();
+                if (_itemService.DeleteOrder(id, dataContext) != 1)
+                {
+                    return BadRequest();
+                }
+                return Ok();
             }
-            return Ok();
+                
         }
     }
 }

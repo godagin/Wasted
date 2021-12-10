@@ -15,18 +15,23 @@ namespace WebWasted.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IDataContext _dataContext;
-        public LoginController(IConfiguration configuration, IDataContext dataContext)
+        //private readonly IDataContext _dataContext;
+        private readonly IUserService _userService;
+        public LoginController(IConfiguration configuration, IUserService userService)
         {
             _configuration = configuration;
-            _dataContext = dataContext;
+           
+            _userService = userService;
         }
 
         [HttpPost]
         public int Post([FromBody] LoginUserDto credentials)
         {
-            UserService userService = new UserService(_dataContext);
-            return userService.LoginUser(credentials);
+            using (IDataContext dataContext = new DataContext())
+            {
+                return _userService.LoginUser(credentials, dataContext);
+            }
+                
         }
     }
 }

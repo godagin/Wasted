@@ -2,45 +2,56 @@ import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import { CreateOffer } from './CreateOffer';
 
-export class Foods extends Component {
+
+export class Foods extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
             PhotoPath: process.env.REACT_APP_API + '/Photos/',
             createOffer: false,
-            filteredItems: [],
+            foods: [],
             input: {
                 searchKeyword: ""
             }
         }
     }
+/*
+    updateInputValue = (event) => {
+        this.setState({
+            amounts: event.target.value
+        });
+    }
+    */
+    onChange = (index) => (event) => {
+        this.state.foods[index].inputValue = event.target.value;
+        //this.refreshList();
+        //let items = [...this.state.foods];
+        //items[index] = event.target.value;
+        //this.setState({
+        //    foods: items
+    //});
+    }
 
-    addToCart = (ID, BuyerID) =>{
-        /*if (BuyerID == localStorage.getItem('userID'))
-        {
-            console.log('already in cart');
-        }
-        else{*/
+    addToCart = (ID, BuyerID, index) =>{
+        const requestOptions = {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                userID: BuyerID,
+                foodID: ID,
+                amount: this.state.foods[index].inputValue,
 
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-
-                body: JSON.stringify({ 
-                    userID: BuyerID,
-                    foodID: ID
                 })
-            };
-            fetch(process.env.REACT_APP_API + '/api/cart', requestOptions)
-                .then((response) => response.json())
-                .then(data => {
-                    console.log(data);
-                })
-                console.log('added');
-        //}
+        };
+        console.log(requestOptions.body);
+        fetch(process.env.REACT_APP_API + '/api/cart', requestOptions) 
+            .then((response) => response.json())
+            .then(data => {
+                console.log(data);
+            })
         window.location.reload(false);
-        this.refreshList();
+        this.refreshList();        
     }
 
 
@@ -49,13 +60,16 @@ export class Foods extends Component {
             .then(response => {
                 response.json().then(data => {
                     this.setState(() => {
-                        console.log(data);
+                        for(let food of this.state.foods)
+                        {
+                        food.inputValue = 0; 
+                        }
                         return {
-                            filteredItems: data
-                            //foods : data
+                            foods : data
                         }
                     })
                 });
+
             });
     }
 
@@ -124,9 +138,9 @@ export class Foods extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.filteredItems.map(food =>
 
-                            <tr>
+                        {this.state.foods.map((food, index)=>
+                            <tr key={food.ID}>
                                 <td>
                                     <img alt="" width="150px" height="150px"
                                         src={this.state.PhotoPath + food.PhotoFileName} />
@@ -159,13 +173,24 @@ export class Foods extends Component {
 
                                 </td>
 
-                                <div class="vertical-center">
-                                    {
-                                        food.OwnerID != localStorage.userID &&
-                                        <button onClick={() => this.addToCart(food.ID, localStorage.getItem('userID'))}>
-
-                                            Add to cart
-                                        </button>
+                                {
+                                        food.OwnerID !== localStorage.userID &&
+                                        <>
+                                            <td>
+                                            {   
+                                                food.Weight != null 
+                                                ? <input type="number" value={this.state.foods[index].inputValue}
+                                                step="0.01" placeholder="0.00" min="0.01" max={food.Weight} onChange={this.onChange(index)}/>
+                                                : <input type="number" value={this.state.foods[index].inputValue}
+                                                step="1" placeholder="0" min="1" max={food.Quantity} onChange={this.onChange(index)}/>
+                                            }
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.addToCart(food.ID, localStorage.getItem('userID'), index)}>
+                                                    Add to cart
+                                                </button>
+                                            </td>
+                                        </>
                                     }
                                 </div>
 
@@ -173,8 +198,6 @@ export class Foods extends Component {
                     </tbody>
                 </Table>
             </div>
-            // </div>
         )
     }
 }
-

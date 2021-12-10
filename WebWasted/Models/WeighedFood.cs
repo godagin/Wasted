@@ -14,7 +14,7 @@ namespace WebWasted
         {
             Weight = weight;
         }
-       
+       /*
         public double TakeFood(double take)
         {
             if (Weight <= take)
@@ -33,7 +33,7 @@ namespace WebWasted
             }
 
         }
-
+       */
     }
    
 }

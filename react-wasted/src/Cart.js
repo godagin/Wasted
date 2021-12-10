@@ -59,15 +59,8 @@ export class Cart extends Component{
         this.setState({showChat: true, roomID: orderID});
     }
     
-    onLeaveChat = () =>{
-
-        window.location.reload(false);
-        this.refreshList();
-     
-    }
-    
     render(){
-        
+        console.log(this.state.cartItems);
         return(
             <div>
                 <div>
@@ -87,7 +80,7 @@ export class Cart extends Component{
                                  <td>{order.FoodOrder.Name}</td>
                                  <td>{order.FoodOrder.Description}</td>
                                  <td >{order.FoodOrder.FullPrice}</td>
-                                 <td >{order.FoodOrder.Weight != null ? order.FoodOrder.Weight + " kg" : order.FoodOrder.Quantity + " units"}</td>
+                                 <td >{order.FoodOrder.Weight != null ? order.Amount + " kg" : order.Amount + " units"}</td>
                                     {
                                         order.Approved == true &&
                                         <td >Approved</td>
@@ -97,12 +90,8 @@ export class Cart extends Component{
                                         <td >Not Approved</td>
                                     }
                                     {
-                                        order.Approved == true && this.state.showChat == false &&
+                                        order.Approved == true &&
                                         <button onClick={() => this.onContact(order.ID, localStorage.getItem('userID'))}>Contact</button>
-                                    }
-                                    {
-                                        order.Approved == true && this.state.showChat == true && order.ID == this.state.roomID &&
-                                        <button onClick={() => this.onLeaveChat()}>Leave Chat</button>
                                     }
                                  <button onClick={() => this.onRemoveFromCart(order.ID)}>Remove from cart</button>
                              </tr>)}
