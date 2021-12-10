@@ -60,11 +60,9 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                if (_itemService.CreateFoodOffer(args, dataContext) != 1)
-                {
-                    return BadRequest();
-                }
+                _itemService.CreateFoodOffer(args, dataContext);
                 return Ok();
+            }
         }
 
         [HttpDelete("{id}")]

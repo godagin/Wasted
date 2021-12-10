@@ -59,7 +59,7 @@ namespace WebWasted.Services
 
         public List<Food> GetCheapestOffers(IDataContext dataContext)
         {
-            int length = _dataContext.Foods.Count();
+            int length = dataContext.Foods.Count();
             var query = (from food in dataContext.Foods orderby food.FullPrice descending select food).Skip(length/2);
             return query.ToList();
         }
@@ -87,7 +87,7 @@ namespace WebWasted.Services
             catch (Exception e)
             {
                 //Console.WriteLine("The creation of a food offer failed.");
-               // Logger.Instance.Log(e);
+                Logger.Instance.Log(e);
                 return null;
             }
             dataContext.Foods.Add(food);
@@ -138,24 +138,26 @@ namespace WebWasted.Services
 
             return 1;
         }
-      
-      public int DeleteOffer(int foodID, IDataContext dataContext)
+
+        public int DeleteOffer(int foodID, IDataContext dataContext)
         {
             try
             {
                 Food food = FindItemByID(foodID, dataContext);
                 dataContext.Foods.Remove(food);
                 dataContext.Save();
-             }
-            //catch(Exception e)
-            catch
+            }
+            catch(Exception e)
+            //catch
             {
-                //Logger.Instance.Log(e);
+                Logger.Instance.Log(e);
                 return -1;
             }
+            return 1;
+        }
 
         public int DeleteOrder(int orderID, IDataContext dataContext)
-        {   
+        {
             try
             {
                 Order order = FindOrderByID(orderID, dataContext);
@@ -176,13 +178,18 @@ namespace WebWasted.Services
 
                 dataContext.Orders.Remove(order);
                 dataContext.Save();
-
+            }
+            catch
+            {
+                //Logger.Instance.Log(e);
+                return -1;
+            }
             return 1;
         }
   
         public int EditOffer(int foodID, GeneralFoodDto args, IDataContext dataContext)
         {
-            Food food = FindItemByID(foodID);
+            Food food = FindItemByID(foodID, dataContext);
 
             food.Name = args.name;
             food.Description = args.description;
