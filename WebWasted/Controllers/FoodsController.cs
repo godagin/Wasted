@@ -60,8 +60,12 @@ namespace WebWasted.Controllers
         {
             using (IDataContext dataContext = new DataContext())
             {
-                _itemService.CreateFoodOffer(args, dataContext);
-                return Ok();
+                if (_itemService.CreateFoodOffer(args, dataContext) != null)
+                {
+                    return Ok();
+
+                }
+                return BadRequest();
             }
         }
 
