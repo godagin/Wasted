@@ -89,9 +89,9 @@ namespace WebWasted.Controllers
             {
                 if (_itemService.EditOffer(id, args, dataContext) != 1)
                 {
-                    return BadRequest();
+                    return Ok();
                 }
-                return Ok();
+                return BadRequest();
             }
         }
 

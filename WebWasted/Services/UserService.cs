@@ -45,15 +45,11 @@ namespace WebWasted.Services
 
             var ordersList = dataContext.Orders.Include("FoodOrder").Include("Buyer").Where(order => order.FoodOrder.OwnerID == userID);
 
-            foreach (var order in ordersList)
+            if (ordersList == null)
             {
-                Console.WriteLine(order.FoodOrder);
+                return new List<Order>();
             }
-            /*
-            var ordersList = from order in dataContext.Orders
-                             where order.FoodOrder.OwnerID == userID
-                             select order;
-            */
+           
             return ordersList.ToList();
         }
 
@@ -71,7 +67,6 @@ namespace WebWasted.Services
 
         public User RegisterUser(User user, IDataContext dataContext)
         {
-            Console.WriteLine("atejo");
             if (dataContext.Users.Any(u => u.UserName == user.UserName))
             {
                 return null;
