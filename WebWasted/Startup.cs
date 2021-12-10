@@ -75,7 +75,7 @@ namespace WebWasted
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapHub<ChatHub>("/ChatHub");
+                endpoints.MapHub<ChatHub>("/ChatHub");
             });
 
             app.UseStaticFiles(new StaticFileOptions
